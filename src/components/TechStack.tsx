@@ -1,61 +1,88 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const TechStack = () => {
-  const technologies = [
-    {
-      category: "Frontend",
-      color: "from-blue-500 to-cyan-500",
-      skills: [
-        { name: "React", icon: "⚛️", level: 90 },
-        { name: "TypeScript", icon: "🔷", level: 85 },
-        { name: "Next.js", icon: "▲", level: 80 },
-        { name: "Tailwind CSS", icon: "🎨", level: 95 },
-        { name: "Vue.js", icon: "💚", level: 75 }
-      ]
+  // Top skills with logos
+  const heroSkills = [
+    { 
+      name: "JavaScript", 
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      proficiency: "Expert"
     },
-    {
-      category: "Backend",
-      color: "from-green-500 to-emerald-500",
-      skills: [
-        { name: "Node.js", icon: "🟢", level: 85 },
-        { name: "Python", icon: "🐍", level: 80 },
-        { name: "Express.js", icon: "🚀", level: 85 },
-        { name: "PostgreSQL", icon: "🐘", level: 75 },
-        { name: "MongoDB", icon: "🍃", level: 70 }
-      ]
+    { 
+      name: "React", 
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      proficiency: "Expert"
     },
-    {
-      category: "Tools & Cloud",
-      color: "from-purple-500 to-pink-500",
-      skills: [
-        { name: "AWS", icon: "☁️", level: 75 },
-        { name: "Docker", icon: "🐳", level: 70 },
-        { name: "Git", icon: "📝", level: 90 },
-        { name: "Figma", icon: "🎨", level: 85 },
-        { name: "Photoshop", icon: "📸", level: 80 }
-      ]
+    { 
+      name: "TypeScript", 
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      proficiency: "Advanced"
     },
-    {
-      category: "Currently Learning",
-      color: "from-orange-500 to-red-500",
-      skills: [
-        { name: "Rust", icon: "🦀", level: 40 },
-        { name: "Three.js", icon: "🎲", level: 50 },
-        { name: "GraphQL", icon: "◉", level: 45 },
-        { name: "K8s", icon: "☸️", level: 35 },
-        { name: "Web3", icon: "⛓️", level: 30 }
-      ]
+    { 
+      name: "Node.js", 
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      proficiency: "Advanced"
+    },
+    { 
+      name: "Python", 
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      proficiency: "Intermediate"
+    },
+    { 
+      name: "AWS", 
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+      proficiency: "Intermediate"
     }
   ];
 
-  const featuredTech = [
-    { name: ".NET", icon: "🔷", color: "text-blue-500" },
-    { name: "Express", icon: "⚡", color: "text-yellow-500" },
-    { name: "TypeScript", icon: "🔷", color: "text-blue-600" },
-    { name: "MS SQL", icon: "🗄️", color: "text-red-500" },
-    { name: "Web API", icon: "🌐", color: "text-green-500" },
-    { name: "AWS", icon: "☁️", color: "text-orange-500" }
+  // All technologies organized by category
+  const techCategories = [
+    {
+      title: "Frontend Development",
+      techs: [
+        { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Vue.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
+        { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+        { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
+        { name: "HTML5", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { name: "CSS3", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" }
+      ]
+    },
+    {
+      title: "Backend Development",
+      techs: [
+        { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+        { name: "Express.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+        { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+        { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" }
+      ]
+    },
+    {
+      title: "Cloud & DevOps",
+      techs: [
+        { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
+        { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+        { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+        { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+        { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" }
+      ]
+    },
+    {
+      title: "Tools & Design",
+      techs: [
+        { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+        { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+        { name: "Photoshop", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" },
+        { name: "Webpack", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" },
+        { name: "Vite", logo: "https://vitejs.dev/logo.svg" },
+        { name: "npm", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" }
+      ]
+    }
   ];
 
   return (
@@ -70,98 +97,119 @@ const TechStack = () => {
             My <span className="gradient-text">Tech Stack</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Everyday is a learning day. Here are some of the technologies I work with and constantly explore.
+            Everyday is a learning day. Here are the technologies I work with and constantly explore.
           </p>
         </div>
 
-        {/* Featured Technologies */}
-        <div className="mb-16">
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {featuredTech.map((tech, index) => (
-              <Badge 
-                key={tech.name} 
-                variant="outline" 
-                className={`px-6 py-3 text-lg hover-lift border-primary/20 hover:border-primary/50 animate-fade-in`}
+        {/* Hero Skills Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-bold mb-4">Core Expertise</h3>
+            <p className="text-muted-foreground">My primary technology stack</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+            {heroSkills.map((skill, index) => (
+              <Card 
+                key={skill.name}
+                className="p-6 glass-card hover-lift text-center group border-primary/10 hover:border-primary/30 transition-all duration-300"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <span className={`mr-2 text-xl ${tech.color}`}>{tech.icon}</span>
-                {tech.name}
-              </Badge>
+                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-card/50 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                  <img 
+                    src={skill.logo} 
+                    alt={skill.name}
+                    className="w-10 h-10 object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      target.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <div className="hidden w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                    <span className="text-xl">💻</span>
+                  </div>
+                </div>
+                <h4 className="font-semibold text-sm mb-2">{skill.name}</h4>
+                <Badge 
+                  variant="outline" 
+                  className="text-xs border-primary/20 text-primary"
+                >
+                  {skill.proficiency}
+                </Badge>
+              </Card>
             ))}
           </div>
         </div>
 
-        {/* Technology Categories Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {technologies.map((category, categoryIndex) => (
-            <Card 
-              key={category.category} 
-              className="p-8 glass-card hover-lift animate-fade-in-up border-primary/10"
-              style={{ animationDelay: `${categoryIndex * 0.2}s` }}
-            >
-              {/* Category Header */}
-              <div className="flex items-center mb-6">
-                <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${category.color} mr-3`} />
-                <h3 className="text-xl font-bold">{category.category}</h3>
-              </div>
+        {/* All Technologies by Category */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-bold mb-4">Complete Technology Arsenal</h3>
+            <p className="text-muted-foreground">All technologies I work with across different domains</p>
+          </div>
 
-              {/* Skills List */}
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name} className="group">
-                    {/* Skill Header */}
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center">
-                        <span className="text-xl mr-3 group-hover:scale-110 transition-transform">
-                          {skill.icon}
-                        </span>
-                        <span className="font-medium">{skill.name}</span>
+          <div className="grid md:grid-cols-2 gap-8">
+            {techCategories.map((category, categoryIndex) => (
+              <Card 
+                key={category.title}
+                className="p-8 glass-card hover-lift border-primary/10 hover:border-primary/30 transition-all duration-300"
+                style={{ animationDelay: `${categoryIndex * 0.2}s` }}
+              >
+                <h4 className="text-xl font-bold mb-6 flex items-center">
+                  <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary to-purple-500 mr-3" />
+                  {category.title}
+                </h4>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {category.techs.map((tech, techIndex) => (
+                    <div 
+                      key={tech.name}
+                      className="flex items-center p-3 rounded-lg bg-card/30 hover:bg-card/50 transition-all duration-300 group cursor-pointer"
+                      style={{ animationDelay: `${categoryIndex * 0.2 + techIndex * 0.05}s` }}
+                    >
+                      <div className="w-8 h-8 mr-3 flex items-center justify-center">
+                        <img 
+                          src={tech.logo} 
+                          alt={tech.name}
+                          className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            target.nextElementSibling?.classList.remove('hidden');
+                          }}
+                        />
+                        <div className="hidden w-6 h-6 bg-primary/20 rounded flex items-center justify-center">
+                          <span className="text-xs">🔧</span>
+                        </div>
                       </div>
-                      <span className="text-sm text-muted-foreground">
-                        {skill.level}%
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">
+                        {tech.name}
                       </span>
                     </div>
-
-                    {/* Skill Progress Bar */}
-                    <div className="w-full bg-border/30 rounded-full h-2 overflow-hidden">
-                      <div 
-                        className={`h-full bg-gradient-to-r ${category.color} rounded-full transition-all duration-1000 ease-out`}
-                        style={{ 
-                          width: `${skill.level}%`,
-                          animationDelay: `${(categoryIndex * 0.2) + (skillIndex * 0.1)}s`
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Category Stats */}
-              <div className="mt-6 pt-4 border-t border-border/20">
-                <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>{category.skills.length} Technologies</span>
-                  <span>
-                    {Math.round(category.skills.reduce((acc, skill) => acc + skill.level, 0) / category.skills.length)}% Avg
-                  </span>
+                  ))}
                 </div>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))}
+          </div>
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
-          <Card className="inline-block p-8 glass-card hover-lift">
+        <div className="text-center">
+          <Card className="inline-block p-8 glass-card hover-lift max-w-md mx-auto">
             <h3 className="text-xl font-bold mb-4 gradient-text">
-              Let's Collaborate
+              Let's Build Something Amazing
             </h3>
-            <p className="text-muted-foreground mb-6 max-w-md">
-              Do you want to start a project together? I'm always excited to work on innovative ideas.
+            <p className="text-muted-foreground mb-6">
+              Ready to bring your ideas to life? Let's discuss your next project.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover-lift font-medium">
-                📧 Copy my email address
-              </button>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                Start a Project
+              </Button>
+              <Button variant="outline" className="border-primary/20 hover:border-primary/50">
+                View My Work
+              </Button>
             </div>
           </Card>
         </div>
