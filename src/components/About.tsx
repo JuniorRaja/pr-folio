@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
 const About = () => {
   const [age, setAge] = useState(0);
 
@@ -11,37 +10,35 @@ const About = () => {
     const now = new Date();
     const diff = now.getTime() - birthDate.getTime();
     const years = diff / (1000 * 60 * 60 * 24 * 365.25);
-    
+
     // Animate the age counter
     let currentAge = 0;
     const targetAge = years;
     const increment = targetAge / 100;
-    
     const counter = setInterval(() => {
       currentAge += increment;
       setAge(currentAge);
-      
       if (currentAge >= targetAge) {
         setAge(targetAge);
         clearInterval(counter);
       }
     }, 30);
   });
-
-  const skills = [
-    "Web Development", "Project Management", "Books", "Cooking",
-    "Photography", "Travel", "Music", "Psychology", "UI-UX", "Dark Jokes"
-  ];
-
-  const interests = [
-    { category: "Development", items: ["React", "Node.js", "TypeScript", "Python"] },
-    { category: "Design", items: ["Figma", "Photoshop", "UI/UX Design"] },
-    { category: "Management", items: ["Agile", "Scrum", "Team Leadership"] },
-    { category: "Photography", items: ["Landscape", "Portrait", "Street Photography"] }
-  ];
-
-  return (
-    <section id="about" className="py-20 lg:py-32 relative">
+  const skills = ["Web Development", "Project Management", "Books", "Cooking", "Photography", "Travel", "Music", "Psychology", "UI-UX", "Dark Jokes"];
+  const interests = [{
+    category: "Development",
+    items: ["React", "Node.js", "TypeScript", "Python"]
+  }, {
+    category: "Design",
+    items: ["Figma", "Photoshop", "UI/UX Design"]
+  }, {
+    category: "Management",
+    items: ["Agile", "Scrum", "Team Leadership"]
+  }, {
+    category: "Photography",
+    items: ["Landscape", "Portrait", "Street Photography"]
+  }];
+  return <section id="about" className="py-20 lg:py-32 relative">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -124,7 +121,9 @@ const About = () => {
           </div>
 
           {/* Right Column - Profile Image and Skills */}
-          <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div className="space-y-8 animate-fade-in-up" style={{
+          animationDelay: "0.2s"
+        }}>
             {/* Profile Image */}
             <div className="relative">
               <div className="w-80 h-80 mx-auto rounded-full overflow-hidden border-4 border-primary/20 hover-lift">
@@ -143,29 +142,13 @@ const About = () => {
               
               {/* Skills Tags */}
               <div className="flex flex-wrap gap-3 justify-center">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-4 py-2 bg-card/50 border border-border/50 rounded-full text-sm hover:border-primary/50 transition-colors hover-lift cursor-pointer"
-                  >
+                {skills.map(skill => <span key={skill} className="px-4 py-2 bg-card/50 border border-border/50 rounded-full text-sm hover:border-primary/50 transition-colors hover-lift cursor-pointer">
                     {skill}
-                  </span>
-                ))}
+                  </span>)}
               </div>
 
               {/* Interest Categories */}
-              <div className="grid grid-cols-2 gap-4 mt-8">
-                {interests.map((category, index) => (
-                  <Card key={category.category} className="p-4 glass-card hover-lift">
-                    <h4 className="font-semibold text-sm mb-2 text-primary">{category.category}</h4>
-                    <div className="space-y-1">
-                      {category.items.map((item) => (
-                        <p key={item} className="text-xs text-muted-foreground">{item}</p>
-                      ))}
-                    </div>
-                  </Card>
-                ))}
-              </div>
+              
             </div>
           </div>
         </div>
@@ -174,8 +157,6 @@ const About = () => {
       {/* Decorative Elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl" />
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl" />
-    </section>
-  );
+    </section>;
 };
-
 export default About;
