@@ -227,35 +227,6 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="mt-20 pt-12 border-t border-border/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            {/* Navigation Links */}
-            <div className="flex flex-wrap justify-center md:justify-start space-x-6 text-sm">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Home</a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">About PR</a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Gallery</a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Projects</a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Interests</a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Skills</a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-center md:text-right">
-              <p className="text-sm text-muted-foreground">
-                © 2024 Prasanna Rajendran. Made with 💜 by PR
-              </p>
-              <div className="flex justify-center md:justify-end space-x-4 mt-2">
-                <a href="#" className="text-xs text-muted-foreground hover:text-foreground">Terms</a>
-                <a href="#" className="text-xs text-muted-foreground hover:text-foreground">Privacy</a>
-                <a href="#" className="text-xs text-muted-foreground hover:text-foreground">Get my CV</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* Background Elements */}
       <div className="absolute top-40 left-5 w-24 h-24 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl floating-animation" />

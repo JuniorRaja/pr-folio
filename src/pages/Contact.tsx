@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import ContactSection from "@/components/Contact";
-import InteractiveGlobe from "@/components/InteractiveGlobe";
+import Spotlight from "@/components/Spotlight";
 import Footer from "@/components/Footer";
 
 const Contact = () => {
@@ -16,28 +16,17 @@ const Contact = () => {
       
       <main className="pt-20">
         <div className="container mx-auto px-4 py-16">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-              Get In <span className="gradient-text">Touch</span>
-            </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Let's connect and explore opportunities to collaborate on amazing projects together.
-            </p>
-          </div>
-
-          {/* Globe Section */}
-          <div className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-4">Find Me Around The World</h2>
-              <p className="text-muted-foreground">
-                Interactive globe showing my location and travel experiences
+          <Spotlight>
+            <div className="text-center mb-16">
+              <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+                Get In <span className="gradient-text">Touch</span>
+              </h1>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Let's connect and explore opportunities to collaborate on amazing projects together.
               </p>
             </div>
-            <div className="relative h-[500px] rounded-2xl overflow-hidden glass-card">
-              <InteractiveGlobe />
-            </div>
-          </div>
+          </Spotlight>
+
 
           {/* Contact Form */}
           <ContactSection />
