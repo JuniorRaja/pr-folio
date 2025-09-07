@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -7,6 +8,7 @@ const Navigation = () => {
   const [isDark, setIsDark] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
@@ -21,18 +23,12 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Tech Stack", href: "#tech" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Works", href: "/works" },
+    { name: "Contact", href: "/contact" },
   ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: "smooth" });
-    setIsOpen(false);
-  };
 
   return (
     <nav 
@@ -51,13 +47,17 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-foreground/80 hover:text-foreground transition-colors hover:scale-105"
+                to={item.href}
+                className={cn(
+                  "text-foreground/80 hover:text-foreground transition-colors hover:scale-105",
+                  location.pathname === item.href && "text-primary font-medium"
+                )}
+                onClick={() => setIsOpen(false)}
               >
                 {item.name}
-              </button>
+              </Link>
             ))}
             <Button
               variant="ghost"
@@ -99,13 +99,17 @@ const Navigation = () => {
         >
           <div className="flex flex-col space-y-4 pb-4">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-foreground/80 hover:text-foreground transition-colors text-left py-2"
+                to={item.href}
+                className={cn(
+                  "text-foreground/80 hover:text-foreground transition-colors text-left py-2",
+                  location.pathname === item.href && "text-primary font-medium"
+                )}
+                onClick={() => setIsOpen(false)}
               >
                 {item.name}
-              </button>
+              </Link>
             ))}
           </div>
         </div>
