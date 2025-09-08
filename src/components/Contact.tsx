@@ -39,66 +39,10 @@ const Contact = () => {
     { icon: Globe, name: "Portfolio", url: "#", color: "hover:text-primary" }
   ];
 
-  const travelDestinations = [
-    {
-      country: "Singapore",
-      date: "JAN 2023",
-      image: "🇸🇬",
-      gradient: "from-blue-400 to-blue-600"
-    },
-    {
-      country: "Sri Lanka",
-      date: "JUN 2023",
-      image: "🇱🇰",
-      gradient: "from-orange-400 to-red-600"
-    },
-    {
-      country: "Poland",
-      date: "SEP 2023",
-      image: "🇵🇱",
-      gradient: "from-red-400 to-white"
-    },
-    {
-      country: "Switzerland",
-      date: "SEP 2023",
-      image: "🇨🇭",
-      gradient: "from-red-500 to-white"
-    }
-  ];
 
   return (
     <section id="contact" className="py-20 lg:py-32 relative">
       <div className="container mx-auto px-4">
-        {/* Travel Section */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Places I have <span className="gradient-text">travelled to</span>
-            </h2>
-            <p className="text-muted-foreground">My travel diaries and photography adventures</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {travelDestinations.map((destination, index) => (
-              <Card 
-                key={destination.country}
-                className={`group overflow-hidden hover-lift animate-fade-in-up cursor-pointer`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className={`aspect-[4/3] bg-gradient-to-br ${destination.gradient} relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                  <div className="absolute inset-0 flex items-center justify-center text-6xl">
-                    {destination.image}
-                  </div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <p className="text-xs font-medium opacity-90">{destination.date}</p>
-                    <h3 className="text-xl font-bold">{destination.country}</h3>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
 
         {/* Contact Section */}
         <div className="grid lg:grid-cols-2 gap-16">
