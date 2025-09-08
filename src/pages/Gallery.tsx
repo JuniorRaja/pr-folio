@@ -149,7 +149,7 @@ const Gallery = () => {
       <Navigation />
       
       <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-5xl">
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Projects from "@/components/Projects";
+import CareerSection from "@/components/CareerSection";
 import Footer from "@/components/Footer";
 
 const Works = () => {
@@ -14,7 +15,10 @@ const Works = () => {
       <Navigation />
       
       <main className="pt-20">
-        <Projects />
+        <div className="max-w-5xl mx-auto">
+          <Projects />
+          <CareerSection />
+        </div>
       </main>
 
       <Footer />

@@ -17,7 +17,7 @@ const About = () => {
       <Navigation />
       
       <main>
-        <div className="pt-20">
+        <div className="pt-20 max-w-5xl mx-auto">
           <AboutSection />
           
           {/* Globe Section */}
