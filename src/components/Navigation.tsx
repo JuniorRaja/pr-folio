@@ -31,17 +31,23 @@ const Navigation = () => {
   ];
 
   return (
-    <nav 
+    <nav
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
-        scrolled ? "backdrop-blur-xl bg-background/80 shadow-lg" : "bg-transparent"
+        scrolled
+          ? "backdrop-blur-xl bg-background/80 shadow-lg"
+          : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-bold gradient-text">
-            PR
+          <div className="w-12 h-12 flex items-center justify-center">
+            <img
+              src={isDark ? "/logo/PRLogoW.png" : "/logo/PRLogoB.png"}
+              alt="PR Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -65,7 +71,11 @@ const Navigation = () => {
               onClick={() => setIsDark(!isDark)}
               className="ml-4 hover:bg-primary/10"
             >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {isDark ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </Button>
           </div>
 
@@ -77,7 +87,11 @@ const Navigation = () => {
               onClick={() => setIsDark(!isDark)}
               className="hover:bg-primary/10"
             >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {isDark ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </Button>
             <Button
               variant="ghost"
@@ -85,32 +99,46 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="hover:bg-primary/10"
             >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        <div 
+        <div
           className={cn(
-            "md:hidden transition-all duration-300 overflow-hidden",
-            isOpen ? "max-h-64 opacity-100 mt-4" : "max-h-0 opacity-0"
+            "md:hidden fixed inset-0 top-[72px] transition-all duration-300 overflow-hidden backdrop-blur-lg",
+            isOpen ? "opacity-100 visible" : "opacity-0 invisible"
           )}
+          style={{
+            backgroundImage: 'url("/navmenu-grid.svg")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundBlendMode: "overlay",
+          }}
         >
-          <div className="flex flex-col space-y-4 pb-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={cn(
-                  "text-foreground/80 hover:text-foreground transition-colors text-left py-2",
-                  location.pathname === item.href && "text-primary font-medium"
-                )}
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="absolute inset-0 bg-background/90" />
+          <div className="relative h-full flex items-center justify-center">
+            <div className="flex flex-col items-center space-y-6 py-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={cn(
+                    "text-foreground/80 hover:text-foreground transition-colors text-center py-2 text-lg font-medium",
+                    location.pathname === item.href &&
+                      "text-primary font-bold scale-110"
+                  )}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
