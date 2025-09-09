@@ -2,7 +2,15 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Globe, Github, Linkedin, Instagram } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  Globe,
+  Github,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 
 const Contact = () => {
   const contactInfo = [
@@ -10,58 +18,61 @@ const Contact = () => {
       icon: Mail,
       label: "Email",
       value: "prasanna@prverse.dev",
-      link: "mailto:prasanna@prverse.dev"
+      link: "mailto:prasanna@prverse.dev",
     },
     {
       icon: MapPin,
       label: "Location",
       value: "Chennai, India",
-      link: "#"
+      link: "#",
     },
     {
       icon: Phone,
       label: "Phone",
       value: "+91 xxx xxx xxxx",
-      link: "tel:+91xxxxxxxxxx"
+      link: "tel:+91xxxxxxxxxx",
     },
     {
       icon: Globe,
       label: "Website",
       value: "prverse.dev",
-      link: "https://prverse.dev"
-    }
+      link: "https://prverse.dev",
+    },
   ];
 
   const socialLinks = [
-    { icon: Github, name: "GitHub", url: "https://github.com", color: "hover:text-gray-400" },
-    { icon: Linkedin, name: "LinkedIn", url: "https://linkedin.com", color: "hover:text-blue-400" },
-    { icon: Instagram, name: "Instagram", url: "https://instagram.com", color: "hover:text-pink-400" },
-    { icon: Globe, name: "Portfolio", url: "#", color: "hover:text-primary" }
+    {
+      icon: Github,
+      name: "GitHub",
+      url: "https://github.com",
+      color: "hover:text-gray-400",
+    },
+    {
+      icon: Linkedin,
+      name: "LinkedIn",
+      url: "https://linkedin.com",
+      color: "hover:text-blue-400",
+    },
+    {
+      icon: Instagram,
+      name: "Instagram",
+      url: "https://instagram.com",
+      color: "hover:text-pink-400",
+    },
+    { icon: Globe, name: "Portfolio", url: "#", color: "hover:text-primary" },
   ];
 
-
   return (
-    <section id="contact" className="py-20 lg:py-32 relative">
+    <section id="contact" className="py-10 lg:py-12 relative">
       <div className="container mx-auto px-4">
-
         {/* Contact Section */}
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Column - Contact Info */}
           <div className="space-y-8 animate-fade-in-up">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Get in <span className="gradient-text">Touch</span>
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                Have a project in mind? Want to collaborate? Or just want to say hi? 
-                I'd love to hear from you. Let's create something amazing together.
-              </p>
-            </div>
-
             {/* Contact Information */}
             <div className="space-y-4">
               {contactInfo.map((info, index) => (
-                <Card 
+                <Card
                   key={info.label}
                   className="p-4 glass-card hover-lift cursor-pointer animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
@@ -71,7 +82,9 @@ const Contact = () => {
                       <info.icon className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">{info.label}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {info.label}
+                      </p>
                       <p className="font-medium">{info.value}</p>
                     </div>
                   </div>
@@ -114,48 +127,61 @@ const Contact = () => {
           </div>
 
           {/* Right Column - Contact Form */}
-          <div className="animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div
+            className="animate-fade-in-up"
+            style={{ animationDelay: "0.2s" }}
+          >
             <Card className="p-8 glass-card">
               <h3 className="text-2xl font-bold mb-6">Send me a message</h3>
-              
+
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium mb-2 block">First Name</label>
-                    <Input 
-                      placeholder="John" 
+                    <label className="text-sm font-medium mb-2 block">
+                      First Name
+                    </label>
+                    <Input
+                      placeholder="John"
                       className="bg-background/50 border-border/50 focus:border-primary"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Last Name</label>
-                    <Input 
-                      placeholder="Doe" 
+                    <label className="text-sm font-medium mb-2 block">
+                      Last Name
+                    </label>
+                    <Input
+                      placeholder="Doe"
                       className="bg-background/50 border-border/50 focus:border-primary"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Email</label>
-                  <Input 
+                  <label className="text-sm font-medium mb-2 block">
+                    Email
+                  </label>
+                  <Input
                     type="email"
-                    placeholder="john.doe@example.com" 
+                    placeholder="john.doe@example.com"
                     className="bg-background/50 border-border/50 focus:border-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Subject</label>
-                  <Input 
-                    placeholder="Project Collaboration" 
+                  <label className="text-sm font-medium mb-2 block">
+                    Subject
+                  </label>
+                  <Input
+                    placeholder="Project Collaboration"
                     className="bg-background/50 border-border/50 focus:border-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Message</label>
-                  <Textarea 
+                  <label className="text-sm font-medium mb-2 block">
+                    Message
+                  </label>
+                  <Textarea
                     placeholder="Tell me about your project or just say hello..."
                     rows={5}
                     className="bg-background/50 border-border/50 focus:border-primary resize-none"
@@ -171,10 +197,12 @@ const Contact = () => {
         </div>
       </div>
 
-
       {/* Background Elements */}
       <div className="absolute top-40 left-5 w-24 h-24 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl floating-animation" />
-      <div className="absolute bottom-60 right-5 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg blur-xl floating-animation" style={{ animationDelay: "3s" }} />
+      <div
+        className="absolute bottom-60 right-5 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg blur-xl floating-animation"
+        style={{ animationDelay: "3s" }}
+      />
     </section>
   );
 };

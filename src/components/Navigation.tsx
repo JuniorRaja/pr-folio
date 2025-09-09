@@ -111,8 +111,10 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         <div
           className={cn(
-            "md:hidden fixed inset-0 top-[72px] transition-all duration-300 overflow-hidden backdrop-blur-lg",
-            isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+            "md:hidden fixed left-0 right-0 bottom-0 transition-all duration-300 overflow-hidden backdrop-blur-lg z-40",
+            isOpen
+              ? "top-[72px] opacity-100 visible"
+              : "top-[72px] opacity-0 invisible"
           )}
           style={{
             backgroundImage: 'url("/navmenu-grid.svg")',

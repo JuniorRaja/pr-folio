@@ -3,20 +3,21 @@ import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
-      <div className="container mx-auto px-6 py-12 relative z-10">
+    <footer className="text-black dark:text-white relative overflow-hidden ">
+      <div className="container mx-auto px-6 py-3 relative z-10">
+        <div className="border-t border-[#6b26d9] mb-2 relative"></div>
         <div className="flex flex-col items-center text-center space-y-8">
           {/* Logo */}
           <div className="w-20 h-20 flex items-center justify-center">
             <img
               src="/logo/PRLogoW.png"
               alt="PR Logo"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain inline"
             />
           </div>
 
           {/* Main Navigation */}
-          <nav className="flex flex-wrap justify-center gap-8 text-lg">
+          <nav className="flex flex-wrap justify-center gap-4 text-md">
             <Link to="/" className="hover:text-primary transition-colors">
               Home
             </Link>
@@ -68,7 +69,7 @@ const Footer = () => {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
+              className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
             >
               <Github className="w-5 h-5" />
             </a>
@@ -76,7 +77,7 @@ const Footer = () => {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
+              className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
             >
               <Instagram className="w-5 h-5" />
             </a>
@@ -84,13 +85,13 @@ const Footer = () => {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
+              className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
             >
               <Linkedin className="w-5 h-5" />
             </a>
             <a
               href="mailto:prasanna@prverse.dev"
-              className="w-12 h-12 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
+              className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
             >
               <Mail className="w-5 h-5" />
             </a>

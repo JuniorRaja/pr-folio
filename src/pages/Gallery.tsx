@@ -39,7 +39,9 @@ interface Comment {
 
 const Gallery = () => {
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(
+    null
+  );
 
   // Sample albums data
   const albums: Album[] = [
@@ -47,7 +49,8 @@ const Gallery = () => {
       id: "1",
       title: "Urban Landscapes",
       description: "Capturing the beauty of cityscapes and urban architecture",
-      coverImage: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=800&h=600&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=800&h=600&fit=crop",
       category: "Architecture",
       photos: [
         {
@@ -57,9 +60,19 @@ const Gallery = () => {
           timestamp: "2024-01-15T18:30:00Z",
           likes: 124,
           comments: [
-            { id: "1", author: "Sarah", content: "Amazing perspective!", timestamp: "2024-01-16T09:00:00Z" },
-            { id: "2", author: "Mike", content: "Love the lighting", timestamp: "2024-01-16T10:15:00Z" }
-          ]
+            {
+              id: "1",
+              author: "Sarah",
+              content: "Amazing perspective!",
+              timestamp: "2024-01-16T09:00:00Z",
+            },
+            {
+              id: "2",
+              author: "Mike",
+              content: "Love the lighting",
+              timestamp: "2024-01-16T10:15:00Z",
+            },
+          ],
         },
         {
           id: "2",
@@ -67,15 +80,16 @@ const Gallery = () => {
           caption: "Architectural details and shadows",
           timestamp: "2024-01-14T14:20:00Z",
           likes: 89,
-          comments: []
-        }
-      ]
+          comments: [],
+        },
+      ],
     },
     {
       id: "2",
       title: "Nature's Canvas",
       description: "Exploring the raw beauty of natural landscapes",
-      coverImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
       category: "Nature",
       photos: [
         {
@@ -85,16 +99,22 @@ const Gallery = () => {
           timestamp: "2024-01-10T06:45:00Z",
           likes: 203,
           comments: [
-            { id: "3", author: "Alex", content: "Breathtaking view!", timestamp: "2024-01-11T08:00:00Z" }
-          ]
-        }
-      ]
+            {
+              id: "3",
+              author: "Alex",
+              content: "Breathtaking view!",
+              timestamp: "2024-01-11T08:00:00Z",
+            },
+          ],
+        },
+      ],
     },
     {
       id: "3",
       title: "Street Photography",
       description: "Life in motion - candid moments from the streets",
-      coverImage: "https://images.unsplash.com/photo-1519564069-a98c1d0b5b7b?w=800&h=600&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1519564069-a98c1d0b5b7b?w=800&h=600&fit=crop",
       category: "Street",
       photos: [
         {
@@ -103,15 +123,16 @@ const Gallery = () => {
           caption: "Rush hour reflections",
           timestamp: "2024-01-08T17:30:00Z",
           likes: 156,
-          comments: []
-        }
-      ]
+          comments: [],
+        },
+      ],
     },
     {
       id: "4",
       title: "Macro World",
       description: "Discovering beauty in the smallest details",
-      coverImage: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=600&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=600&fit=crop",
       category: "Macro",
       photos: [
         {
@@ -121,12 +142,22 @@ const Gallery = () => {
           timestamp: "2024-01-05T07:20:00Z",
           likes: 278,
           comments: [
-            { id: "4", author: "Emma", content: "Such delicate beauty", timestamp: "2024-01-05T12:00:00Z" },
-            { id: "5", author: "David", content: "Perfect macro shot!", timestamp: "2024-01-05T15:30:00Z" }
-          ]
-        }
-      ]
-    }
+            {
+              id: "4",
+              author: "Emma",
+              content: "Such delicate beauty",
+              timestamp: "2024-01-05T12:00:00Z",
+            },
+            {
+              id: "5",
+              author: "David",
+              content: "Perfect macro shot!",
+              timestamp: "2024-01-05T15:30:00Z",
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   useEffect(() => {
@@ -147,16 +178,21 @@ const Gallery = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation />
-      
+
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-5xl">
-          {/* Header */}
+          {/* Section Header */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-              Photo <span className="gradient-text">Gallery</span>
-            </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              See the world through my eyes. Go through the gallery and explore different perspectives captured through my lens.
+            <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
+              Beautiful world in
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Different <span className="gradient-text">Perspectives</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
+              One of the five senses, sight. Photography is an art that gives a
+              good feeling to through the eyes. I still learn and to me, art is
+              something that you can never master.
             </p>
           </div>
 
@@ -165,20 +201,23 @@ const Gallery = () => {
             <Carousel className="w-full max-w-6xl mx-auto">
               <CarouselContent className="-ml-2 md:-ml-4">
                 {albums.map((album) => (
-                  <CarouselItem key={album.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Card 
+                  <CarouselItem
+                    key={album.id}
+                    className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                  >
+                    <Card
                       className="group glass-card hover-lift cursor-pointer overflow-hidden border-primary/10 hover:border-primary/30 transition-all duration-300"
                       onClick={() => handleAlbumClick(album)}
                     >
                       <div className="relative h-64 overflow-hidden">
-                        <img 
-                          src={album.coverImage} 
+                        <img
+                          src={album.coverImage}
                           alt={album.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                        <Badge 
-                          variant="secondary" 
+                        <Badge
+                          variant="secondary"
                           className="absolute top-4 right-4 bg-black/50 text-white border-white/20"
                         >
                           {album.category}
@@ -215,21 +254,30 @@ const Gallery = () => {
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold gradient-text mb-2">
-                {albums.reduce((total, album) => total + album.photos.length, 0)}
+                {albums.reduce(
+                  (total, album) => total + album.photos.length,
+                  0
+                )}
               </div>
               <div className="text-muted-foreground">Photos</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold gradient-text mb-2">
-                {albums.reduce((total, album) => 
-                  total + album.photos.reduce((albumTotal, photo) => albumTotal + photo.likes, 0), 0
+                {albums.reduce(
+                  (total, album) =>
+                    total +
+                    album.photos.reduce(
+                      (albumTotal, photo) => albumTotal + photo.likes,
+                      0
+                    ),
+                  0
                 )}
               </div>
               <div className="text-muted-foreground">Total Likes</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold gradient-text mb-2">
-                {new Set(albums.map(album => album.category)).size}
+                {new Set(albums.map((album) => album.category)).size}
               </div>
               <div className="text-muted-foreground">Categories</div>
             </div>
@@ -251,7 +299,10 @@ const Gallery = () => {
       {/* Floating Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl floating-animation" />
-        <div className="absolute bottom-40 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl floating-animation" style={{ animationDelay: "4s" }} />
+        <div
+          className="absolute bottom-40 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl floating-animation"
+          style={{ animationDelay: "4s" }}
+        />
       </div>
     </div>
   );

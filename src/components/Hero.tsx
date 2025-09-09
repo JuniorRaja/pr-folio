@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, Globe } from "lucide-react";
 
@@ -65,11 +66,11 @@ const Hero = () => {
         ctx.fillStyle = particle.color;
         ctx.shadowColor = particle.color;
         ctx.shadowBlur = 10;
-        
+
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
-        
+
         ctx.shadowBlur = 0;
       });
 
@@ -84,7 +85,10 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
       {/* Animated Background Canvas */}
       <canvas
         ref={canvasRef}
@@ -117,50 +121,87 @@ const Hero = () => {
           {/* Description */}
           <div className="space-y-4 max-w-2xl mx-auto">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Hi, I'm <span className="text-primary font-semibold">Prasanna Rajendran</span>. 
-              I am a Full Stack Developer from Chennai, India. I build robust web applications, 
-              make managemental decisions and take photos of incredible patterns & landscapes.
+              Hi, I'm{" "}
+              <span className="text-primary font-semibold">
+                Prasanna Rajendran
+              </span>
+              . I am a Full Stack Developer from Chennai, India. I build robust
+              web applications, make managemental decisions and take photos of
+              incredible patterns & landscapes.
             </p>
           </div>
 
           {/* Social Links */}
           <div className="flex items-center justify-center space-x-6 pt-8">
-            <Button variant="ghost" size="icon" className="hover-lift hover:bg-primary/10">
-              <Globe className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="hover-lift hover:bg-primary/10">
-              <Github className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="hover-lift hover:bg-primary/10">
-              <Linkedin className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="hover-lift hover:bg-primary/10">
-              <Mail className="h-5 w-5" />
-            </Button>
+            <a
+              href="https://github.com/JuniorRaja"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover-lift hover:bg-primary/10"
+              >
+                <Github className="h-5 w-5" />
+              </Button>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/prasanna-rajendran"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover-lift hover:bg-primary/10"
+              >
+                <Linkedin className="h-5 w-5" />
+              </Button>
+            </a>
+            <Link to="/contact">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover-lift hover:bg-primary/10"
+              >
+                <Mail className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <Button 
-              size="lg" 
-              className="hover-lift bg-primary hover:bg-primary/90 px-8 py-6 text-lg"
-            >
-              Know more
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="hover-lift px-8 py-6 text-lg border-primary/20 hover:border-primary"
-            >
-              Say Hi
-            </Button>
+            <Link to="/about">
+              <Button
+                size="lg"
+                className="hover-lift bg-primary hover:bg-primary/90 px-8 py-6 text-lg"
+              >
+                Know more
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button
+                variant="outline"
+                size="lg"
+                className="hover-lift px-8 py-6 text-lg border-primary/20 hover:border-primary"
+              >
+                Say Hi
+              </Button>
+            </Link>
           </div>
         </div>
 
         {/* Floating 3D Elements */}
         <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-20 floating-animation" />
-        <div className="absolute bottom-32 right-16 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-30 floating-animation" style={{ animationDelay: "2s" }} />
-        <div className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-25 floating-animation" style={{ animationDelay: "4s" }} />
+        <div
+          className="absolute bottom-32 right-16 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-30 floating-animation"
+          style={{ animationDelay: "2s" }}
+        />
+        <div
+          className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-25 floating-animation"
+          style={{ animationDelay: "4s" }}
+        />
       </div>
     </section>
   );
