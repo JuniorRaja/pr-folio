@@ -78,21 +78,6 @@ const Projects = () => {
   return (
     <section id="projects" className="py-20 lg:py-32 relative">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
-            PROJECTS | SKILLS | CAREER
-          </p>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            My <span className="gradient-text">Works</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
-            Learning is an obsession. Below are some of the projects that helped me learn and experiment. 
-            I have wide range of experience in BackEnd because of my job role and nature. So, I primarily 
-            wanted to learn and explore the modern JS world and faster applications.
-          </p>
-        </div>
-
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, index) => (

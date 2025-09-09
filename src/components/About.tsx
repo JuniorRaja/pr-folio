@@ -40,16 +40,6 @@ const About = () => {
   }];
   return <section id="about" className="py-20 lg:py-32 relative">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
-            GREETINGS TO YOU
-          </p>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            About <span className="gradient-text">PR</span>
-          </h2>
-        </div>
-
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Profile Info */}
           <div className="space-y-8 animate-fade-in-up">
