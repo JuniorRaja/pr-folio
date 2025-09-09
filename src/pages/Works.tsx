@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Projects from "@/components/Projects";
-import CareerSection from "@/components/CareerSection";
+import Timeline from "@/components/Timeline";
 import Footer from "@/components/Footer";
 
 const Works = () => {
@@ -15,9 +15,22 @@ const Works = () => {
       <Navigation />
       
       <main className="pt-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="container mx-auto px-4 py-16 max-w-5xl">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
+              Showcase & experience
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              My <span className="gradient-text">Works</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
+              A collection of projects I've worked on and my professional journey in software development and project management.
+            </p>
+          </div>
+
           <Projects />
-          <CareerSection />
+          <Timeline />
         </div>
       </main>
 

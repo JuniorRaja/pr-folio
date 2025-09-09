@@ -16,13 +16,26 @@ const About = () => {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation />
       
-      <main>
-        <div className="pt-20 max-w-5xl mx-auto">
+      <main className="pt-20">
+        <div className="container mx-auto px-4 py-16 max-w-5xl">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
+              Get to know me
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              About <span className="gradient-text">Me</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
+              A passionate developer and project manager from Chennai, India, who loves creating beautiful digital experiences and capturing the world through photography.
+            </p>
+          </div>
+
           <AboutSection />
           
           {/* Globe Section */}
           <section className="py-20">
-            <div className="container mx-auto px-4">
+            <div className="px-4">
               <Spotlight className="mb-12">
                 <div className="text-center">
                   <h2 className="text-3xl lg:text-4xl font-bold mb-4">
@@ -41,7 +54,7 @@ const About = () => {
 
           {/* Travel Section */}
           <section className="py-20">
-            <div className="container mx-auto px-4">
+            <div className="px-4">
               <Spotlight className="mb-12">
                 <div className="text-center">
                   <h2 className="text-3xl lg:text-4xl font-bold mb-4">
