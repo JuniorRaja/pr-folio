@@ -18,12 +18,12 @@ const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Sample track - replace with actual free music URL
+  // Free background music from Free Music Archive
   const track: Track = {
-    title: "Upbeat Journey",
-    artist: "Creative Commons",
-    duration: "3:24",
-    src: "https://www.soundjay.com/misc/sounds-to-go.mp3" // Placeholder - replace with actual free music
+    title: "Happy Boy End Theme",
+    artist: "Simon Panrucker",
+    duration: "0:30",
+    src: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Simon_Panrucker/Happy_Boy_End_Theme/Simon_Panrucker_-_01_-_Happy_Boy_End_Theme.mp3"
   };
 
   useEffect(() => {
@@ -32,14 +32,31 @@ const MusicPlayer = () => {
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
+    
+    const handleCanPlay = () => {
+      // Try to autoplay when audio can play
+      audio.play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((error) => {
+          console.log("Autoplay prevented:", error);
+          // Autoplay was prevented, user will need to click play
+        });
+    };
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('canplay', handleCanPlay);
     audio.addEventListener('ended', () => setIsPlaying(false));
+
+    // Set volume to a comfortable level
+    audio.volume = 0.3;
 
     return () => {
       audio.removeEventListener('timeupdate', updateTime);
       audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.removeEventListener('canplay', handleCanPlay);
       audio.removeEventListener('ended', () => setIsPlaying(false));
     };
   }, []);
@@ -76,9 +93,10 @@ const MusicPlayer = () => {
     <>
       <audio
         ref={audioRef}
-        src={track.src}
+        src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Simon_Panrucker/Happy_Boy_End_Theme/Simon_Panrucker_-_01_-_Happy_Boy_End_Theme.mp3"
         loop
-        preload="metadata"
+        preload="auto"
+        crossOrigin="anonymous"
       />
       
       <div 
