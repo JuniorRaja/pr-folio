@@ -1,44 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 const About = () => {
   const [age, setAge] = useState(0);
 
-  // Calculate age dynamically (similar to the reference)
-  useState(() => {
-    const birthDate = new Date("1996-03-15"); // Example birth date
-    const now = new Date();
-    const diff = now.getTime() - birthDate.getTime();
-    const years = diff / (1000 * 60 * 60 * 24 * 365.25);
+  useEffect(() => {
+    const updateAge = () => {
+      const birthDate = new Date("1998-06-11");
+      const now = new Date();
+      const diff = now.getTime() - birthDate.getTime();
+      setAge(diff / (1000 * 60 * 60 * 24 * 365.25));
+    };
 
-    // Animate the age counter
-    let currentAge = 0;
-    const targetAge = years;
-    const increment = targetAge / 100;
-    const counter = setInterval(() => {
-      currentAge += increment;
-      setAge(currentAge);
-      if (currentAge >= targetAge) {
-        setAge(targetAge);
-        clearInterval(counter);
-      }
-    }, 30);
-  });
-  const skills = ["Web Development", "Project Management", "Books", "Cooking", "Photography", "Travel", "Music", "Psychology", "UI-UX", "Dark Jokes"];
-  const interests = [{
-    category: "Development",
-    items: ["React", "Node.js", "TypeScript", "Python"]
-  }, {
-    category: "Design",
-    items: ["Figma", "Photoshop", "UI/UX Design"]
-  }, {
-    category: "Management",
-    items: ["Agile", "Scrum", "Team Leadership"]
-  }, {
-    category: "Photography",
-    items: ["Landscape", "Portrait", "Street Photography"]
-  }];
-  return <section id="about" className="py-20 lg:py-32 relative">
+    updateAge();
+    const interval = setInterval(updateAge, 10);
+    return () => clearInterval(interval);
+  }, []);
+
+  const skills = [
+    "Web Development",
+    "Project Management",
+    "Books",
+    "Cooking",
+    "Photography",
+    "Travel",
+    "Music",
+    "Psychology",
+    "UI-UX",
+    "Dark Jokes",
+  ];
+  const interests = [
+    {
+      category: "Development",
+      items: ["React", "Node.js", "TypeScript", "Python"],
+    },
+    {
+      category: "Design",
+      items: ["Figma", "Photoshop", "UI/UX Design"],
+    },
+    {
+      category: "Management",
+      items: ["Agile", "Scrum", "Team Leadership"],
+    },
+    {
+      category: "Photography",
+      items: ["Landscape", "Portrait", "Street Photography"],
+    },
+  ];
+  return (
+    <section id="about" className="py-20 lg:py-32 relative">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Profile Info */}
@@ -74,9 +84,7 @@ const About = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="hover-lift">
-                  Work with me
-                </Button>
+                <Button className="hover-lift">Work with me</Button>
                 <Button variant="outline" className="hover-lift">
                   Say Hi
                 </Button>
@@ -86,15 +94,19 @@ const About = () => {
             {/* Description */}
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Hi, I'm <span className="text-foreground font-semibold">Prasanna</span>, versatile & dynamic CS enthusiast based in Chennai, India.
+                Hi, I'm{" "}
+                <span className="text-foreground font-semibold">Prasanna</span>,
+                versatile & dynamic CS enthusiast based in Chennai, India.
               </p>
               <p>
-                With expertise in leading teams, web development, design, and photography, I blend 
-                technology and creativity to craft engaging and industry standard digital experiences.
+                With expertise in leading teams, web development, design, and
+                photography, I blend technology and creativity to craft engaging
+                and industry standard digital experiences.
               </p>
               <p>
-                As a full-stack developer and passionate traveler, I bring a unique perspective to every project.
-                Let's build something extraordinary together.
+                As a full-stack developer and passionate traveler, I bring a
+                unique perspective to every project. Let's build something
+                extraordinary together.
               </p>
             </div>
 
@@ -111,9 +123,12 @@ const About = () => {
           </div>
 
           {/* Right Column - Profile Image and Skills */}
-          <div className="space-y-8 animate-fade-in-up" style={{
-          animationDelay: "0.2s"
-        }}>
+          <div
+            className="space-y-8 animate-fade-in-up"
+            style={{
+              animationDelay: "0.2s",
+            }}
+          >
             {/* Profile Image */}
             <div className="relative">
               <div className="w-80 h-80 mx-auto rounded-full overflow-hidden border-4 border-primary/20 hover-lift">
@@ -128,17 +143,23 @@ const About = () => {
 
             {/* Skills/Interests */}
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-center">Things that excite me</h3>
-              
+              <h3 className="text-xl font-semibold text-center">
+                Things that excite me
+              </h3>
+
               {/* Skills Tags */}
               <div className="flex flex-wrap gap-3 justify-center">
-                {skills.map(skill => <span key={skill} className="px-4 py-2 bg-card/50 border border-border/50 rounded-full text-sm hover:border-primary/50 transition-colors hover-lift cursor-pointer">
+                {skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-4 py-2 bg-card/50 border border-border/50 rounded-full text-sm hover:border-primary/50 transition-colors hover-lift cursor-pointer"
+                  >
                     {skill}
-                  </span>)}
+                  </span>
+                ))}
               </div>
 
               {/* Interest Categories */}
-              
             </div>
           </div>
         </div>
@@ -147,6 +168,7 @@ const About = () => {
       {/* Decorative Elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl" />
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl" />
-    </section>;
+    </section>
+  );
 };
 export default About;

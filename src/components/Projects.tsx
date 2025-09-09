@@ -107,7 +107,7 @@ const Projects = () => {
                 {project.image}
                 
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center">
                   <div className="flex space-x-4">
                     <Button size="icon" variant="ghost" className="text-white hover:bg-white/20">
                       <ExternalLink className="h-5 w-5" />
@@ -135,7 +135,7 @@ const Projects = () => {
                   <Badge variant="outline" className="mb-3 text-xs">
                     {project.category}
                   </Badge>
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-150">
                     {project.title}
                   </h3>
                   <p className="text-sm text-primary font-medium mb-2">

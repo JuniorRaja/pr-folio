@@ -34,7 +34,7 @@ const Navigation = () => {
     <nav
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
-        scrolled
+        scrolled && !isOpen
           ? "backdrop-blur-xl bg-background/80 shadow-lg"
           : "bg-transparent"
       )}
@@ -108,30 +108,71 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <div
-          className={cn(
-            "md:hidden fixed left-0 right-0 bottom-0 transition-all duration-300 overflow-hidden backdrop-blur-lg z-40",
-            isOpen
-              ? "top-[72px] opacity-100 visible"
-              : "top-[72px] opacity-0 invisible"
-          )}
-          style={{
-            backgroundImage: 'url("/navmenu-grid.svg")',
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundBlendMode: "overlay",
-          }}
-        >
-          <div className="absolute inset-0 bg-background/90" />
-          <div className="relative h-full flex items-center justify-center">
-            <div className="flex flex-col items-center space-y-6 py-4">
+      </div>
+
+      {/* Mobile Navigation Overlay */}
+      {isOpen && (
+        <div className="md:hidden fixed inset-0 z-[60]">
+          {/* Full screen background */}
+          <div 
+            className="absolute inset-0 bg-background/95 backdrop-blur-lg"
+            style={{
+              backgroundImage: 'url("/navmenu-grid.svg")',
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundBlendMode: "overlay",
+            }}
+          />
+          
+          {/* Header with logo, theme toggle, and close button */}
+          <div className="relative z-[70] backdrop-blur-xl bg-background/80 shadow-lg">
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex items-center justify-between">
+                {/* Logo */}
+                <div className="w-12 h-12 flex items-center justify-center">
+                  <img
+                    src={isDark ? "/logo/PRLogoW.png" : "/logo/PRLogoB.png"}
+                    alt="PR Logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                
+                {/* Theme toggle and close button */}
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsDark(!isDark)}
+                    className="hover:bg-primary/10"
+                  >
+                    {isDark ? (
+                      <Sun className="h-5 w-5" />
+                    ) : (
+                      <Moon className="h-5 w-5" />
+                    )}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsOpen(false)}
+                    className="hover:bg-primary/10"
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Navigation menu */}
+          <div className="relative z-[65] flex items-center justify-center">
+            <div className="flex flex-col items-center space-y-8">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "text-foreground/80 hover:text-foreground transition-colors text-center py-2 text-lg font-medium",
+                    "text-foreground/80 hover:text-foreground transition-colors text-center py-3 text-2xl font-medium",
                     location.pathname === item.href &&
                       "text-primary font-bold scale-110"
                   )}
@@ -143,7 +184,7 @@ const Navigation = () => {
             </div>
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

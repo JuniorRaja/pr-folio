@@ -99,12 +99,14 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/80" />
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in-up">
+      <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in-up mt-2">
         <div className="space-y-8 max-w-4xl mx-auto">
           {/* Greeting */}
           <p className="text-primary text-lg font-medium tracking-wide animate-fade-in">
             HI, WELCOME TO PR VERSE
           </p>
+
+          
 
           {/* Main Title */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
