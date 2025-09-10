@@ -11,7 +11,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import PhotoViewer from "@/components/PhotoViewer";
+import MyCarousel from "@/components/ui/MyCarousel";
 
+import doorsImg from "/gallery/thumbnails/tnail_doors.jpeg";
+import macroImg from "/gallery/thumbnails/tnail_macro.jpeg";
+import minimalImg from "/gallery/thumbnails/tnail_minimal.jpg";
+import natureImg from "/gallery/thumbnails/tnail_nature.jpg";
+import patternsImg from "/gallery/thumbnails/tnail_patterns.jpg";
 interface Album {
   id: string;
   title: string;
@@ -37,128 +43,187 @@ interface Comment {
   timestamp: string;
 }
 
+interface AlbumItem {
+  id: number;
+  name: string;
+  likes: number;
+  views: number;
+  img: string;
+  route: string;
+  des: string;
+}
+
 const Gallery = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(
     null
   );
 
-  // Sample albums data
-  const albums: Album[] = [
+  const albums: AlbumItem[] = [
     {
-      id: "1",
-      title: "Urban Landscapes",
-      description: "Capturing the beauty of cityscapes and urban architecture",
-      coverImage:
-        "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=800&h=600&fit=crop",
-      category: "Architecture",
-      photos: [
-        {
-          id: "1",
-          url: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=1200&h=800&fit=crop",
-          caption: "Downtown skyline at golden hour",
-          timestamp: "2024-01-15T18:30:00Z",
-          likes: 124,
-          comments: [
-            {
-              id: "1",
-              author: "Sarah",
-              content: "Amazing perspective!",
-              timestamp: "2024-01-16T09:00:00Z",
-            },
-            {
-              id: "2",
-              author: "Mike",
-              content: "Love the lighting",
-              timestamp: "2024-01-16T10:15:00Z",
-            },
-          ],
-        },
-        {
-          id: "2",
-          url: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=800&fit=crop",
-          caption: "Architectural details and shadows",
-          timestamp: "2024-01-14T14:20:00Z",
-          likes: 89,
-          comments: [],
-        },
-      ],
+      id: 1,
+      name: "Doors & Windows",
+      likes: 0,
+      views: 0,
+      img: doorsImg,
+      route: "doors",
+      des: "Unique doors and windows from around the world.",
     },
     {
-      id: "2",
-      title: "Nature's Canvas",
-      description: "Exploring the raw beauty of natural landscapes",
-      coverImage:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-      category: "Nature",
-      photos: [
-        {
-          id: "3",
-          url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",
-          caption: "Mountain peaks at sunrise",
-          timestamp: "2024-01-10T06:45:00Z",
-          likes: 203,
-          comments: [
-            {
-              id: "3",
-              author: "Alex",
-              content: "Breathtaking view!",
-              timestamp: "2024-01-11T08:00:00Z",
-            },
-          ],
-        },
-      ],
+      id: 2,
+      name: "Macro",
+      likes: 0,
+      views: 0,
+      img: macroImg,
+      route: "macro",
+      des: "Get closer to the world around you.",
     },
     {
-      id: "3",
-      title: "Street Photography",
-      description: "Life in motion - candid moments from the streets",
-      coverImage:
-        "https://images.unsplash.com/photo-1519564069-a98c1d0b5b7b?w=800&h=600&fit=crop",
-      category: "Street",
-      photos: [
-        {
-          id: "4",
-          url: "https://images.unsplash.com/photo-1519564069-a98c1d0b5b7b?w=1200&h=800&fit=crop",
-          caption: "Rush hour reflections",
-          timestamp: "2024-01-08T17:30:00Z",
-          likes: 156,
-          comments: [],
-        },
-      ],
+      id: 3,
+      name: "Minimal",
+      likes: 0,
+      views: 0,
+      img: minimalImg,
+      route: "minimal",
+      des: "Less is the new more",
     },
     {
-      id: "4",
-      title: "Macro World",
-      description: "Discovering beauty in the smallest details",
-      coverImage:
-        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=600&fit=crop",
-      category: "Macro",
-      photos: [
-        {
-          id: "5",
-          url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200&h=800&fit=crop",
-          caption: "Morning dew on petals",
-          timestamp: "2024-01-05T07:20:00Z",
-          likes: 278,
-          comments: [
-            {
-              id: "4",
-              author: "Emma",
-              content: "Such delicate beauty",
-              timestamp: "2024-01-05T12:00:00Z",
-            },
-            {
-              id: "5",
-              author: "David",
-              content: "Perfect macro shot!",
-              timestamp: "2024-01-05T15:30:00Z",
-            },
-          ],
-        },
-      ],
+      id: 4,
+      name: "Nature",
+      likes: 0,
+      views: 0,
+      img: natureImg,
+      route: "nature",
+      des: "Indeed the most beautiful mother nature",
+    },
+    {
+      id: 5,
+      name: "Patterns",
+      likes: 0,
+      views: 0,
+      img: patternsImg,
+      route: "patterns",
+      des: "They are everywhere, just look around",
     },
   ];
+
+  // Sample albums data
+  // const albums: Album[] = [
+  //   {
+  //     id: "1",
+  //     title: "Urban Landscapes",
+  //     description: "Capturing the beauty of cityscapes and urban architecture",
+  //     coverImage:
+  //       "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=800&h=600&fit=crop",
+  //     category: "Architecture",
+  //     photos: [
+  //       {
+  //         id: "1",
+  //         url: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=1200&h=800&fit=crop",
+  //         caption: "Downtown skyline at golden hour",
+  //         timestamp: "2024-01-15T18:30:00Z",
+  //         likes: 124,
+  //         comments: [
+  //           {
+  //             id: "1",
+  //             author: "Sarah",
+  //             content: "Amazing perspective!",
+  //             timestamp: "2024-01-16T09:00:00Z",
+  //           },
+  //           {
+  //             id: "2",
+  //             author: "Mike",
+  //             content: "Love the lighting",
+  //             timestamp: "2024-01-16T10:15:00Z",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         id: "2",
+  //         url: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=800&fit=crop",
+  //         caption: "Architectural details and shadows",
+  //         timestamp: "2024-01-14T14:20:00Z",
+  //         likes: 89,
+  //         comments: [],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Nature's Canvas",
+  //     description: "Exploring the raw beauty of natural landscapes",
+  //     coverImage:
+  //       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+  //     category: "Nature",
+  //     photos: [
+  //       {
+  //         id: "3",
+  //         url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",
+  //         caption: "Mountain peaks at sunrise",
+  //         timestamp: "2024-01-10T06:45:00Z",
+  //         likes: 203,
+  //         comments: [
+  //           {
+  //             id: "3",
+  //             author: "Alex",
+  //             content: "Breathtaking view!",
+  //             timestamp: "2024-01-11T08:00:00Z",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: "3",
+  //     title: "Street Photography",
+  //     description: "Life in motion - candid moments from the streets",
+  //     coverImage:
+  //       "https://images.unsplash.com/photo-1519564069-a98c1d0b5b7b?w=800&h=600&fit=crop",
+  //     category: "Street",
+  //     photos: [
+  //       {
+  //         id: "4",
+  //         url: "https://images.unsplash.com/photo-1519564069-a98c1d0b5b7b?w=1200&h=800&fit=crop",
+  //         caption: "Rush hour reflections",
+  //         timestamp: "2024-01-08T17:30:00Z",
+  //         likes: 156,
+  //         comments: [],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: "4",
+  //     title: "Macro World",
+  //     description: "Discovering beauty in the smallest details",
+  //     coverImage:
+  //       "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=600&fit=crop",
+  //     category: "Macro",
+  //     photos: [
+  //       {
+  //         id: "5",
+  //         url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200&h=800&fit=crop",
+  //         caption: "Morning dew on petals",
+  //         timestamp: "2024-01-05T07:20:00Z",
+  //         likes: 278,
+  //         comments: [
+  //           {
+  //             id: "4",
+  //             author: "Emma",
+  //             content: "Such delicate beauty",
+  //             timestamp: "2024-01-05T12:00:00Z",
+  //           },
+  //           {
+  //             id: "5",
+  //             author: "David",
+  //             content: "Perfect macro shot!",
+  //             timestamp: "2024-01-05T15:30:00Z",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ];
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -198,7 +263,7 @@ const Gallery = () => {
 
           {/* Albums Carousel */}
           <div className="relative">
-            <Carousel className="w-full max-w-6xl mx-auto">
+            {/* <Carousel className="w-full max-w-6xl mx-auto">
               <CarouselContent className="-ml-2 md:-ml-4">
                 {albums.map((album) => (
                   <CarouselItem
@@ -241,10 +306,13 @@ const Gallery = () => {
               </CarouselContent>
               <CarouselPrevious className="hidden md:flex -left-12 bg-black/50 border-white/20 hover:bg-black/70" />
               <CarouselNext className="hidden md:flex -right-12 bg-black/50 border-white/20 hover:bg-black/70" />
-            </Carousel>
+            </Carousel> */}
+            <div className="h-auto min-h-[45rem] md:max-w-[90%] m-auto text-center">
+              {loading ? <p>Loading...</p> : <MyCarousel albums={albums} />}
+            </div>
           </div>
 
-          {/* Album Stats */}
+          {/* Album Stats 
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-3xl font-bold gradient-text mb-2">
@@ -281,7 +349,7 @@ const Gallery = () => {
               </div>
               <div className="text-muted-foreground">Categories</div>
             </div>
-          </div>
+          </div>*/}
         </div>
       </main>
 
