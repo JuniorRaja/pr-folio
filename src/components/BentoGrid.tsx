@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Code, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import GridGlobe from "@/components/ui/GridGlobe";
 
 const BentoGrid = () => {
   const { toast } = useToast();
@@ -17,7 +18,7 @@ const BentoGrid = () => {
   };
 
   const techStack = ["Express", "TypeScript", "MS SQL", "Web API", "AWS"];
-  
+
   const codeSnippet = `// Importing a single module
 import module1 from 
 'modulePath';
@@ -31,7 +32,8 @@ import { module1, module2 } from
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {/* Tech Enthusiast Card - Large */}
-          <Card className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
+          <Card
+            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
             style={{ animationDelay: "0.1s" }}
           >
             <div className="p-8">
@@ -52,61 +54,82 @@ import { module1, module2 } from
           </Card>
 
           {/* Tech Stack Card */}
-          <Card className="md:col-span-1 lg:col-span-1 glass-card hover-lift animate-fade-in-up"
+          <Card
+            className="md:col-span-1 lg:col-span-1 glass-card hover-lift animate-fade-in-up"
             style={{ animationDelay: "0.2s" }}
           >
             <div className="p-6 h-full flex flex-col">
-              <p className="text-sm text-muted-foreground mb-2">Everyday is a learning day</p>
+              <p className="text-sm text-muted-foreground mb-2">
+                Everyday is a learning day
+              </p>
               <h3 className="text-xl font-bold mb-4">My Tech Stack</h3>
               <div className="flex flex-wrap gap-2 mb-4 flex-1">
-                {["Express", ".NET", "MS SQL", "Typescript", "Web API", "AWS"].map((tech, index) => (
+                {[
+                  "Express",
+                  ".NET",
+                  "MS SQL",
+                  "Typescript",
+                  "Web API",
+                  "AWS",
+                ].map((tech, index) => (
                   <Badge key={tech} variant="secondary" className="text-xs">
                     {tech}
                   </Badge>
                 ))}
               </div>
-              <Link to="/about" className="text-primary text-sm hover:underline">
+              <Link
+                to="/about"
+                className="text-primary text-sm hover:underline"
+              >
                 View All →
               </Link>
             </div>
           </Card>
 
           {/* Currently Building Card */}
-          <Card className="md:col-span-1 lg:col-span-1 glass-card hover-lift animate-fade-in-up"
+          <Card
+            className="md:col-span-1 lg:col-span-1 glass-card hover-lift animate-fade-in-up"
             style={{ animationDelay: "0.3s" }}
           >
             <div className="p-6">
               <p className="text-sm text-primary font-medium mb-2">PR Verse</p>
-              <h3 className="text-lg font-bold mb-4">Currently building this website. Stay tuned for more updates.</h3>
+              <h3 className="text-lg font-bold mb-4">
+                Currently building this website. Stay tuned for more updates.
+              </h3>
             </div>
           </Card>
 
           {/* Code Snippet Card */}
-          <Card className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
+          <Card
+            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
             style={{ animationDelay: "0.4s" }}
           >
             <div className="p-6 bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <Code className="h-5 w-5 text-green-400" />
-                <Badge variant="outline" className="text-xs">JavaScript</Badge>
+                <Badge variant="outline" className="text-xs">
+                  JavaScript
+                </Badge>
               </div>
-              <pre className="text-sm text-green-400 font-mono">{codeSnippet}</pre>
+              <pre className="text-sm text-green-400 font-mono">
+                {codeSnippet}
+              </pre>
             </div>
           </Card>
 
           {/* Collaboration Card - Large */}
-          <Card className="md:col-span-3 lg:col-span-2 glass-card hover-lift animate-fade-in-up bg-gradient-to-br from-purple-500/10 to-pink-500/10"
+          <Card
+            className="md:col-span-3 lg:col-span-2 glass-card hover-lift animate-fade-in-up bg-gradient-to-br from-purple-500/10 to-pink-500/10"
             style={{ animationDelay: "0.5s" }}
           >
             <div className="p-8">
-              <p className="text-sm text-muted-foreground mb-4">Let's Collaborate</p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Let's Collaborate
+              </p>
               <h3 className="text-2xl font-bold mb-6">
                 Do you want to start a project together?
               </h3>
-              <Button 
-                onClick={handleCopyEmail}
-                className="hover-lift"
-              >
+              <Button onClick={handleCopyEmail} className="hover-lift">
                 <Copy className="h-4 w-4 mr-2" />
                 Copy my email address
               </Button>
@@ -114,7 +137,8 @@ import { module1, module2 } from
           </Card>
 
           {/* Photography Card */}
-          <Card className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up overflow-hidden"
+          <Card
+            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up overflow-hidden"
             style={{ animationDelay: "0.6s" }}
           >
             <div className="p-6">
@@ -122,7 +146,7 @@ import { module1, module2 } from
               <h3 className="text-xl font-bold mb-4">
                 See the world through my eyes. Go through the gallery
               </h3>
-              
+
               {/* Image Grid Preview */}
               <div className="grid grid-cols-3 gap-2 mb-4">
                 <div className="aspect-square bg-gradient-to-br from-blue-400 to-blue-600 rounded opacity-80"></div>
@@ -136,9 +160,9 @@ import { module1, module2 } from
                   </div>
                 </div>
               </div>
-              
-              <Link 
-                to="/gallery" 
+
+              <Link
+                to="/gallery"
                 className="text-primary text-sm hover:underline inline-flex items-center"
               >
                 View Gallery →
@@ -147,29 +171,33 @@ import { module1, module2 } from
           </Card>
 
           {/* Travel Card */}
-          <Card className="glass-card hover-lift animate-fade-in-up"
+          <Card
+            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
             style={{ animationDelay: "0.7s" }}
           >
             <div className="p-6 h-full flex flex-col justify-between">
               <div>
-                <p className="text-sm text-muted-foreground mb-2">Travel & Explore</p>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Travel & Explore
+                </p>
                 <h3 className="text-lg font-bold mb-4">
                   Places I have been to. My travel diaries
                 </h3>
               </div>
-              
+
               {/* Map Pin Graphic */}
               <div className="flex items-center justify-center py-6">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full"></div>
+                <div className="relative w-full">
+                  {/* <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full"></div>
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center">
                     <div className="w-3 h-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full"></div>
-                  </div>
+                  </div> */}
+                  <GridGlobe UsedAt="Grid" />
                 </div>
               </div>
-              
-              <Link 
-                to="/contact" 
+
+              <Link
+                to="/contact"
                 className="text-primary text-sm hover:underline inline-flex items-center"
               >
                 More about me →
