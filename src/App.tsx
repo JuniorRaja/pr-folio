@@ -32,7 +32,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <MusicPlayer />
+        {import.meta.env.VITE_ENABLE_MUSIC_PLAYER === "true" && <MusicPlayer />}
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
