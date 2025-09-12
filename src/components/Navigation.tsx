@@ -29,14 +29,21 @@ const Navigation = () => {
     { name: "Works", href: "/works" },
     { name: "Contact", href: "/contact" },
   ];
-
   return (
     <nav
+      // className={cn(
+      //   "fixed top-0 w-full z-50 transition-all duration-300 ",
+      //   scrolled && !isOpen
+      //     ? "backdrop-blur-xl bg-background/80 shadow-lg"
+      //     : "bg-transparent"
+      // )}
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300",
-        scrolled && !isOpen
-          ? "backdrop-blur-xl bg-background/80 shadow-lg"
-          : "bg-transparent"
+        "fixed top-0 w-full z-50 transition-all duration-300 ",
+        scrolled
+          ? "backdrop-blur-xl bg-background/80 "
+          : isOpen
+          ? "bg-transparent"
+          : "backdrop-blur-xl bg-background/80"
       )}
     >
       <div className="container mx-auto px-4 py-4">
@@ -107,14 +114,13 @@ const Navigation = () => {
             </Button>
           </div>
         </div>
-
       </div>
 
       {/* Mobile Navigation Overlay */}
       {isOpen && (
         <div className="md:hidden fixed inset-0 z-[60]">
           {/* Full screen background */}
-          <div 
+          <div
             className="absolute inset-0 bg-background/95 backdrop-blur-lg"
             style={{
               backgroundImage: 'url("/navmenu-grid.svg")',
@@ -123,9 +129,9 @@ const Navigation = () => {
               backgroundBlendMode: "overlay",
             }}
           />
-          
+
           {/* Header with logo, theme toggle, and close button */}
-          <div className="relative z-[70] backdrop-blur-xl bg-background/80 shadow-lg">
+          <div className="relative z-[70] backdrop-blur-xl bg-background/80">
             <div className="container mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
                 {/* Logo */}
@@ -136,7 +142,7 @@ const Navigation = () => {
                     className="w-full h-full object-contain"
                   />
                 </div>
-                
+
                 {/* Theme toggle and close button */}
                 <div className="flex items-center space-x-2">
                   <Button
@@ -163,7 +169,7 @@ const Navigation = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Navigation menu */}
           <div className="relative z-[65] flex items-center justify-center">
             <div className="flex flex-col items-center space-y-8">
