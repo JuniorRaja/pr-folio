@@ -1,21 +1,7 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import Counter from "@/components/Counter";
 const About = () => {
-  const [age, setAge] = useState(0);
-
-  useEffect(() => {
-    const updateAge = () => {
-      const birthDate = new Date("1998-06-11");
-      const now = new Date();
-      const diff = now.getTime() - birthDate.getTime();
-      setAge(diff / (1000 * 60 * 60 * 24 * 365.25));
-    };
-
-    updateAge();
-    const interval = setInterval(updateAge, 10);
-    return () => clearInterval(interval);
-  }, []);
 
   const skills = [
     "Web Development",
@@ -114,9 +100,7 @@ const About = () => {
             <Card className="p-6 glass-card border-primary/20">
               <div className="text-center">
                 <h4 className="text-lg font-semibold mb-2">My Age</h4>
-                <div className="text-3xl font-bold gradient-text">
-                  {age.toFixed(8)}
-                </div>
+                <Counter startDate="1998-06-11" interval={100} fontSize="text-3xl" />
                 <p className="text-sm text-muted-foreground mt-2">Years</p>
               </div>
             </Card>

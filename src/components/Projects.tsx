@@ -76,7 +76,7 @@ const Projects = () => {
   const categories = ["All", "Web Development", "Full Stack", "Design", "Photography", "Data Science"];
 
   return (
-    <section id="projects" className="py-20 lg:py-32 relative">
+    <section id="projects" className="pb-20 lg:pb-32 relative">
       <div className="container mx-auto px-4">
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">

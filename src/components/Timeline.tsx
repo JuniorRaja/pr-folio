@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import Counter from "./Counter";
 
 interface TimelineEvent {
   year: string;
@@ -66,9 +67,10 @@ const Timeline = () => {
       <div className="container mx-auto px-4">
         {/* Years Counter */}
         <div className="text-center mb-16">
-          <div className="text-6xl lg:text-8xl font-bold gradient-text mb-4">
+          <Counter startDate="2019-06-03" interval={200} fontSize="text-6xl lg:text-8xl" />
+          {/* <div className="text-6xl lg:text-8xl font-bold gradient-text mb-4">
             {yearsExperience.toFixed(8)}
-          </div>
+          </div> */}
           <p className="text-xl text-muted-foreground">
             Years of Professional Experience
           </p>

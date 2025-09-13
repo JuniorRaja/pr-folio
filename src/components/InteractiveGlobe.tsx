@@ -79,12 +79,11 @@ const Globe = () => {
 
             {/* Location label */}
             <Text
-              position={[position.x * 1.3, position.y * 1.3, position.z * 1.3]}
+              position={[position.x * 1.2, position.y * 1.2, position.z * 1.2]}
               fontSize={0.08}
               color={location.color}
               anchorX="center"
               anchorY="middle"
-              font="/fonts/inter-medium.woff"
             >
               {location.name}
             </Text>
