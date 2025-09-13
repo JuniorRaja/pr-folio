@@ -6,74 +6,74 @@ import { ExternalLink, Github } from "lucide-react";
 const Projects = () => {
   const projects = [
     {
-      title: "PR Verse",
+      title: "PR verse",
       subtitle: "Personal Portfolio Website",
-      description: "The site you are looking at right now. A Next.js Portfolio website with Tailwind CSS and modern animations.",
+      description: "The site you are looking at right now. A Next.js Portfolio website with Tailwind CSS and TypeScript.",
       image: "🌐",
-      technologies: ["Next.js", "Tailwind", "Framer Motion", "TypeScript"],
-      liveUrl: "#",
-      githubUrl: "#",
+      technologies: ["Next.js", "Tailwind", "TypeScript", "Three.js", "Framer Motion"],
+      liveUrl: "https://pr-dev-portfolio.netlify.app/",
+      githubUrl: "https://github.com/JuniorRaja/pr_portfolio",
       status: "Live",
       category: "Web Development"
     },
     {
       title: "PR - Digital Resume",
       subtitle: "Interactive Resume Template",
-      description: "Minimal and clean digital resume template built with HTML & CSS. Responsive design with print-friendly layout.",
+      description: "Minimal and clean digital resume template built with HTML & CSS",
       image: "📄",
-      technologies: ["HTML", "CSS", "JavaScript", "Responsive"],
-      liveUrl: "#",
-      githubUrl: "#",
-      status: "Live",
-      category: "Design"
-    },
-    {
-      title: "E-Commerce Dashboard",
-      subtitle: "Admin Management System",
-      description: "Full-stack admin dashboard for e-commerce management with real-time analytics, inventory tracking, and user management.",
-      image: "📊",
-      technologies: ["React", "Node.js", "MongoDB", "Chart.js"],
-      liveUrl: "#",
-      githubUrl: "#",
-      status: "In Progress",
-      category: "Full Stack"
-    },
-    {
-      title: "Travel Photography Gallery",
-      subtitle: "Photo Showcase Platform",
-      description: "A beautiful gallery showcasing travel photography with location mapping, EXIF data, and social sharing features.",
-      image: "📸",
-      technologies: ["Vue.js", "Firebase", "Mapbox", "PWA"],
-      liveUrl: "#",
-      githubUrl: "#",
-      status: "Coming Soon",
-      category: "Photography"
-    },
-    {
-      title: "Task Management App",
-      subtitle: "Project Collaboration Tool",
-      description: "Modern task management application with team collaboration, real-time updates, and project tracking capabilities.",
-      image: "✅",
-      technologies: ["React", "Express", "Socket.io", "PostgreSQL"],
-      liveUrl: "#",
-      githubUrl: "#",
+      technologies: ["HTML5", "CSS", "JavaScript"],
+      liveUrl: "https://juniorraja.github.io/pr-digital-resume/",
+      githubUrl: "https://github.com/JuniorRaja/pr-digital-resume",
       status: "Live",
       category: "Web Development"
     },
     {
-      title: "Weather Analytics",
-      subtitle: "Climate Data Visualization",
-      description: "Interactive weather data visualization dashboard with historical climate analysis and predictive modeling.",
-      image: "🌤️",
-      technologies: ["Python", "D3.js", "Flask", "Machine Learning"],
-      liveUrl: "#",
-      githubUrl: "#",
-      status: "In Progress",
-      category: "Data Science"
+      title: "Brainwave - AI Chat App",
+      subtitle: "Modern AI Landing Page",
+      description: "A modern landing page for a fictional AI Chat app, built with React, TypeScript, and Tailwind CSS.",
+      image: "🤖",
+      technologies: ["React", "Tailwind"],
+      liveUrl: "https://chataibrainwave.netlify.app",
+      githubUrl: "https://github.com/JuniorRaja/Brainwave-ReactJS",
+      status: "Live",
+      category: "Web Development"
+    },
+    {
+      title: "FinDashboard",
+      subtitle: "Finance Data Visualization",
+      description: "A finance dashboard that visualizes data and transactions.",
+      image: "📊",
+      technologies: ["HTML5", "CSS", "JavaScript"],
+      liveUrl: "https://findashboardbypr.netlify.app/",
+      githubUrl: "https://github.com/JuniorRaja/FinDashboard",
+      status: "Live",
+      category: "Web Development"
+    },
+    {
+      title: "Metaverse Landing Page",
+      subtitle: "Modern Web Experience",
+      description: "Modern landing page for a fictional Metaverse company, built with React, Framer Motion & Tailwind CSS.",
+      image: "🌌",
+      technologies: ["React", "Tailwind", "Framer Motion"],
+      liveUrl: "https://prmetaversesite.netlify.app/",
+      githubUrl: "https://github.com/JuniorRaja/FinDashboard",
+      status: "Live",
+      category: "Web Development"
+    },
+    {
+      title: "Bank App Landing Page",
+      subtitle: "Financial Services Website",
+      description: "Modern landing page for a fictional Bank company, built with React and Tailwind CSS.",
+      image: "🏦",
+      technologies: ["React", "Tailwind", "Framer Motion"],
+      liveUrl: "https://hoobank-web.netlify.app",
+      githubUrl: "https://github.com/JuniorRaja/bankApp_reactJS",
+      status: "Live",
+      category: "Web Development"
     }
   ];
 
-  const categories = ["All", "Web Development", "Full Stack", "Design", "Photography", "Data Science"];
+  const categories = ["All", "Web Development"];
 
   return (
     <section id="projects" className="pb-20 lg:pb-32 relative">
@@ -109,10 +109,20 @@ const Projects = () => {
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center">
                   <div className="flex space-x-4">
-                    <Button size="icon" variant="ghost" className="text-white hover:bg-white/20">
+                    <Button 
+                      size="icon" 
+                      variant="ghost" 
+                      className="text-white hover:bg-white/20"
+                      onClick={() => window.open(project.liveUrl, '_blank')}
+                    >
                       <ExternalLink className="h-5 w-5" />
                     </Button>
-                    <Button size="icon" variant="ghost" className="text-white hover:bg-white/20">
+                    <Button 
+                      size="icon" 
+                      variant="ghost" 
+                      className="text-white hover:bg-white/20"
+                      onClick={() => window.open(project.githubUrl, '_blank')}
+                    >
                       <Github className="h-5 w-5" />
                     </Button>
                   </div>
@@ -160,7 +170,7 @@ const Projects = () => {
                   <Button 
                     size="sm" 
                     className="flex-1 hover-lift"
-                    disabled={project.status === 'Coming Soon'}
+                    onClick={() => window.open(project.liveUrl, '_blank')}
                   >
                     <ExternalLink className="h-4 w-4 mr-2" />
                     Check Live Site

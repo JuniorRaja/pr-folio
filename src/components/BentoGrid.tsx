@@ -5,9 +5,11 @@ import { Copy, Code, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import GridGlobe from "@/components/ui/GridGlobe";
+import { useResponsive } from "@/hooks/use-responsive";
 
 const BentoGrid = () => {
   const { toast } = useToast();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("hello@yourname.com");
@@ -30,13 +32,21 @@ import { module1, module2 } from
   return (
     <section className="py-20 lg:py-32">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className={`grid gap-6 ${
+          isMobile ? 'grid-cols-1' : 
+          isTablet ? 'grid-cols-2' : 
+          'grid-cols-4'
+        }`}>
           {/* Tech Enthusiast Card - Large */}
           <Card
-            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
+            className={`glass-card hover-lift animate-fade-in-up ${
+              isMobile ? 'col-span-1' : 
+              isTablet ? 'col-span-2' : 
+              'col-span-2'
+            }`}
             style={{ animationDelay: "0.1s" }}
           >
-            <div className="p-8">
+            <div className={isMobile ? 'p-4' : 'p-8'}>
               <h3 className="text-2xl font-bold mb-4">
                 Tech enthusiast with a passion for development.
               </h3>
@@ -55,10 +65,14 @@ import { module1, module2 } from
 
           {/* Tech Stack Card */}
           <Card
-            className="md:col-span-1 lg:col-span-1 glass-card hover-lift animate-fade-in-up"
+            className={`glass-card hover-lift animate-fade-in-up ${
+              isMobile ? 'col-span-1' : 
+              isTablet ? 'col-span-1' : 
+              'col-span-1'
+            }`}
             style={{ animationDelay: "0.2s" }}
           >
-            <div className="p-6 h-full flex flex-col">
+            <div className={`h-full flex flex-col ${isMobile ? 'p-4' : 'p-6'}`}>
               <p className="text-sm text-muted-foreground mb-2">
                 Everyday is a learning day
               </p>
@@ -88,10 +102,14 @@ import { module1, module2 } from
 
           {/* Currently Building Card */}
           <Card
-            className="md:col-span-1 lg:col-span-1 glass-card hover-lift animate-fade-in-up"
+            className={`glass-card hover-lift animate-fade-in-up ${
+              isMobile ? 'col-span-1' : 
+              isTablet ? 'col-span-1' : 
+              'col-span-1'
+            }`}
             style={{ animationDelay: "0.3s" }}
           >
-            <div className="p-6">
+            <div className={isMobile ? 'p-4' : 'p-6'}>
               <p className="text-sm text-primary font-medium mb-2">PR Verse</p>
               <h3 className="text-lg font-bold mb-4">
                 Currently building this website. Stay tuned for more updates.
@@ -101,10 +119,14 @@ import { module1, module2 } from
 
           {/* Code Snippet Card */}
           <Card
-            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
+            className={`glass-card hover-lift animate-fade-in-up ${
+              isMobile ? 'col-span-1' : 
+              isTablet ? 'col-span-2' : 
+              'col-span-2'
+            }`}
             style={{ animationDelay: "0.4s" }}
           >
-            <div className="p-6 bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg">
+            <div className={`bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg ${isMobile ? 'p-4' : 'p-6'}`}>
               <div className="flex items-center justify-between mb-4">
                 <Code className="h-5 w-5 text-green-400" />
                 <Badge variant="outline" className="text-xs">
@@ -119,10 +141,14 @@ import { module1, module2 } from
 
           {/* Collaboration Card - Large */}
           <Card
-            className="md:col-span-3 lg:col-span-2 glass-card hover-lift animate-fade-in-up bg-gradient-to-br from-purple-500/10 to-pink-500/10"
+            className={`glass-card hover-lift animate-fade-in-up bg-gradient-to-br from-purple-500/10 to-pink-500/10 ${
+              isMobile ? 'col-span-1' : 
+              isTablet ? 'col-span-2' : 
+              'col-span-2'
+            }`}
             style={{ animationDelay: "0.5s" }}
           >
-            <div className="p-8">
+            <div className={isMobile ? 'p-4' : 'p-8'}>
               <p className="text-sm text-muted-foreground mb-4">
                 Let's Collaborate
               </p>
@@ -138,10 +164,14 @@ import { module1, module2 } from
 
           {/* Photography Card */}
           <Card
-            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up overflow-hidden"
+            className={`glass-card hover-lift animate-fade-in-up overflow-hidden ${
+              isMobile ? 'col-span-1' : 
+              isTablet ? 'col-span-2' : 
+              'col-span-2'
+            }`}
             style={{ animationDelay: "0.6s" }}
           >
-            <div className="p-6">
+            <div className={isMobile ? 'p-4' : 'p-6'}>
               <p className="text-sm text-muted-foreground mb-2">Photography</p>
               <h3 className="text-xl font-bold mb-4">
                 See the world through my eyes. Go through the gallery
@@ -172,10 +202,14 @@ import { module1, module2 } from
 
           {/* Travel Card */}
           <Card
-            className="md:col-span-2 lg:col-span-2 glass-card hover-lift animate-fade-in-up"
+            className={`glass-card hover-lift animate-fade-in-up ${
+              isMobile ? 'col-span-1' : 
+              isTablet ? 'col-span-2' : 
+              'col-span-2'
+            }`}
             style={{ animationDelay: "0.7s" }}
           >
-            <div className="p-6 h-full flex flex-col justify-between">
+            <div className={`h-full flex flex-col justify-between ${isMobile ? 'p-4' : 'p-6'}`}>
               <div>
                 <p className="text-sm text-muted-foreground mb-2">
                   Travel & Explore
