@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useScrollToTop } from "./hooks/use-scroll-to-top";
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Gallery from "./pages/Gallery";
@@ -15,12 +16,18 @@ import MusicPlayer from "./components/MusicPlayer";
 
 const queryClient = new QueryClient();
 
+const ScrollHandler = () => {
+  useScrollToTop();
+  return null;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollHandler />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/about" element={<About />} />
