@@ -92,7 +92,7 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Social Links */}
+            {/* Social Links 
             <div>
               <h3 className="text-xl font-semibold mb-4">Follow Me</h3>
               <div className="flex space-x-4">
@@ -108,7 +108,7 @@ const Contact = () => {
                 ))}
               </div>
             </div>
-
+*/}
             {/* Quick Actions */}
             <div className="space-y-4">
               <Button className="w-full hover-lift justify-start" size="lg">

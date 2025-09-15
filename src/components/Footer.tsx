@@ -10,9 +10,14 @@ const Footer = () => {
           {/* Logo */}
           <div className="w-20 h-20 flex items-center justify-center">
             <img
+              src="/logo/PRLogoB.png"
+              alt="PR Logo"
+              className="w-full h-full object-contain inline dark:hidden"
+            />
+            <img
               src="/logo/PRLogoW.png"
               alt="PR Logo"
-              className="w-full h-full object-contain inline"
+              className="w-full h-full object-contain inline hidden dark:block"
             />
           </div>
 

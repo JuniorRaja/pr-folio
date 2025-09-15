@@ -21,8 +21,24 @@ const About = () => {
       <div className="container mx-auto px-4">
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+
+          {/* Image Card */}
+          <Card className="p-8 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            <div className="relative h-full flex items-center justify-center">
+              <div className="w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 hover-lift">
+                <img
+                  src="/characters/character_welcome.png"
+                  alt="Prasanna Rajendran"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-pulse-glow" />
+              <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-30 floating-animation" />
+            </div>
+          </Card>
+          
           {/* Description Card */}
-          <Card className="p-8 glass-card border-primary/20 animate-fade-in-up">
+          <Card className="p-8 animate-fade-in-up">
             <div className="space-y-6">
               <div>
                 <h3 className="text-2xl font-bold mb-4">
@@ -75,21 +91,8 @@ const About = () => {
             </div>
           </Card>
 
-          {/* Image Card */}
-          <Card className="p-8 glass-card border-primary/20 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-            <div className="relative h-full flex items-center justify-center">
-              <div className="w-64 h-64 mx-auto rounded-full overflow-hidden border-4 border-primary/20 hover-lift">
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                  <div className="text-6xl">👨💻</div>
-                </div>
-              </div>
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-pulse-glow" />
-              <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-30 floating-animation" />
-            </div>
-          </Card>
-
           {/* Age Card */}
-          <Card className="p-8 glass-card border-primary/20 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <Card className="p-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <div className="text-center h-full flex flex-col justify-center">
               <h4 className="text-2xl font-bold mb-4 gradient-text">My Age</h4>
               <Counter startDate="1998-06-11" interval={100} fontSize="text-4xl" />

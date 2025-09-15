@@ -6,6 +6,15 @@ import InteractiveGlobe from "@/components/InteractiveGlobe";
 import Spotlight from "@/components/Spotlight";
 import Footer from "@/components/Footer";
 
+const techStack = [
+  { label: "JavaScript", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" } },
+  { label: "TypeScript", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" } },
+  { label: "React", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" } },
+  { label: "Node.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" } },
+  { label: "Express", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" } },
+  { label: "MongoDB", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" } },
+];
+
 const About = () => {
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -33,6 +42,29 @@ const About = () => {
 
           <AboutSection />
           
+          {/* Skills Section */}
+          <div className="text-center mb-12" id="skills">
+            <h2 className="text-4xl font-bold mb-6">
+              I can <span className="text-purple">work</span> with
+            </h2>
+            <div className="flex justify-center flex-wrap w-[100%] gap-2 my-8">
+              {techStack.map((tech) => (
+                <div
+                  key={tech.label}
+                  className="mr-2 mb-2 p-2 rounded-full hover:-translate-y-1 bg-white bg-opacity-10 border transition hover:border-white"
+                >
+                  <img
+                    src={tech.img.src}
+                    alt={tech.label}
+                    className="rounded-full shadow-lg w-12 h-12 object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* To do later: Mobile Responsiveness */}
+          {/* <HoneycombTechStack /> */}
+
           {/* Globe Section */}
           <section className="py-20">
             <div className="px-4">
@@ -113,8 +145,6 @@ const About = () => {
               </div>
             </div>
           </section>
-          
-          <HoneycombTechStack />
         </div>
       </main>
 
