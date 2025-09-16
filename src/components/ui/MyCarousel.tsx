@@ -18,7 +18,6 @@ const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
     if (slideRef.current) {
       const items =
         slideRef.current.querySelectorAll<HTMLDivElement>("#CarouselItem");
-      console.log(items);
       if (items.length > 0) {
         slideRef.current.appendChild(items[0]);
       }

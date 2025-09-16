@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 
 const Navigation = () => {
   const [isDark, setIsDark] = useState(true);
@@ -23,42 +24,36 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Gallery", href: "/gallery" },
     { name: "Works", href: "/works" },
     { name: "Contact", href: "/contact" },
   ];
+  
   return (
     <nav
-      // className={cn(
-      //   "fixed top-0 w-full z-50 transition-all duration-300 ",
-      //   scrolled && !isOpen
-      //     ? "backdrop-blur-xl bg-background/80 shadow-lg"
-      //     : "bg-transparent"
-      // )}
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300 ",
-        scrolled
-          ? "backdrop-blur-xl bg-background/80 "
-          : isOpen
-          ? "bg-transparent"
-          : "backdrop-blur-xl bg-background/80"
+        scrolled && !isOpen
+          ? "backdrop-blur-xl bg-background/80 shadow-lg"
+          : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center">
           {/* Logo */}
-          <div className="w-12 h-12 flex items-center justify-center">
-            <img
-              src={isDark ? "/logo/PRLogoW.png" : "/logo/PRLogoB.png"}
-              alt="PR Logo"
-              className="w-full h-full object-contain"
-            />
+          <div className="flex-1">
+            <Link to="/" className="w-12 h-12 flex items-center justify-start">
+              <img
+                src={isDark ? "/logo/PRLogoW.png" : "/logo/PRLogoB.png"}
+                alt="PR Logo"
+                className="w-full h-full object-contain"
+              />
+            </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex items-center justify-center space-x-8 flex-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -72,11 +67,15 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+          </div>
+
+          {/* Theme Toggle - Right */}
+          <div className="hidden md:flex justify-end flex-1">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsDark(!isDark)}
-              className="ml-4 hover:bg-primary/10"
+              className="hover:bg-primary/10"
             >
               {isDark ? (
                 <Sun className="h-5 w-5" />
@@ -103,7 +102,9 @@ const Navigation = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                setIsOpen(!isOpen)
+              }}
               className="hover:bg-primary/10"
             >
               {isOpen ? (
@@ -135,13 +136,13 @@ const Navigation = () => {
             <div className="container mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
                 {/* Logo */}
-                <div className="w-12 h-12 flex items-center justify-center">
+                <Link to="/" className="w-12 h-12 flex items-center justify-center" onClick={() => setIsOpen(false)}>
                   <img
                     src={isDark ? "/logo/PRLogoW.png" : "/logo/PRLogoB.png"}
                     alt="PR Logo"
                     className="w-full h-full object-contain"
                   />
-                </div>
+                </Link>
 
                 {/* Theme toggle and close button */}
                 <div className="flex items-center space-x-2">
@@ -171,7 +172,7 @@ const Navigation = () => {
           </div>
 
           {/* Navigation menu */}
-          <div className="relative z-[65] flex items-center justify-center">
+          <div className="relative z-[65] flex items-center justify-center mt-[50%]">
             <div className="flex flex-col items-center space-y-8">
               {navItems.map((item) => (
                 <Link
@@ -180,7 +181,7 @@ const Navigation = () => {
                   className={cn(
                     "text-foreground/80 hover:text-foreground transition-colors text-center py-3 text-2xl font-medium",
                     location.pathname === item.href &&
-                      "text-primary font-bold scale-110"
+                    "text-primary font-bold scale-110"
                   )}
                   onClick={() => setIsOpen(false)}
                 >

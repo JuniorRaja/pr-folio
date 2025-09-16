@@ -1,8 +1,46 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Counter from "@/components/Counter";
+import RotatingText from "@/components/ui/rotating-text";
+import { Globe, Instagram, Linkedin, Mail } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
 
 const About = () => {
+  const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+  const animationRef = useRef(null);
+  const elementRef = useRef(null);
+
+  const handleMouseMove = useCallback((e) => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+
+    animationRef.current = requestAnimationFrame(() => {
+      if (!elementRef.current) return;
+
+      const rect = elementRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const x = (e.clientX - centerX) / (rect.width / 2);
+      const y = (e.clientY - centerY) / (rect.height / 2);
+
+      const maxTilt = 15;
+      const rotateY = Math.max(-maxTilt, Math.min(maxTilt, x * maxTilt));
+      const rotateX = Math.max(-maxTilt, Math.min(maxTilt, -y * maxTilt));
+
+      setTransform(
+        `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.05)`
+      );
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+  }, []);
   const skills = [
     "Web Development",
     "Project Management",
@@ -23,73 +61,92 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
 
           {/* Image Card */}
-          <Card className="p-8 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+          <div className="sm:p-2 md:p-8 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
             <div className="relative h-full flex items-center justify-center">
-              <div className="w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 hover-lift">
+              <div
+                ref={elementRef}
+                className="w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out cursor-pointer"
+                style={{
+                  transform,
+                  willChange: 'transform'
+                }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
                 <img
                   src="/characters/character_welcome.png"
                   alt="Prasanna Rajendran"
                   className="w-full h-full object-cover"
+                  draggable={false}
                 />
               </div>
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-pulse-glow" />
               <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-30 floating-animation" />
             </div>
-          </Card>
-          
+          </div>
+
           {/* Description Card */}
-          <Card className="p-8 animate-fade-in-up">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">
-                  <span className="gradient-text">Prasanna</span> Rajendran
-                </h3>
-                <p className="text-primary font-medium">Full-Stack Developer & Creative</p>
-              </div>
+          <div className="sm:p-2 md:p-8 animate-fade-in-up space-y-8 text-center">
+            <div>
+              <h3 className="text-4xl font-bold">
+                <span className="gradient-text">Prasanna</span>  Rajendran
+              </h3>
+              <div className="flex items-center justify-center space-x-3 mt-3">
+                <p className="text-muted-foreground text-lg mb-2">I'm a </p>
 
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  Hi, I'm <span className="text-foreground font-semibold">Prasanna</span>,
-                  a versatile & dynamic CS enthusiast based in Chennai, India.
-                </p>
-                <p>
-                  With expertise in leading teams, web development, design, and
-                  photography, I blend technology and creativity to craft engaging
-                  and industry standard digital experiences.
-                </p>
-                <p>
-                  As a full-stack developer and passionate traveler, I bring a
-                  unique perspective to every project.
-                </p>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex space-x-4">
-                <Button variant="ghost" size="icon" className="hover-lift">
-                  <span className="sr-only">Portfolio</span>
-                  🌐
-                </Button>
-                <Button variant="ghost" size="icon" className="hover-lift">
-                  <span className="sr-only">Instagram</span>
-                  📷
-                </Button>
-                <Button variant="ghost" size="icon" className="hover-lift">
-                  <span className="sr-only">LinkedIn</span>
-                  💼
-                </Button>
-                <Button variant="ghost" size="icon" className="hover-lift">
-                  <span className="sr-only">Email</span>
-                  ✉️
-                </Button>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="hover-lift">Work with me</Button>
-                <Button variant="outline" className="hover-lift">Say Hi</Button>
+                <RotatingText
+                  texts={['Developer', 'Photographer', 'Avid Reader', 'Manager']}
+                  mainClassName="px-2 bg-primary overflow-hidden py-0.5 justify-center rounded-lg text-white text-lg"
+                  staggerFrom={"last"}
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "-120%" }}
+                  staggerDuration={0.025}
+                  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                  rotationInterval={2000}
+                />
               </div>
             </div>
-          </Card>
+
+            {/* Social Links */}
+            <div className="flex space-x-4 align-center justify-center">
+              <Button variant="ghost" size="icon" className="hover-lift bg-muted/20" asChild>
+                <a href="https://instagram.com/prasanna_rajendran" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="icon" className="hover-lift bg-muted/20" asChild>
+                <a href="https://linkedin.com/in/prasanna-rajendran" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="icon" className="hover-lift bg-muted/20" asChild>
+                <a href="mailto:hello@prasannarajendran.com">
+                  <Mail className="h-5 w-5" />
+                </a>
+              </Button>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-4 align-center justify-center">
+              <Button className="hover-lift px-8">Work with me</Button>
+              <Button variant="outline" className="hover-lift px-8">Say Hi</Button>
+            </div>
+
+            {/* Description */}
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Hi, I'm <span className="gradient-text font-semibold">Prasanna</span>, versatile & dynamic CS enthusiast based in Chennai, India.
+              </p>
+              <p>
+                With expertise in leading teams, web development, design, and photography, I blend technology and creativity to craft engaging and industry standard digital experiences.
+              </p>
+              <p>
+                As a full-stack developer and passionate traveler, I bring a unique perspective to every project.
+              </p>
+            </div>
+          </div>
 
           {/* Age Card */}
           <Card className="p-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
@@ -101,12 +158,12 @@ const About = () => {
           </Card>
 
           {/* Interests Card */}
-          <Card className="p-8 glass-card border-primary/20 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+          <div className="p-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
             <div className="space-y-6">
               <h4 className="text-2xl font-bold text-center gradient-text">
                 Things that excite me
               </h4>
-              
+
               <div className="flex flex-wrap gap-3 justify-center">
                 {skills.map((skill, index) => (
                   <span
@@ -119,7 +176,7 @@ const About = () => {
                 ))}
               </div>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
 

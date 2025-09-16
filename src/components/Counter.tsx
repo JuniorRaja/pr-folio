@@ -33,7 +33,6 @@ const Counter = ({ startDate, interval = 100, fontSize = "text-3xl" }: CounterPr
       const diff = now.getTime() - start.getTime();
       const newValue = diff / (1000 * 60 * 60 * 24 * 365.25);
       setValue(newValue);
-      console.log(newValue);
     };
 
     updateValue();

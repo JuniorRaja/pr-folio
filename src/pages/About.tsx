@@ -26,18 +26,18 @@ const About = () => {
       <Navigation />
       
       <main className="pt-20">
-        <div className="container mx-auto px-4 py-16 max-w-5xl">
+        <div className="container mx-auto px-4 py-8 max-w-5xl">
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="text-center md:mb-16">
             <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
-              Get to know me
+              Get to know
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               About <span className="gradient-text">Me</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
+            {/* <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
               A passionate developer and project manager from Chennai, India, who loves creating beautiful digital experiences and capturing the world through photography.
-            </p>
+            </p> */}
           </div>
 
           <AboutSection />
