@@ -3,7 +3,6 @@ import Navigation from "@/components/Navigation";
 import AboutSection from "@/components/About";
 import Skills from "@/components/Skills";
 import InteractiveGlobe from "@/components/InteractiveGlobe";
-import Spotlight from "@/components/Spotlight";
 import Footer from "@/components/Footer";
 import TravelCards from "@/components/ui/travel-cards";
 import Books from "@/components/book/Books";
@@ -95,7 +94,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation />
-      
+
       <main className="pt-20">
         <div className="container mx-auto px-4 py-8 max-w-5xl">
           {/* Section Header */}
@@ -112,11 +111,13 @@ const About = () => {
           </div>
 
           <AboutSection />
-          
-          <Skills />
 
+          <section id="skills">
+            <Skills />
+          </section>
+          
           {/* Books Section */}
-          <section className="py-20">
+          <section className="py-20" id="books">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-bold mb-4">
                 Books I <span className="gradient-text">Recommend</span>
@@ -134,14 +135,14 @@ const About = () => {
           {/* TODO - Hidden for now */}
           <section className="py-20 hidden">
             <div className="px-4">
-                <div className="text-center mb-4">
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                    Find Me <span className="gradient-text">Around The World</span>
-                  </h2>
-                  <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                    Interactive globe showing places I have travelled to and my journey around the world
-                  </p>
-                </div>  
+              <div className="text-center mb-4">
+                <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+                  Find Me <span className="gradient-text">Around The World</span>
+                </h2>
+                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                  Interactive globe showing places I have travelled to and my journey around the world
+                </p>
+              </div>
               <div className="relative h-[500px] rounded-2xl overflow-hidden glass-card max-w-4xl mx-auto">
                 <InteractiveGlobe />
               </div>
@@ -149,8 +150,8 @@ const About = () => {
           </section>
 
           {/* Travel Section */}
-          <section className="py-20">
-            <div className="px-4">              
+          <section id="travel" className="py-20">
+            <div className="px-4">
               <TravelCards />
             </div>
           </section>

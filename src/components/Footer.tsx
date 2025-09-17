@@ -102,6 +102,15 @@ const Footer = () => {
             </a>
           </div>
         </div>
+        
+        {/* Character Image */}
+        <div className="bottom-0 left-1/2 transform flex justify-end mr-[-3rem] mb-[-1rem]">
+          <img
+            src="/characters/character-chilling.png"
+            alt="Character"
+            className="w-full h-auto md:w-[35%] lg:w-[35%] sm:w-[65%] max-w-none"
+          />
+        </div>
       </div>
     </footer>
   );

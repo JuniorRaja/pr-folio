@@ -92,7 +92,7 @@ import { module1, module2 } from
                 ))}
               </div>
               <Link
-                to="/about"
+                to="/about#skills"
                 className="text-primary text-sm hover:underline"
               >
                 View All →
@@ -214,27 +214,25 @@ import { module1, module2 } from
                 <p className="text-sm text-muted-foreground mb-2">
                   Travel & Explore
                 </p>
+                {/* Around the world in 80 clicks */}
+                {/* Nice pun but cliche */}
                 <h3 className="text-lg font-bold mb-4">
-                  Places I have been to. My travel diaries
+                  Places I have been to. 
                 </h3>
               </div>
 
               {/* Map Pin Graphic */}
               <div className="flex items-center justify-center py-6">
                 <div className="relative w-full">
-                  {/* <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full"></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                    <div className="w-3 h-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full"></div>
-                  </div> */}
                   <GridGlobe UsedAt="Grid" />
                 </div>
               </div>
 
               <Link
-                to="/contact"
+                to="/about#travel"
                 className="text-primary text-sm hover:underline inline-flex items-center"
               >
-                More about me →
+                My travel diaries →
               </Link>
             </div>
           </Card>
