@@ -4,12 +4,15 @@ import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useScrollToTop } from "@/hooks/use-scroll-to-top";
+import { useFavicon } from "@/hooks/use-favicon";
 
 const Navigation = () => {
   const [isDark, setIsDark] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useFavicon(isDark);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
