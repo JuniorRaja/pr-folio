@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useScrollToTop } from "./hooks/use-scroll-to-top";
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Gallery from "./pages/Gallery";
@@ -41,6 +43,8 @@ const App = () => (
         </Routes>
         {import.meta.env.VITE_ENABLE_MUSIC_PLAYER === "true" && <MusicPlayer />}
       </BrowserRouter>
+        <Analytics />
+        <SpeedInsights/>
     </TooltipProvider>
   </QueryClientProvider>
 );
