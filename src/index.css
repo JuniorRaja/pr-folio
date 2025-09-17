@@ -65,6 +65,21 @@ All colors MUST be HSL.
     --shadow-card: 0 8px 32px hsl(var(--navy-dark) / 0.4);
     --shadow-elevated: 0 20px 60px hsl(var(--navy-dark) / 0.6);
 
+    /* Books Component Variables */
+    --book-width: 180px;
+    --book-height: 240px;
+    --book-depth: 20px;
+    --book-border-radius: 8px;
+    --book-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bookA-color: #fefcfb;
+    --bookB-color: #fefcfb;
+    --bookC-color: #a91817;
+    --bookD-color: #e33d31;
+    --bookE-color: #fefcfb;
+    --bookF-color: #b8b6c1;
+    --bookG-color: #fefcfb;
+    --bookH-color: #203e4f;
+
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;

@@ -1,19 +1,90 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import AboutSection from "@/components/About";
-import HoneycombTechStack from "@/components/HoneycombTechStack";
+import Skills from "@/components/Skills";
 import InteractiveGlobe from "@/components/InteractiveGlobe";
 import Spotlight from "@/components/Spotlight";
 import Footer from "@/components/Footer";
+import TravelCards from "@/components/ui/travel-cards";
+import Books from "@/components/book/Books";
 
-const techStack = [
-  { label: "JavaScript", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" } },
-  { label: "TypeScript", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" } },
-  { label: "React", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" } },
-  { label: "Node.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" } },
-  { label: "Express", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" } },
-  { label: "MongoDB", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" } },
-];
+// const techStack = [
+//   { label: "HTML", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" } },
+//   { label: "CSS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" } },
+//   { label: "SCSS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" } },
+//   { label: "Bootstrap", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" } },
+//   { label: "TailwindCSS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" } },
+//   { label: "jQuery", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" } },
+//   { label: "React", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" } },
+//   { label: "Next.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" } },
+//   { label: "Vue.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" } },
+//   { label: "TypeScript", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" } },
+//   { label: "Vite", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" } },
+//   { label: "Redux", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" } },
+//   { label: "Zustand", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/zustand/zustand-original.svg" } },
+//   { label: "Axios", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg" } },
+//   { label: "Zod", img: { src: "https://zod.dev/_next/image?url=%2Flogo%2Flogo-glow.png&w=256&q=100" } },
+//   { label: "GraphQL", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" } },
+
+//   { label: "C#", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" } },
+//   { label: "VB", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualbasic/visualbasic-original.svg" } },
+//   { label: ".NET Core / .NET 8", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg " } },
+//   { label: ".NET Framework 4.8", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" } },
+//   { label: "Entity Framework Core", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/blob/v2.17.0/icons/entityframeworkcore/entityframeworkcore-original.svg" } },
+//   // { label: "LINQ", img: { src: "" } },
+//   { label: "Node.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" } },
+//   { label: "Express JS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" } },
+//   { label: "Python", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" } },
+//   { label: "Ocelot API Gateway", img: { src: "https://raw.githubusercontent.com/ThreeMammals/Ocelot/refs/heads/assets/images/ocelot_logo.png" } },
+//   { label: "YARP", img: { src: "https://dotnet.github.io/yarp/logo.svg" } },
+//   { label: "IIS", img: { src: "https://images.seeklogo.com/logo-png/48/1/microsoft-iis-logo-png_seeklogo-484624.png" } },
+//   { label: "OAuth2", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oauth/oauth-original.svg" } },
+//   { label: "Google OAuth", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" } },
+
+//   { label: "MSSQL", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" } },
+//   { label: "PostgreSQL", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" } },
+//   { label: "MySQL", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" } },
+//   { label: "MongoDB", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" } },
+//   { label: "Redis", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" } },
+//   { label: "Azure Blob Storage", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" } },
+//   { label: "Amazon S3", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" } },
+
+//   { label: "Docker", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" } },
+//   { label: "Jenkins", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" } },
+//   { label: "Github", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" } },
+//   { label: "SonarQube", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sonarqube/sonarqube-original.svg" } },
+//   { label: "HashiCorp Vault", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vault/vault-original.svg" } },
+//   { label: "xUnit", img: { src: "" } },
+//   { label: "NUnit", img: { src: "" } },
+//   { label: "Jest", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" } },
+
+//   { label: "Azure", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" } },
+//   { label: "AWS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" } },
+//   { label: "GCP", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" } },
+
+//   { label: "Figma", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" } },
+//   { label: "Photoshop", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" } },
+//   { label: "NPM", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" } },
+// ];
+// <div className="text-center mb-12" id="skills">
+//             <h2 className="text-4xl font-bold mb-6">
+//               I can <span className="text-primary">work</span> with
+//             </h2>
+//             <div className="flex justify-center flex-wrap w-[100%] gap-2 my-8">
+//               {techStack.map((tech) => (
+//                 <div
+//                   key={tech.label}
+//                   className="mr-2 mb-2 p-2 rounded-full hover:-translate-y-1 bg-white bg-opacity-10 border transition hover:border-white"
+//                 >
+//                   <img
+//                     src={tech.img.src}
+//                     alt={tech.label}
+//                     className="rounded-full shadow-lg w-12 h-12 object-cover"
+//                   />
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
 
 const About = () => {
   useEffect(() => {
@@ -42,42 +113,35 @@ const About = () => {
 
           <AboutSection />
           
-          {/* Skills Section */}
-          <div className="text-center mb-12" id="skills">
-            <h2 className="text-4xl font-bold mb-6">
-              I can <span className="text-purple">work</span> with
-            </h2>
-            <div className="flex justify-center flex-wrap w-[100%] gap-2 my-8">
-              {techStack.map((tech) => (
-                <div
-                  key={tech.label}
-                  className="mr-2 mb-2 p-2 rounded-full hover:-translate-y-1 bg-white bg-opacity-10 border transition hover:border-white"
-                >
-                  <img
-                    src={tech.img.src}
-                    alt={tech.label}
-                    className="rounded-full shadow-lg w-12 h-12 object-cover"
-                  />
-                </div>
-              ))}
+          <Skills />
+
+          {/* Books Section */}
+          <section className="py-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+                Books I <span className="gradient-text">Recommend</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
+                A curated collection of books that have shaped my thinking and approach to life, technology, and personal growth.
+              </p>
             </div>
-          </div>
-          {/* To do later: Mobile Responsiveness */}
-          {/* <HoneycombTechStack /> */}
+            <div className="flex justify-center">
+              <Books />
+            </div>
+          </section>
 
           {/* Globe Section */}
-          <section className="py-20">
+          {/* TODO - Hidden for now */}
+          <section className="py-20 hidden">
             <div className="px-4">
-              <Spotlight className="mb-12">
-                <div className="text-center">
+                <div className="text-center mb-4">
                   <h2 className="text-3xl lg:text-4xl font-bold mb-4">
                     Find Me <span className="gradient-text">Around The World</span>
                   </h2>
                   <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                     Interactive globe showing places I have travelled to and my journey around the world
                   </p>
-                </div>
-              </Spotlight>
+                </div>  
               <div className="relative h-[500px] rounded-2xl overflow-hidden glass-card max-w-4xl mx-auto">
                 <InteractiveGlobe />
               </div>
@@ -86,63 +150,8 @@ const About = () => {
 
           {/* Travel Section */}
           <section className="py-20">
-            <div className="px-4">
-              <Spotlight className="mb-12">
-                <div className="text-center">
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                    Places I have <span className="gradient-text">travelled to</span>
-                  </h2>
-                  <p className="text-muted-foreground text-lg">
-                    My travel diaries and photography adventures around the world
-                  </p>
-                </div>
-              </Spotlight>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  {
-                    country: "Singapore",
-                    date: "JAN 2023", 
-                    image: "🇸🇬",
-                    gradient: "from-blue-400 to-blue-600"
-                  },
-                  {
-                    country: "Sri Lanka",
-                    date: "JUN 2023",
-                    image: "🇱🇰", 
-                    gradient: "from-orange-400 to-red-600"
-                  },
-                  {
-                    country: "Poland",
-                    date: "SEP 2023",
-                    image: "🇵🇱",
-                    gradient: "from-red-400 to-white"
-                  },
-                  {
-                    country: "Switzerland", 
-                    date: "SEP 2023",
-                    image: "🇨🇭",
-                    gradient: "from-red-500 to-white"
-                  }
-                ].map((destination, index) => (
-                  <div 
-                    key={destination.country}
-                    className={`group overflow-hidden hover-lift animate-fade-in-up cursor-pointer glass-card rounded-lg`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className={`aspect-[4/3] bg-gradient-to-br ${destination.gradient} relative overflow-hidden`}>
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                      <div className="absolute inset-0 flex items-center justify-center text-6xl">
-                        {destination.image}
-                      </div>
-                      <div className="absolute bottom-4 left-4 text-white">
-                        <p className="text-xs font-medium opacity-90">{destination.date}</p>
-                        <h3 className="text-xl font-bold">{destination.country}</h3>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="px-4">              
+              <TravelCards />
             </div>
           </section>
         </div>
