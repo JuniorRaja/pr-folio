@@ -58,7 +58,7 @@ const About = () => {
     <section id="about" className="pb-20 lg:pb-32 relative">
       <div className="container mx-auto px-4">
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
 
           {/* Image Card */}
           <div className="sm:p-2 md:p-8 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
