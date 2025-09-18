@@ -410,7 +410,7 @@ const GridGlobe = ({ UsedAt }: { UsedAt: string }) => {
     <div className="flex items-center justify-center -left-5 top-36 md:top-40 w-full h-full">
       <div
         className={`mx-auto w-full relative overflow-hidden px-4
-      ${UsedAt === "Contact" ? "h-[18rem] md:h-[34rem]" : " h-80"}`}
+      ${UsedAt === "Contact" ? "h-[18rem] md:h-[34rem]" : "h-full"}`}
       >
         <div
           className={`absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none `}

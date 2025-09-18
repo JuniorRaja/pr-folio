@@ -1,25 +1,118 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Copy, Code, ExternalLink } from "lucide-react";
+import { Copy, Code, Briefcase, BookOpen, Wrench } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "react-router-dom";
 import GridGlobe from "@/components/ui/GridGlobe";
 import { useResponsive } from "@/hooks/use-responsive";
+
+// Note: Replace with your actual routing solution
+const Link = ({ to, children, className = "" }: { to: string; children: React.ReactNode; className?: string }) => (
+  <a href={to} className={className}>{children}</a>
+);
 
 const BentoGrid = () => {
   const { toast } = useToast();
   const { isMobile, isTablet, isDesktop } = useResponsive();
 
-  const handleCopyEmail = () => {
+  // Responsive grid classes matching the reference layout
+  const getGridClasses = () => {
+    if (isMobile) return 'grid-cols-1';
+    if (isTablet) return 'grid-cols-2 grid-rows-6';
+    return 'grid-cols-4 grid-rows-4';
+  };
+
+  // Card positioning classes matching reference bento style
+  const getCardClasses = (cardType: string) => {
+    const baseClasses = "relative overflow-hidden rounded-xl animate-fade-in-up group/bento";
+
+    const cardConfigs = {
+      techEnthusiast: {
+        mobile: "col-span-1",
+        tablet: "col-span-2",
+        desktop: "col-span-2 row-span-1"  // wide rectangle
+      },
+      photography: {
+        mobile: "col-span-1",
+        tablet: "col-span-2",
+        desktop: "col-span-2 row-span-2"  // big square
+      },
+      work: {
+        mobile: "col-span-1",
+        tablet: "col-span-1",
+        desktop: "col-span-1 row-span-1"  // small square
+      },
+      books: {
+        mobile: "col-span-1",
+        tablet: "col-span-1",
+        desktop: "col-span-1 row-span-1"  // small square
+      },
+      codeSnippet: {
+        mobile: "col-span-1",
+        tablet: "col-span-2",
+        desktop: "col-span-1 row-span-1"  // square
+      },
+      resources: {
+        mobile: "col-span-1",
+        tablet: "col-span-2",
+        desktop: "col-span-2 row-span-1"  // rectangle
+      },
+      travel: {
+        mobile: "col-span-1",
+        tablet: "col-span-2",
+        desktop: "col-span-1 row-span-1"  // square for globe
+      },
+      collaboration: {
+        mobile: "col-span-1",
+        tablet: "col-span-2",
+        desktop: "col-span-2 row-span-1"  // rectangle
+      },
+      techStack: {
+        mobile: "col-span-1",
+        tablet: "col-span-2",
+        desktop: "col-span-2 row-span-1"  // square
+      }
+    };
+
+    const config = cardConfigs[cardType as keyof typeof cardConfigs];
+    const responsiveClasses = isMobile ? config.mobile :
+      isTablet ? config.tablet :
+        config.desktop;
+
+    return `${baseClasses} ${responsiveClasses}`;
+  };
+
+  const handleCopyEmail = (event: React.MouseEvent) => {
     navigator.clipboard.writeText("hello@yourname.com");
     toast({
       title: "Email copied!",
       description: "Email address has been copied to clipboard",
     });
-  };
 
-  const techStack = ["Express", "TypeScript", "MS SQL", "Web API", "AWS"];
+    // Trigger confetti within the card
+    const card = event.currentTarget.closest('.glass-card');
+    if (card) {
+      const confetti = document.createElement('img');
+      confetti.src = '/assets/confetti.gif';
+      confetti.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 10;
+        width: 200px;
+        height: 200px;
+      `;
+      card.appendChild(confetti);
+
+      setTimeout(() => {
+        if (card.contains(confetti)) {
+          card.removeChild(confetti);
+        }
+      }, 2000);
+    }
+  };
 
   const codeSnippet = `// Importing a single module
 import module1 from 
@@ -29,212 +122,362 @@ import module1 from
 import { module1, module2 } from
 'modulePath';`;
 
+  const cardContent = {
+    // ORIGINAL CARDS - Reference-inspired styling
+    techEnthusiast: (
+      <div className="h-full relative overflow-hidden">
+        {/* Subtle grid background */}
+        <div className="w-full h-full absolute opacity-20">
+          <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
+        </div>
+        {/* Right side bottom image */}
+        <div className="absolute right-0 -bottom-1">
+          <img alt="bento-1-bg" width="220" height="200" className="object-cover object-center w-full h-full opacity-60" src="/assets/bento-1-bg.svg" />
+        </div>
+        <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col justify-start p-6 lg:p-8 z-10">
+          <div className="text-2xl lg:text-3xl font-bold text-white mb-2">
+            Tech enthusiast with a passion for development.
+          </div>
+          <div className="text-slate-300 text-sm">
+            Building innovative solutions
+          </div>
+        </div>
+      </div>
+    ),
+
+    photography: (
+
+      <div className="h-full p-6">
+        <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
+          <div>
+            <p className="text-sm font-medium text-teal-100 mb-2">
+              Travel & Explore
+            </p>
+            <h3 className="text-2xl font-bold text-white mb-4">
+              <Link to="/about#travel" className="hover:text-teal-200 transition-colors">
+                Places I have been to. My travel diaries.
+              </Link>
+            </h3>
+          </div>
+
+          <div className="flex items-center justify-end flex-1">
+            <GridGlobe UsedAt="Hero" />
+          </div>
+
+          <Link
+            to="/about#travel"
+            className="text-teal-100 text-sm hover:underline inline-flex items-center"
+          >
+            View travels →
+          </Link>
+        </div>
+      </div>
+    ),
+
+    codeSnippet: (
+      <div className="h-full p-6">
+        <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-4">
+            <Code className="h-6 w-6 text-white" />
+            <Badge variant="secondary" className="text-xs bg-white/20 text-white border-0">
+              JavaScript
+            </Badge>
+          </div>
+          <img
+            src="/assets/bento-4-bg.svg"
+            alt="bento-4-bg"
+            width={220}
+            height={200}
+            className="absolute object-cover object-center w-full h-full top-0 md:top-10"
+          />
+          <div className="text-xs text-emerald-100 opacity-75">
+            Clean code practices
+          </div>
+        </div>
+      </div>
+    ),
+
+    collaboration: (
+      <div className="h-full p-6 lg:p-8">
+        <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
+          <div>
+            <p className="text-sm font-medium text-orange-100 mb-2">
+              Let's Collaborate
+            </p>
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Do you want to start a project together?
+            </h3>
+          </div>
+          <Button
+            onClick={handleCopyEmail}
+            className="bg-white text-primary hover:bg-orange-50 w-fit"
+          >
+            <Copy className="h-4 w-4 mr-2" />
+            Copy my email address
+          </Button>
+        </div>
+      </div>
+    ),
+
+    techStack: (
+      <div className="h-full relative overflow-hidden">
+        {/* Gallery background image 
+        <div className="w-full h-full absolute">
+          <img alt="gallerybg" className="w-full h-full object-cover object-center" src="/assets/gallerybg.webp" />
+        </div>*/}
+        {/* White overlay for text legibility
+        <div className="w-full h-full absolute bg-white/20"></div> */}
+        <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col justify-between p-6 lg:p-8 z-10">
+          <div>
+            <div className="text-sm font-medium text-white/80 mb-2">Photography</div>
+            <div className="text-2xl lg:text-3xl font-bold text-white leading-tight">
+              <Link to="/gallery" className="hover:text-white/90 transition-colors">
+                See the world through my eyes. Go through the gallery
+              </Link>
+            </div>
+          </div>
+          <div className="flex justify-center mt-6">
+            <div className="grid grid-cols-3 gap-2">
+              <div className="w-12 h-12 bg-white/20 rounded-lg"></div>
+              <div className="w-12 h-12 bg-white/30 rounded-lg"></div>
+              <div className="w-12 h-12 bg-white/20 rounded-lg"></div>
+              <div className="w-12 h-12 bg-white/30 rounded-lg"></div>
+              <div className="w-12 h-12 bg-white/40 rounded-lg"></div>
+              <div className="w-12 h-12 bg-white/20 rounded-lg"></div>
+            </div>
+          </div>
+          <Link
+            to="/gallery"
+            className="text-white/80 text-sm hover:underline inline-flex items-center mt-4"
+          >
+            Go to Gallery →
+          </Link>
+        </div>
+      </div>
+    ),
+
+    travel: (
+      <div className="h-full bg-gradient-to-br from-slate-700 to-slate-800 relative overflow-hidden p-6">
+        {/* Briefcase stack visual */}
+        <div className="absolute top-2 right-2 opacity-20">
+          <div className="relative">
+            <div className="w-8 h-6 bg-slate-400 rounded-sm mb-1 transform rotate-12"></div>
+            <div className="w-9 h-6 bg-slate-300 rounded-sm mb-1 transform rotate-6"></div>
+            <div className="w-10 h-7 bg-slate-200 rounded-sm"></div>
+          </div>
+        </div>
+
+        <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
+          <div>
+            <Briefcase className="h-8 w-8 text-emerald-400 mb-3" />
+            <div className="text-white text-lg font-bold mb-1">
+              <Link to="/works" className="hover:text-emerald-400 transition-colors">
+                Work
+              </Link>
+            </div>
+            <div className="text-slate-300 text-sm">
+              5+ years building
+            </div>
+          </div>
+          <Link
+            to="/works"
+            className="text-emerald-400 text-sm hover:underline inline-flex items-center"
+          >
+            See my works →
+          </Link>
+        </div>
+      </div>
+    ),
+
+    // NEW CARDS - Reference-inspired modern styling
+    work: (
+      <div className="h-full relative overflow-hidden">
+        {/* Bottom center grid background */}
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 scale-150">
+          <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
+        </div>
+        <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col p-6 z-10">
+          <div className="text-sm font-medium text-slate-300 mb-2">Everyday is a learning day</div>
+          <div className="text-2xl font-bold text-white mb-6">
+            <Link to="/about#skills" className="hover:text-slate-200 transition-colors">
+              My Tech Stack
+            </Link>
+          </div>
+          <Link
+            to="/about#skills"
+            className="text-slate-300 text-sm hover:underline inline-flex items-center mb-4"
+          >
+            See full list →
+          </Link>
+
+          {/* Tech badges positioned on the right */}
+          <div className="absolute -right-12 md:right-4 top-0 md:top-24 flex flex-col gap-6 justify-start align-items-end h-full rotate-45">
+            <div className="flex gap-2">
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">.NET</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">React JS</span>
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">MS SQL</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Typescript</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">AWS</span>
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Web API</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Javascript</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">AWS</span>
+              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Web API</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    ),
+
+    books: (
+      <div className="h-full bg-gradient-to-br from-blue-600 to-darkblue-400 relative overflow-hidden p-6">
+        {/* Stack of books visual */}
+        <div className="absolute bottom-1 right-2 opacity-30">
+          <div className="relative">
+            <div className="w-6 h-2 bg-amber-200 rounded-sm mb-1 transform -rotate-3"></div>
+            <div className="w-7 h-2 bg-amber-100 rounded-sm mb-1 transform rotate-2"></div>
+            <div className="w-8 h-2 bg-yellow-100 rounded-sm mb-1 transform -rotate-1"></div>
+            <div className="w-7 h-2 bg-orange-100 rounded-sm mb-1 transform rotate-1"></div>
+            <div className="w-8 h-2 bg-amber-200 rounded-sm"></div>
+          </div>
+        </div>
+
+        <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
+          <div>
+            <BookOpen className="h-8 w-8 text-amber-100 mb-3" />
+            <div className="text-white text-lg font-bold mb-1">
+              <Link to="/about#books" className="hover:text-amber-100 transition-colors">
+                Reading
+              </Link>
+            </div>
+            <div className="text-amber-100 text-sm">
+              Knowledge journey
+            </div>
+          </div>
+          <Link
+            to="/about#books"
+            className="text-amber-100 text-sm hover:underline inline-flex items-center"
+          >
+            Books I've read →
+          </Link>
+        </div>
+      </div>
+    ),
+
+    resources: (
+      <div className="h-full p-6 lg:p-8">
+        <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <Wrench className="h-6 w-6 text-white" />
+              <div className="text-sm font-medium text-green-100">Developer Arsenal</div>
+            </div>
+
+            <div className="text-xl lg:text-2xl font-bold text-white mb-4">
+              <Link to="/about#skills" className="hover:text-green-100 transition-colors">
+                Tools & Resources That Power My Development
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-4">
+            {["VS Code", "Figma", "Postman", "Docker"].map((tool, index) => (
+              <span key={index} className="text-xs px-3 py-1 bg-white/20 rounded-full text-white">
+                {tool}
+              </span>
+            ))}
+          </div>
+          <Link
+            to="/about#skills"
+            className="text-green-100 text-sm hover:underline inline-flex items-center"
+          >
+            See full list →
+          </Link>
+        </div>
+      </div>
+    )
+  };
+
   return (
     <section className="py-20 lg:py-32">
       <div className="container mx-auto px-4">
-        <div className={`grid gap-6 ${
-          isMobile ? 'grid-cols-1' : 
-          isTablet ? 'grid-cols-2' : 
-          'grid-cols-4'
-        }`}>
-          {/* Tech Enthusiast Card - Large */}
+        <div className={`grid gap-6 ${getGridClasses()}`}>
+          {/* Row 1: Tech Enthusiast (2x1) + Photography (1x3) + Work (1x1) */}
           <Card
-            className={`glass-card hover-lift animate-fade-in-up ${
-              isMobile ? 'col-span-1' : 
-              isTablet ? 'col-span-2' : 
-              'col-span-2'
-            }`}
+            className={getCardClasses('techEnthusiast')}
             style={{ animationDelay: "0.1s" }}
           >
-            <div className={isMobile ? 'p-4' : 'p-8'}>
-              <h3 className="text-2xl font-bold mb-4">
-                Tech enthusiast with a passion for development.
-              </h3>
-              <div className="flex items-center space-x-4">
-                <div className="w-16 h-10 bg-muted rounded flex items-center justify-center">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  </div>
-                </div>
-                <div className="flex-1 bg-muted rounded h-3"></div>
-              </div>
-            </div>
+            {cardContent.techEnthusiast}
           </Card>
 
-          {/* Tech Stack Card */}
           <Card
-            className={`glass-card hover-lift animate-fade-in-up ${
-              isMobile ? 'col-span-1' : 
-              isTablet ? 'col-span-1' : 
-              'col-span-1'
-            }`}
+            className={getCardClasses('photography')}
             style={{ animationDelay: "0.2s" }}
           >
-            <div className={`h-full flex flex-col ${isMobile ? 'p-4' : 'p-6'}`}>
-              <p className="text-sm text-muted-foreground mb-2">
-                Everyday is a learning day
-              </p>
-              <h3 className="text-xl font-bold mb-4">My Tech Stack</h3>
-              <div className="flex flex-wrap gap-2 mb-4 flex-1">
-                {[
-                  "Express",
-                  ".NET",
-                  "MS SQL",
-                  "Typescript",
-                  "Web API",
-                  "AWS",
-                ].map((tech, index) => (
-                  <Badge key={tech} variant="secondary" className="text-xs">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-              <Link
-                to="/about#skills"
-                className="text-primary text-sm hover:underline"
-              >
-                View All →
-              </Link>
-            </div>
+            {cardContent.photography}
           </Card>
 
-          {/* Currently Building Card */}
           <Card
-            className={`glass-card hover-lift animate-fade-in-up ${
-              isMobile ? 'col-span-1' : 
-              isTablet ? 'col-span-1' : 
-              'col-span-1'
-            }`}
+            className={getCardClasses('work')}
             style={{ animationDelay: "0.3s" }}
           >
-            <div className={isMobile ? 'p-4' : 'p-6'}>
-              <p className="text-sm text-primary font-medium mb-2">PR Verse</p>
-              <h3 className="text-lg font-bold mb-4">
-                Currently building this website. Stay tuned for more updates.
-              </h3>
-            </div>
+            {cardContent.work}
           </Card>
 
-          {/* Code Snippet Card */}
+          {/* Books positioned in Row 1, column 3 continuation */}
           <Card
-            className={`glass-card hover-lift animate-fade-in-up ${
-              isMobile ? 'col-span-1' : 
-              isTablet ? 'col-span-2' : 
-              'col-span-2'
-            }`}
+            className={getCardClasses('books')}
             style={{ animationDelay: "0.4s" }}
           >
-            <div className={`bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg ${isMobile ? 'p-4' : 'p-6'}`}>
-              <div className="flex items-center justify-between mb-4">
-                <Code className="h-5 w-5 text-green-400" />
-                <Badge variant="outline" className="text-xs">
-                  JavaScript
-                </Badge>
-              </div>
-              <pre className="text-sm text-green-400 font-mono">
-                {codeSnippet}
-              </pre>
-            </div>
+            {cardContent.books}
           </Card>
 
-          {/* Collaboration Card - Large */}
+          {/* Row 2: Code Snippet (2x1) */}
           <Card
-            className={`glass-card hover-lift animate-fade-in-up bg-gradient-to-br from-purple-500/10 to-pink-500/10 ${
-              isMobile ? 'col-span-1' : 
-              isTablet ? 'col-span-2' : 
-              'col-span-2'
-            }`}
+            className={getCardClasses('codeSnippet')}
             style={{ animationDelay: "0.5s" }}
           >
-            <div className={isMobile ? 'p-4' : 'p-8'}>
-              <p className="text-sm text-muted-foreground mb-4">
-                Let's Collaborate
-              </p>
-              <h3 className="text-2xl font-bold mb-6">
-                Do you want to start a project together?
-              </h3>
-              <Button onClick={handleCopyEmail} className="hover-lift">
-                <Copy className="h-4 w-4 mr-2" />
-                Copy my email address
-              </Button>
-            </div>
+            {cardContent.codeSnippet}
           </Card>
 
-          {/* Photography Card */}
+          {/* Row 3: Resources (1x1) + Travel (1x3) */}
           <Card
-            className={`glass-card hover-lift animate-fade-in-up overflow-hidden ${
-              isMobile ? 'col-span-1' : 
-              isTablet ? 'col-span-2' : 
-              'col-span-2'
-            }`}
+            className={getCardClasses('resources')}
             style={{ animationDelay: "0.6s" }}
           >
-            <div className={isMobile ? 'p-4' : 'p-6'}>
-              <p className="text-sm text-muted-foreground mb-2">Photography</p>
-              <h3 className="text-xl font-bold mb-4">
-                See the world through my eyes. Go through the gallery
-              </h3>
-
-              {/* Image Grid Preview */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                <div className="aspect-square bg-gradient-to-br from-blue-400 to-blue-600 rounded opacity-80"></div>
-                <div className="aspect-square bg-gradient-to-br from-green-400 to-green-600 rounded opacity-80"></div>
-                <div className="aspect-square bg-gradient-to-br from-purple-400 to-purple-600 rounded opacity-80"></div>
-                <div className="aspect-square bg-gradient-to-br from-orange-400 to-orange-600 rounded opacity-80"></div>
-                <div className="aspect-square bg-gradient-to-br from-pink-400 to-pink-600 rounded opacity-80"></div>
-                <div className="aspect-square bg-gradient-to-br from-yellow-400 to-yellow-600 rounded opacity-80 relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-white text-sm font-bold">
-                    +15
-                  </div>
-                </div>
-              </div>
-
-              <Link
-                to="/gallery"
-                className="text-primary text-sm hover:underline inline-flex items-center"
-              >
-                View Gallery →
-              </Link>
-            </div>
+            {cardContent.resources}
           </Card>
 
-          {/* Travel Card */}
           <Card
-            className={`glass-card hover-lift animate-fade-in-up ${
-              isMobile ? 'col-span-1' : 
-              isTablet ? 'col-span-2' : 
-              'col-span-2'
-            }`}
+            className={getCardClasses('travel')}
             style={{ animationDelay: "0.7s" }}
           >
-            <div className={`h-full flex flex-col justify-between ${isMobile ? 'p-4' : 'p-6'}`}>
-              <div>
-                <p className="text-sm text-muted-foreground mb-2">
-                  Travel & Explore
-                </p>
-                {/* Around the world in 80 clicks */}
-                {/* Nice pun but cliche */}
-                <h3 className="text-lg font-bold mb-4">
-                  Places I have been to. 
-                </h3>
-              </div>
+            {cardContent.travel}
+          </Card>
 
-              {/* Map Pin Graphic */}
-              <div className="flex items-center justify-center py-6">
-                <div className="relative w-full">
-                  <GridGlobe UsedAt="Grid" />
-                </div>
-              </div>
+          <Card
+            className={getCardClasses('collaboration')}
+            style={{ animationDelay: "0.8s" }}
+          >
+            {cardContent.collaboration}
+          </Card>
 
-              <Link
-                to="/about#travel"
-                className="text-primary text-sm hover:underline inline-flex items-center"
-              >
-                My travel diaries →
-              </Link>
-            </div>
+          {/* Row 4: Tech Stack (2x1) */}
+          <Card
+            className={getCardClasses('techStack')}
+            style={{ animationDelay: "0.9s" }}
+          >
+            {cardContent.techStack}
           </Card>
         </div>
       </div>
