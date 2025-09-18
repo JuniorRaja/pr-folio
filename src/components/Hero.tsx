@@ -134,7 +134,7 @@ const Hero = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center justify-center space-x-6 pt-8">
+          <div className="flex items-center justify-center space-x-6 pt-4 sm:pt-8">
             <a
               href="https://github.com/JuniorRaja"
               target="_blank"
@@ -149,7 +149,7 @@ const Hero = () => {
               </Button>
             </a>
             <a
-              href="https://www.linkedin.com/in/prasanna-rajendran"
+              href="https://www.linkedin.com/in/rajendranprasanna/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -173,11 +173,10 @@ const Hero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+          <div className="flex flex-row gap-4 justify-center pt-4 sm:pt-8">
             <Link to="/about">
               <Button
-                size="lg"
-                className="hover-lift bg-primary hover:bg-primary/90 px-8 py-6 text-lg"
+                className="hover-lift bg-primary hover:bg-primary/90 px-4 sm:px-8 py-3 sm:py-6 text-base sm:text-lg"
               >
                 Know more
               </Button>
@@ -185,8 +184,7 @@ const Hero = () => {
             <Link to="/contact">
               <Button
                 variant="outline"
-                size="lg"
-                className="hover-lift px-8 py-6 text-lg border-primary/20 hover:border-primary"
+                className="hover-lift px-4 sm:px-8 py-3 sm:py-6 text-base sm:text-lg border-primary/20 hover:border-primary"
               >
                 Say Hi
               </Button>
