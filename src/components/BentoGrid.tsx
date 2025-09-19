@@ -24,7 +24,7 @@ const BentoGrid = () => {
 
   // Card positioning classes matching reference bento style
   const getCardClasses = (cardType: string) => {
-    const baseClasses = "relative overflow-hidden rounded-xl animate-fade-in-up group/bento";
+    const baseClasses = "relative overflow-hidden rounded-xl animate-fade-in-up group/bento bg-card border-border";
 
     const cardConfigs = {
       techEnthusiast: {
@@ -127,18 +127,18 @@ import { module1, module2 } from
     techEnthusiast: (
       <div className="h-full relative overflow-hidden">
         {/* Subtle grid background */}
-        <div className="w-full h-full absolute opacity-20">
+        <div className="w-full h-full absolute opacity-20 dark:opacity-10">
           <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
         </div>
         {/* Right side bottom image */}
         <div className="absolute right-0 -bottom-1">
-          <img alt="bento-1-bg" width="220" height="200" className="object-cover object-center w-full h-full opacity-60" src="/assets/bento-1-bg.svg" />
+          <img alt="bento-1-bg" width="220" height="200" className="object-cover object-center w-full h-full opacity-60 dark:opacity-30" src="/assets/bento-1-bg.svg" />
         </div>
         <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col justify-start p-6 lg:p-8 z-10">
-          <div className="text-2xl lg:text-3xl font-bold text-white mb-2">
+          <div className="text-2xl lg:text-3xl font-bold text-foreground mb-2">
             Tech enthusiast with a passion for development.
           </div>
-          <div className="text-slate-300 text-sm">
+          <div className="text-muted-foreground text-sm">
             Building innovative solutions
           </div>
         </div>
@@ -146,15 +146,14 @@ import { module1, module2 } from
     ),
 
     photography: (
-
-      <div className="h-full p-6">
+      <div className="h-full p-6 bg-gradient-to-br from-teal-50 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div>
-            <p className="text-sm font-medium text-teal-100 mb-2">
+            <p className="text-sm font-medium text-teal-700 dark:text-teal-300 mb-2">
               Travel & Explore
             </p>
-            <h3 className="text-2xl font-bold text-white mb-4">
-              <Link to="/about#travel" className="hover:text-teal-200 transition-colors">
+            <h3 className="text-2xl font-bold text-foreground mb-4">
+              <Link to="/about#travel" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
                 Places I have been to. My travel diaries.
               </Link>
             </h3>
@@ -166,7 +165,7 @@ import { module1, module2 } from
 
           <Link
             to="/about#travel"
-            className="text-teal-100 text-sm hover:underline inline-flex items-center"
+            className="text-teal-700 dark:text-teal-300 text-sm hover:underline inline-flex items-center"
           >
             View travels →
           </Link>
@@ -175,11 +174,11 @@ import { module1, module2 } from
     ),
 
     codeSnippet: (
-      <div className="h-full p-6">
+      <div className="h-full p-6 bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-900/20 dark:to-green-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
-            <Code className="h-6 w-6 text-white" />
-            <Badge variant="secondary" className="text-xs bg-white/20 text-white border-0">
+            <Code className="h-6 w-6 text-emerald-700 dark:text-emerald-300" />
+            <Badge variant="secondary" className="text-xs bg-emerald-200/50 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 border-0">
               JavaScript
             </Badge>
           </div>
@@ -188,9 +187,9 @@ import { module1, module2 } from
             alt="bento-4-bg"
             width={220}
             height={200}
-            className="absolute object-cover object-center w-full h-full top-0 md:top-10"
+            className="absolute object-cover object-center w-full h-full top-0 md:top-10 opacity-40 dark:opacity-20"
           />
-          <div className="text-xs text-emerald-100 opacity-75">
+          <div className="text-xs text-emerald-700 dark:text-emerald-300 opacity-75 relative z-10">
             Clean code practices
           </div>
         </div>
@@ -198,19 +197,19 @@ import { module1, module2 } from
     ),
 
     collaboration: (
-      <div className="h-full p-6 lg:p-8">
+      <div className="h-full p-6 lg:p-8 bg-gradient-to-br from-orange-50 to-red-100 dark:from-orange-900/20 dark:to-red-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div>
-            <p className="text-sm font-medium text-orange-100 mb-2">
+            <p className="text-sm font-medium text-orange-700 dark:text-orange-300 mb-2">
               Let's Collaborate
             </p>
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h3 className="text-2xl font-bold text-foreground mb-4">
               Do you want to start a project together?
             </h3>
           </div>
           <Button
             onClick={handleCopyEmail}
-            className="bg-white text-primary hover:bg-orange-50 w-fit"
+            className="bg-white dark:bg-orange-950 text-orange-600 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/50 border border-orange-200 dark:border-orange-700 w-fit transition-colors"
           >
             <Copy className="h-4 w-4 mr-2" />
             Copy my email address
@@ -220,35 +219,29 @@ import { module1, module2 } from
     ),
 
     techStack: (
-      <div className="h-full relative overflow-hidden">
-        {/* Gallery background image 
-        <div className="w-full h-full absolute">
-          <img alt="gallerybg" className="w-full h-full object-cover object-center" src="/assets/gallerybg.webp" />
-        </div>*/}
-        {/* White overlay for text legibility
-        <div className="w-full h-full absolute bg-white/20"></div> */}
+      <div className="h-full relative overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-100 dark:from-purple-900/20 dark:to-indigo-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col justify-between p-6 lg:p-8 z-10">
           <div>
-            <div className="text-sm font-medium text-white/80 mb-2">Photography</div>
-            <div className="text-2xl lg:text-3xl font-bold text-white leading-tight">
-              <Link to="/gallery" className="hover:text-white/90 transition-colors">
+            <div className="text-sm font-medium text-purple-700 dark:text-purple-300 mb-2">Photography</div>
+            <div className="text-2xl lg:text-3xl font-bold text-foreground leading-tight">
+              <Link to="/gallery" className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                 See the world through my eyes. Go through the gallery
               </Link>
             </div>
           </div>
           <div className="flex justify-center mt-6">
             <div className="grid grid-cols-3 gap-2">
-              <div className="w-12 h-12 bg-white/20 rounded-lg"></div>
-              <div className="w-12 h-12 bg-white/30 rounded-lg"></div>
-              <div className="w-12 h-12 bg-white/20 rounded-lg"></div>
-              <div className="w-12 h-12 bg-white/30 rounded-lg"></div>
-              <div className="w-12 h-12 bg-white/40 rounded-lg"></div>
-              <div className="w-12 h-12 bg-white/20 rounded-lg"></div>
+              <div className="w-12 h-12 bg-purple-200/60 dark:bg-purple-800/40 rounded-lg"></div>
+              <div className="w-12 h-12 bg-purple-300/70 dark:bg-purple-700/50 rounded-lg"></div>
+              <div className="w-12 h-12 bg-purple-200/60 dark:bg-purple-800/40 rounded-lg"></div>
+              <div className="w-12 h-12 bg-purple-300/70 dark:bg-purple-700/50 rounded-lg"></div>
+              <div className="w-12 h-12 bg-purple-400/80 dark:bg-purple-600/60 rounded-lg"></div>
+              <div className="w-12 h-12 bg-purple-200/60 dark:bg-purple-800/40 rounded-lg"></div>
             </div>
           </div>
           <Link
             to="/gallery"
-            className="text-white/80 text-sm hover:underline inline-flex items-center mt-4"
+            className="text-purple-700 dark:text-purple-300 text-sm hover:underline inline-flex items-center mt-4"
           >
             Go to Gallery →
           </Link>
@@ -257,31 +250,31 @@ import { module1, module2 } from
     ),
 
     travel: (
-      <div className="h-full bg-gradient-to-br from-slate-700 to-slate-800 relative overflow-hidden p-6">
+      <div className="h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden p-6">
         {/* Briefcase stack visual */}
-        <div className="absolute top-2 right-2 opacity-20">
+        <div className="absolute top-2 right-2 opacity-30 dark:opacity-20">
           <div className="relative">
-            <div className="w-8 h-6 bg-slate-400 rounded-sm mb-1 transform rotate-12"></div>
-            <div className="w-9 h-6 bg-slate-300 rounded-sm mb-1 transform rotate-6"></div>
-            <div className="w-10 h-7 bg-slate-200 rounded-sm"></div>
+            <div className="w-8 h-6 bg-slate-400 dark:bg-slate-500 rounded-sm mb-1 transform rotate-12"></div>
+            <div className="w-9 h-6 bg-slate-500 dark:bg-slate-400 rounded-sm mb-1 transform rotate-6"></div>
+            <div className="w-10 h-7 bg-slate-600 dark:bg-slate-300 rounded-sm"></div>
           </div>
         </div>
 
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div>
-            <Briefcase className="h-8 w-8 text-emerald-400 mb-3" />
-            <div className="text-white text-lg font-bold mb-1">
-              <Link to="/works" className="hover:text-emerald-400 transition-colors">
+            <Briefcase className="h-8 w-8 text-emerald-600 dark:text-emerald-400 mb-3" />
+            <div className="text-foreground text-lg font-bold mb-1">
+              <Link to="/works" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                 Work
               </Link>
             </div>
-            <div className="text-slate-300 text-sm">
-              5+ years building
+            <div className="text-muted-foreground text-sm">
+              More than half a decade of professional experience.
             </div>
           </div>
           <Link
             to="/works"
-            className="text-emerald-400 text-sm hover:underline inline-flex items-center"
+            className="text-emerald-600 dark:text-emerald-400 text-sm hover:underline inline-flex items-center"
           >
             See my works →
           </Link>
@@ -291,21 +284,21 @@ import { module1, module2 } from
 
     // NEW CARDS - Reference-inspired modern styling
     work: (
-      <div className="h-full relative overflow-hidden">
+      <div className="h-full relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/10">
         {/* Bottom center grid background */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 scale-150">
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 scale-150 opacity-20 dark:opacity-10">
           <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
         </div>
         <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col p-6 z-10">
-          <div className="text-sm font-medium text-slate-300 mb-2">Everyday is a learning day</div>
-          <div className="text-2xl font-bold text-white mb-6">
-            <Link to="/about#skills" className="hover:text-slate-200 transition-colors">
+          <div className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">Everyday is a learning day</div>
+          <div className="text-2xl font-bold text-foreground mb-6">
+            <Link to="/about#skills" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               My Tech Stack
             </Link>
           </div>
           <Link
             to="/about#skills"
-            className="text-slate-300 text-sm hover:underline inline-flex items-center mb-4"
+            className="text-blue-700 dark:text-blue-300 text-sm hover:underline inline-flex items-center mb-4"
           >
             See full list →
           </Link>
@@ -313,60 +306,59 @@ import { module1, module2 } from
           {/* Tech badges positioned on the right */}
           <div className="absolute -right-12 md:right-4 top-0 md:top-24 flex flex-col gap-6 justify-start align-items-end h-full rotate-45">
             <div className="flex gap-2">
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">.NET</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">.NET</span>
             </div>
             <div className="flex gap-2">
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">React JS</span>
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">MS SQL</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">React JS</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">MS SQL</span>
             </div>
             <div className="flex gap-2">
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Typescript</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">Typescript</span>
             </div>
             <div className="flex gap-2">
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">AWS</span>
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Web API</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">AWS</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">Web API</span>
             </div>
             <div className="flex gap-2">
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Javascript</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">Javascript</span>
             </div>
             <div className="flex gap-2">
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">AWS</span>
-              <span className="px-3 py-2 bg-slate-700 rounded-lg text-xs text-white">Web API</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">AWS</span>
+              <span className="px-3 py-2 bg-blue-200 dark:bg-blue-800 rounded-lg text-xs text-blue-800 dark:text-blue-200">Web API</span>
             </div>
           </div>
         </div>
       </div>
-
     ),
 
     books: (
-      <div className="h-full bg-gradient-to-br from-blue-600 to-darkblue-400 relative overflow-hidden p-6">
+      <div className="h-full bg-gradient-to-br from-amber-100 to-yellow-200 dark:from-amber-900/30 dark:to-yellow-900/20 relative overflow-hidden p-6">
         {/* Stack of books visual */}
-        <div className="absolute bottom-1 right-2 opacity-30">
+        <div className="absolute bottom-1 right-2 opacity-40 dark:opacity-30">
           <div className="relative">
-            <div className="w-6 h-2 bg-amber-200 rounded-sm mb-1 transform -rotate-3"></div>
-            <div className="w-7 h-2 bg-amber-100 rounded-sm mb-1 transform rotate-2"></div>
-            <div className="w-8 h-2 bg-yellow-100 rounded-sm mb-1 transform -rotate-1"></div>
-            <div className="w-7 h-2 bg-orange-100 rounded-sm mb-1 transform rotate-1"></div>
-            <div className="w-8 h-2 bg-amber-200 rounded-sm"></div>
+            <div className="w-6 h-2 bg-amber-400 dark:bg-amber-600 rounded-sm mb-1 transform -rotate-3"></div>
+            <div className="w-7 h-2 bg-amber-300 dark:bg-amber-500 rounded-sm mb-1 transform rotate-2"></div>
+            <div className="w-8 h-2 bg-yellow-300 dark:bg-yellow-500 rounded-sm mb-1 transform -rotate-1"></div>
+            <div className="w-7 h-2 bg-orange-300 dark:bg-orange-500 rounded-sm mb-1 transform rotate-1"></div>
+            <div className="w-8 h-2 bg-amber-400 dark:bg-amber-600 rounded-sm"></div>
           </div>
         </div>
 
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div>
-            <BookOpen className="h-8 w-8 text-amber-100 mb-3" />
-            <div className="text-white text-lg font-bold mb-1">
-              <Link to="/about#books" className="hover:text-amber-100 transition-colors">
+            <BookOpen className="h-8 w-8 text-amber-700 dark:text-amber-300 mb-3" />
+            <div className="text-foreground text-lg font-bold mb-1">
+              <Link to="/about#books" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                 Reading
               </Link>
             </div>
-            <div className="text-amber-100 text-sm">
+            <div className="text-amber-700 dark:text-amber-300 text-sm">
               Knowledge journey
             </div>
           </div>
           <Link
             to="/about#books"
-            className="text-amber-100 text-sm hover:underline inline-flex items-center"
+            className="text-amber-700 dark:text-amber-300 text-sm hover:underline inline-flex items-center"
           >
             Books I've read →
           </Link>
@@ -375,16 +367,16 @@ import { module1, module2 } from
     ),
 
     resources: (
-      <div className="h-full p-6 lg:p-8">
+      <div className="h-full p-6 lg:p-8 bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <Wrench className="h-6 w-6 text-white" />
-              <div className="text-sm font-medium text-green-100">Developer Arsenal</div>
+              <Wrench className="h-6 w-6 text-green-700 dark:text-green-300" />
+              <div className="text-sm font-medium text-green-700 dark:text-green-300">Developer Arsenal</div>
             </div>
 
-            <div className="text-xl lg:text-2xl font-bold text-white mb-4">
-              <Link to="/about#skills" className="hover:text-green-100 transition-colors">
+            <div className="text-xl lg:text-2xl font-bold text-foreground mb-4">
+              <Link to="/about#skills" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
                 Tools & Resources That Power My Development
               </Link>
             </div>
@@ -392,14 +384,14 @@ import { module1, module2 } from
 
           <div className="flex flex-wrap gap-2 mb-4">
             {["VS Code", "Figma", "Postman", "Docker"].map((tool, index) => (
-              <span key={index} className="text-xs px-3 py-1 bg-white/20 rounded-full text-white">
+              <span key={index} className="text-xs px-3 py-1 bg-green-200/60 dark:bg-green-800/40 rounded-full text-green-800 dark:text-green-200">
                 {tool}
               </span>
             ))}
           </div>
           <Link
             to="/about#skills"
-            className="text-green-100 text-sm hover:underline inline-flex items-center"
+            className="text-green-700 dark:text-green-300 text-sm hover:underline inline-flex items-center"
           >
             See full list →
           </Link>

@@ -3,14 +3,53 @@ import { Card } from "@/components/ui/card";
 import Counter from "@/components/Counter";
 import RotatingText from "@/components/ui/rotating-text";
 import { Globe, Instagram, Linkedin, Mail } from "lucide-react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const About = () => {
   const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+  const [isHovered, setIsHovered] = useState(false);
   const animationRef = useRef(null);
+  const autoRotateRef = useRef(null);
   const elementRef = useRef(null);
+  const isMobile = useIsMobile();
+
+  // Auto floating effect
+  useEffect(() => {
+    if (isMobile) {
+      setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+      return;
+    }
+
+    if (isHovered) return;
+
+    let startTime = Date.now();
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const rotateX = Math.sin(elapsed / 2000) * 8; // Simulate cursor Y movement
+      const rotateY = Math.cos(elapsed / 2500) * 10; // Simulate cursor X movement
+      
+      setTransform(
+        `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1)`
+      );
+      
+      if (!isHovered) {
+        autoRotateRef.current = requestAnimationFrame(animate);
+      }
+    };
+    
+    autoRotateRef.current = requestAnimationFrame(animate);
+    
+    return () => {
+      if (autoRotateRef.current) {
+        cancelAnimationFrame(autoRotateRef.current);
+      }
+    };
+  }, [isHovered, isMobile]);
 
   const handleMouseMove = useCallback((e) => {
+    if (isMobile) return;
+    
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
     }
@@ -33,14 +72,23 @@ const About = () => {
         `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.05)`
       );
     });
-  }, []);
+  }, [isMobile]);
+
+  const handleMouseEnter = useCallback(() => {
+    if (isMobile) return;
+    setIsHovered(true);
+    if (autoRotateRef.current) {
+      cancelAnimationFrame(autoRotateRef.current);
+    }
+  }, [isMobile]);
 
   const handleMouseLeave = useCallback(() => {
+    if (isMobile) return;
+    setIsHovered(false);
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
     }
-    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
-  }, []);
+  }, [isMobile]);
   const skills = [
     "Web Development",
     "Project Management",
@@ -65,12 +113,14 @@ const About = () => {
             <div className="relative h-full flex items-center justify-center">
               <div
                 ref={elementRef}
-                className="w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out cursor-pointer"
+                className={`w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out ${!isMobile ? 'cursor-pointer' : ''} ${isMobile ? 'animate-bounce' : ''}`}
                 style={{
                   transform,
-                  willChange: 'transform'
+                  willChange: 'transform',
+                  animationDuration: isMobile ? '3s' : undefined
                 }}
                 onMouseMove={handleMouseMove}
+                onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
                 <img
