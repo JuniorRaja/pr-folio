@@ -409,10 +409,10 @@ const GridGlobe = ({ UsedAt }: { UsedAt: string }) => {
   }
 
   return (
-    <div className="flex items-center justify-center -left-5 top-36 md:top-40 w-full h-full">
+    <div className="flex items-center justify-center w-full h-full">
       <div
-        className={`mx-auto w-full relative overflow-hidden px-4
-      ${UsedAt === "Contact" ? "h-[18rem] md:h-[34rem]" : "h-full"}`}
+        className={`mx-auto w-full relative overflow-hidden
+      ${UsedAt === "Contact" ? "h-[18rem] md:h-[34rem]" : "h-[24rem]"}`}
       >
         <div className="absolute w-full h-full z-10">
           <Suspense

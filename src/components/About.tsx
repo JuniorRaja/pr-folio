@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import Counter from "@/components/Counter";
 import RotatingText from "@/components/ui/rotating-text";
 import { Globe, Instagram, Linkedin, Mail } from "lucide-react";
@@ -9,6 +10,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const About = () => {
   const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
   const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const animationRef = useRef(null);
   const autoRotateRef = useRef(null);
   const elementRef = useRef(null);
@@ -16,11 +18,6 @@ const About = () => {
 
   // Auto floating effect
   useEffect(() => {
-    if (isMobile) {
-      setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
-      return;
-    }
-
     if (isHovered) return;
 
     let startTime = Date.now();
@@ -45,10 +42,9 @@ const About = () => {
         cancelAnimationFrame(autoRotateRef.current);
       }
     };
-  }, [isHovered, isMobile]);
+  }, [isHovered]);
 
   const handleMouseMove = useCallback((e) => {
-    if (isMobile) return;
     
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
@@ -72,23 +68,21 @@ const About = () => {
         `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.05)`
       );
     });
-  }, [isMobile]);
+  }, []);
 
   const handleMouseEnter = useCallback(() => {
-    if (isMobile) return;
     setIsHovered(true);
     if (autoRotateRef.current) {
       cancelAnimationFrame(autoRotateRef.current);
     }
-  }, [isMobile]);
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
-    if (isMobile) return;
     setIsHovered(false);
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
     }
-  }, [isMobile]);
+  }, []);
   const skills = [
     "Web Development",
     "Project Management",
@@ -113,7 +107,7 @@ const About = () => {
             <div className="relative h-full flex items-center justify-center">
               <div
                 ref={elementRef}
-                className={`w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out ${!isMobile ? 'cursor-pointer' : ''}`}
+                className="w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out cursor-pointer"
                 style={{
                   transform,
                   willChange: 'transform'
@@ -122,11 +116,17 @@ const About = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
+                {!imageLoaded && (
+                  <Skeleton className="w-full h-full rounded-full" />
+                )}
                 <img
                   src="/characters/character_welcome.png"
                   alt="Prasanna Rajendran"
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover transition-opacity duration-300 ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
                   draggable={false}
+                  onLoad={() => setImageLoaded(true)}
                 />
               </div>
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-pulse-glow" />
