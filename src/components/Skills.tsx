@@ -24,10 +24,15 @@ const skillCategories: SkillCategory[] = [
       { label: "JavaScript", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }, level: "Expert" },
       { label: "HTML5", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" }, level: "Expert" },
       { label: "CSS3", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" }, level: "Expert" },
-      { label: "Tailwind CSS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" }, level: "Expert" },
-      { label: "React Native", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }, level: "Intermediate" },
-      { label: "Flutter", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" }, level: "Intermediate" },
-      { label: "Xamarin", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xamarin/xamarin-original.svg" }, level: "Intermediate" }
+      { label: "Tailwind CSS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" }, level: "Expert" },
+      { label: "React Native", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }, level: "Beginner" },
+      { label: "Next.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" }, level: "Intermediate" },
+      { label: "jQuery", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" }, level: "Intermediate" },
+      { label: "Vue.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" }, level: "Beginner" },
+      { label: "Redux", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" }, level: "Beginner" },
+      { label: "Zustand", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/zustand/zustand-original.svg" }, level: "Beginner" },
+      { label: "Axios", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg" }, level: "Beginner" },
+      { label: "Zod", img: { src: "https://zod.dev/_next/image?url=%2Flogo%2Flogo-glow.png&w=256&q=100" }, level: "Beginner" },
     ]
   },
   {
@@ -38,10 +43,14 @@ const skillCategories: SkillCategory[] = [
       { label: ".NET Core", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" }, level: "Expert" },
       { label: "ASP.NET", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" }, level: "Expert" },
       { label: "Node.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }, level: "Intermediate" },
+      { label: "Express JS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" }, level: "Beginner" },
       { label: "Python", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }, level: "Intermediate" },
       { label: "GraphQL", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" }, level: "Intermediate" },
       { label: "OAuth2", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oauth/oauth-original.svg" }, level: "Expert" },
-      { label: "YARP", img: { src: "https://dotnet.github.io/yarp/logo.svg" }, level: "Intermediate" }
+      { label: "YARP", img: { src: "https://dotnet.github.io/yarp/logo.svg" }, level: "Intermediate" },
+      { label: "signalR", img: { src: "https://dotnet.microsoft.com/blob-assets/images/illustrations/swimlane-azure-signalr-logo.svg" }, level: "Beginner" },
+      { label: "Ocelot", img: { src: "https://raw.githubusercontent.com/ThreeMammals/Ocelot/refs/heads/assets/images/ocelot_logo.png" }, level: "Beginner" },
+      { label: "IIS", img: { src: "https://images.seeklogo.com/logo-png/48/1/microsoft-iis-logo-png_seeklogo-484624.png" }, level: "Beginner" },
     ]
   },
   {
@@ -62,7 +71,7 @@ const skillCategories: SkillCategory[] = [
     color: "from-orange-500 to-red-500",
     skills: [
       { label: "Azure", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" }, level: "Expert" },
-      { label: "AWS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" }, level: "Intermediate" },
+      { label: "AWS", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/blob/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" }, level: "Intermediate" },
       { label: "GCP", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" }, level: "Beginner" },
       { label: "Docker", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" }, level: "Intermediate" },
       { label: "Jenkins", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" }, level: "Intermediate" },
@@ -72,8 +81,9 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: "Testing & Tools",
-    color: "from-indigo-500 to-purple-500",
+    color: "from-indigo-500 to-purple-500", 
     skills: [
+      { label: "Vite", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" }, level: "Intermediate" },
       { label: "xUnit", img: { src: "https://avatars.githubusercontent.com/u/2092016?s=200&v=4" }, level: "Expert" },
       { label: "NUnit", img: { src: "https://nunit.org/img/nunit_logo_128.png" }, level: "Expert" },
       { label: "Jest", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" }, level: "Intermediate" },
@@ -85,7 +95,7 @@ const skillCategories: SkillCategory[] = [
 ];
 
 const learningSkills = [
-  "Kubernetes", "Terraform", "Go", "Rust", "Machine Learning", "WebAssembly"
+  "Kubernetes", "Ruby on Rails", "Go", "Rust", "Machine Learning", "AI Integration", "Kafka", "Self Hosted LLMs"
 ];
 
 const getLevelColor = (level: string) => {
@@ -117,8 +127,8 @@ const Skills = () => {
 
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
           {skillCategories.map((category, categoryIndex) => (
-            <Card 
-              key={category.title} 
+            <Card
+              key={category.title}
               className="glass-card hover-lift group"
               style={{ animationDelay: `${categoryIndex * 0.1}s` }}
             >
@@ -152,11 +162,11 @@ const Skills = () => {
                             {skill.label}
                           </span>
                         </div>
-                        
+
                         {hoveredSkill === skill.label && (
                           <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-10">
-                            <Badge 
-                              variant="outline" 
+                            <Badge
+                              variant="outline"
                               className={`${getLevelColor(skill.level)} text-xs whitespace-nowrap animate-in fade-in-0 zoom-in-95 duration-200`}
                             >
                               {skill.level}

@@ -113,11 +113,10 @@ const About = () => {
             <div className="relative h-full flex items-center justify-center">
               <div
                 ref={elementRef}
-                className={`w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out ${!isMobile ? 'cursor-pointer' : ''} ${isMobile ? 'animate-bounce' : ''}`}
+                className={`w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out ${!isMobile ? 'cursor-pointer' : ''}`}
                 style={{
                   transform,
-                  willChange: 'transform',
-                  animationDuration: isMobile ? '3s' : undefined
+                  willChange: 'transform'
                 }}
                 onMouseMove={handleMouseMove}
                 onMouseEnter={handleMouseEnter}

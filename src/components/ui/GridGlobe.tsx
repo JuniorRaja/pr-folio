@@ -22,10 +22,10 @@ const GridGlobe = ({ UsedAt }: { UsedAt: string }) => {
       showAtmosphere: true,
       atmosphereColor: "#FFFFFF",
       atmosphereAltitude: 0.1,
-      emissive: "#062056",
-      emissiveIntensity: 0.1,
-      shininess: 0.9,
-      polygonColor: "rgba(255,255,255,0.7)",
+      emissive: "#052c81",
+      emissiveIntensity: 0.2,
+      shininess: 0.5,
+      polygonColor: "rgba(255,255,255,0.9)",
       ambientLight: "#38bdf8",
       directionalLeftLight: "#ffffff",
       directionalTopLight: "#ffffff",
@@ -38,7 +38,9 @@ const GridGlobe = ({ UsedAt }: { UsedAt: string }) => {
     }),
     []
   );
+
   const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+
   const sampleArcs = [
     {
       order: 1,
@@ -412,10 +414,7 @@ const GridGlobe = ({ UsedAt }: { UsedAt: string }) => {
         className={`mx-auto w-full relative overflow-hidden px-4
       ${UsedAt === "Contact" ? "h-[18rem] md:h-[34rem]" : "h-full"}`}
       >
-        <div
-          className={`absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none `}
-        />
-        <div className="absolute w-full h-72 md:h-full z-10">
+        <div className="absolute w-full h-full z-10">
           <Suspense
             fallback={
               <div className="w-full h-full flex items-center justify-center">

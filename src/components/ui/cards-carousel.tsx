@@ -179,7 +179,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
             ))}
           </div>
         </div>
-        <div className="flex justify-end gap-2 mr-10">
+        <div className="flex justify-end gap-2 mr-10 hidden">
           <button
             className="relative z-40 h-10 w-20 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 flex items-center justify-center disabled:opacity-50"
             onClick={scrollLeft}
