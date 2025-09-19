@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MyCarousel.module.css";
 
 export interface AlbumItem {
@@ -13,6 +14,7 @@ export interface AlbumItem {
 
 const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
   const slideRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleNextClick = () => {
     if (slideRef.current) {
@@ -47,15 +49,12 @@ const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
             <div className={styles.content}>
               <div className={styles.name}>{item.name}</div>
               <div>{item.des}</div>
-              {/* <Link
+              <button
                 className={styles.link}
-                key={item.route}
-                href={`/gallery/${item.route}`}
-                passHref
+                onClick={() => navigate(`/gallery/${item.route}`)}
               >
                 See More
-              </Link> */}
-              See More
+              </button>
             </div>
           </div>
         ))}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,13 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { X, Heart, MessageCircle, Share2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-interface Photo {
-  id: string;
+interface SimplePhoto {
+  name: string;
   url: string;
-  caption: string;
-  timestamp: string;
-  likes: number;
-  comments: Comment[];
+  aspectRatio?: 'landscape' | 'portrait' | 'square';
+  loaded?: boolean;
 }
 
 interface Comment {
@@ -22,31 +21,28 @@ interface Comment {
   timestamp: string;
 }
 
-interface Album {
-  id: string;
-  title: string;
-  photos: Photo[];
-}
-
 interface PhotoViewerProps {
-  album: Album;
+  photos: SimplePhoto[];
+  albumTitle: string;
+  albumRoute: string;
   initialPhotoIndex: number;
   onClose: () => void;
 }
 
-const PhotoViewer = ({ album, initialPhotoIndex, onClose }: PhotoViewerProps) => {
+const PhotoViewer = ({ photos, albumTitle, albumRoute, initialPhotoIndex, onClose }: PhotoViewerProps) => {
+  const location = useLocation();
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(initialPhotoIndex);
   const [isLiked, setIsLiked] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
   const { toast } = useToast();
 
-  const currentPhoto = album.photos[currentPhotoIndex];
+  const currentPhoto = photos[currentPhotoIndex];
 
   useEffect(() => {
-    setComments(currentPhoto.comments);
+    setComments([]);
     setIsLiked(false);
-  }, [currentPhotoIndex, currentPhoto.comments]);
+  }, [currentPhotoIndex]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -61,13 +57,13 @@ const PhotoViewer = ({ album, initialPhotoIndex, onClose }: PhotoViewerProps) =>
 
   const nextPhoto = () => {
     setCurrentPhotoIndex((prev) => 
-      prev < album.photos.length - 1 ? prev + 1 : 0
+      prev < photos.length - 1 ? prev + 1 : 0
     );
   };
 
   const previousPhoto = () => {
     setCurrentPhotoIndex((prev) => 
-      prev > 0 ? prev - 1 : album.photos.length - 1
+      prev > 0 ? prev - 1 : photos.length - 1
     );
   };
 
@@ -80,10 +76,14 @@ const PhotoViewer = ({ album, initialPhotoIndex, onClose }: PhotoViewerProps) =>
   };
 
   const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
+    const photoId = currentPhoto.name.split('.')[0];
+    const shareUrl = `${window.location.origin}/gallery/${albumRoute}?photo=${currentPhotoIndex}`;
+    const shareText = `Check out this photo "${photoId}" from ${albumTitle} album: ${shareUrl}`;
+    
+    navigator.clipboard.writeText(shareText);
     toast({
       title: "Link copied!",
-      description: "Photo link has been copied to clipboard",
+      description: "Photo link with details copied to clipboard",
     });
   };
 
@@ -120,17 +120,9 @@ const PhotoViewer = ({ album, initialPhotoIndex, onClose }: PhotoViewerProps) =>
         
         {/* Main Image Section */}
         <div className="lg:col-span-2 relative bg-black rounded-lg overflow-hidden">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 left-4 z-10 bg-black/50 hover:bg-black/70 text-white"
-            onClick={onClose}
-          >
-            <X className="w-5 h-5" />
-          </Button>
 
           {/* Navigation Buttons */}
-          {album.photos.length > 1 && (
+          {photos.length > 1 && (
             <>
               <Button
                 variant="ghost"
@@ -153,21 +145,30 @@ const PhotoViewer = ({ album, initialPhotoIndex, onClose }: PhotoViewerProps) =>
 
           {/* Photo Counter */}
           <div className="absolute top-4 right-4 z-10 bg-black/50 px-3 py-1 rounded-full text-white text-sm">
-            {currentPhotoIndex + 1} / {album.photos.length}
+            {currentPhotoIndex + 1} / {photos.length}
           </div>
 
           <img
             src={currentPhoto.url}
-            alt={currentPhoto.caption}
+            alt={currentPhoto.name}
             className="w-full h-full object-contain"
           />
         </div>
 
         {/* Sidebar - Photo Details */}
-        <Card className="glass-card p-6 flex flex-col h-full overflow-hidden">
+        <Card className="glass-card p-6 flex flex-col h-full overflow-hidden relative">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 right-4 z-10 hover:bg-muted"
+            onClick={onClose}
+          >
+            <X className="w-5 h-5" />
+          </Button>
+          
           {/* Header */}
-          <div className="mb-6">
-            <h2 className="text-xl font-bold mb-2">{album.title}</h2>
+          <div className="mb-6 pr-12">
+            <h2 className="text-xl font-bold mb-2">{albumTitle}</h2>
             <Badge variant="outline" className="border-primary/20">
               Photo {currentPhotoIndex + 1}
             </Badge>
@@ -175,10 +176,7 @@ const PhotoViewer = ({ album, initialPhotoIndex, onClose }: PhotoViewerProps) =>
 
           {/* Photo Info */}
           <div className="mb-6">
-            <p className="text-sm text-muted-foreground mb-2">
-              {formatTimestamp(currentPhoto.timestamp)}
-            </p>
-            <p className="text-foreground">{currentPhoto.caption}</p>
+            <p className="text-foreground">{currentPhoto.name}</p>
           </div>
 
           {/* Actions */}
@@ -190,7 +188,7 @@ const PhotoViewer = ({ album, initialPhotoIndex, onClose }: PhotoViewerProps) =>
               className={`${isLiked ? "text-red-500" : "text-muted-foreground"} hover:text-red-500`}
             >
               <Heart className={`w-5 h-5 mr-2 ${isLiked ? "fill-current" : ""}`} />
-              {currentPhoto.likes + (isLiked ? 1 : 0)}
+              {isLiked ? 1 : 0}
             </Button>
             <Button variant="ghost" size="sm" className="text-muted-foreground">
               <MessageCircle className="w-5 h-5 mr-2" />

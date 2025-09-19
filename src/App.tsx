@@ -9,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react"
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Gallery from "./pages/Gallery";
+import AlbumPage from "./pages/AlbumPage";
 import Works from "./pages/Works";
 import Contact from "./pages/Contact";
 import Terms from "./pages/Terms";
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/" element={<Landing />} />
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery/:album" element={<AlbumPage />} />
           <Route path="/works" element={<Works />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />
