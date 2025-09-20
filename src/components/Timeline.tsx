@@ -79,18 +79,18 @@ const Timeline = () => {
         {/* Timeline */}
         <div className="relative max-w-4xl mx-auto">
           {/* Central Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gradient-to-b from-primary/50 to-primary/10" />
+          <div className="absolute left-8 lg:left-1/2 transform lg:-translate-x-1/2 h-full w-px bg-gradient-to-b from-primary/50 to-primary/10" />
           
           {timelineEvents.map((event, index) => (
             <div 
               key={event.year}
               className={`relative flex items-center mb-16 animate-fade-in-up ${
-                index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
               }`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               {/* Content Card */}
-              <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+              <div className={`w-full pl-20 text-left lg:w-5/12 lg:pl-0 ${index % 2 === 0 ? 'lg:pr-8 lg:text-right' : 'lg:pl-8 lg:text-left'}`}>
                 <div className="glass-card p-6 hover-lift">
                   <div className="mb-4">
                     <Badge 
@@ -110,14 +110,14 @@ const Timeline = () => {
               </div>
 
               {/* Year Circle */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-20 h-20 bg-background border-4 border-primary rounded-full flex items-center justify-center z-10">
-                <span className="text-2xl font-bold text-primary">
+              <div className="absolute left-2 lg:left-1/2 transform lg:-translate-x-1/2 w-16 h-16 lg:w-20 lg:h-20 bg-background border-4 border-primary rounded-full flex items-center justify-center z-10">
+                <span className="text-lg lg:text-2xl font-bold text-primary">
                   {event.year}
                 </span>
               </div>
 
-              {/* Empty space for the other side */}
-              <div className="w-5/12" />
+              {/* Empty space for the other side - only on desktop */}
+              <div className="hidden lg:block lg:w-5/12" />
             </div>
           ))}
         </div>
