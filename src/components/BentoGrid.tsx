@@ -5,11 +5,7 @@ import { Copy, Code, Briefcase, BookOpen, Wrench } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import GridGlobe from "@/components/ui/GridGlobe";
 import { useResponsive } from "@/hooks/use-responsive";
-
-// Note: Replace with your actual routing solution
-const Link = ({ to, children, className = "" }: { to: string; children: React.ReactNode; className?: string }) => (
-  <a href={to} className={className}>{children}</a>
-);
+import { Link } from "react-router-dom";
 
 const BentoGrid = () => {
   const { toast } = useToast();
@@ -113,14 +109,6 @@ const BentoGrid = () => {
       }, 2000);
     }
   };
-
-  const codeSnippet = `// Importing a single module
-import module1 from 
-'modulePath';
-
-// Importing multiple modules
-import { module1, module2 } from
-'modulePath';`;
 
   const cardContent = {
     // ORIGINAL CARDS - Reference-inspired styling

@@ -111,7 +111,7 @@ const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   return (
-    <section className="py-20">
+    <section className="py-20" id="skills">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-16">
           <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">

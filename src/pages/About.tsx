@@ -112,7 +112,7 @@ const About = () => {
 
           <AboutSection />
 
-          <section id="skills">
+          <section>
             <Skills />
           </section>
           
