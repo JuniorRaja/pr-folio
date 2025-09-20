@@ -15,10 +15,7 @@ const Navigation = () => {
   useFavicon(isDark);
 
   useEffect(() => {
-    const saved = sessionStorage.getItem('theme');
-    if (saved) {
-      setIsDark(saved === 'dark');
-    }
+    setIsDark(document.documentElement.classList.contains('dark'));
   }, []);
 
   useEffect(() => {
