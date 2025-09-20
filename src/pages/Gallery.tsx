@@ -1,16 +1,7 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import PhotoViewer from "@/components/PhotoViewer";
+
 import MyCarousel from "@/components/ui/MyCarousel";
 
 import doorsImg from "/gallery/thumbnails/tnail_doors.jpeg";
@@ -18,30 +9,7 @@ import macroImg from "/gallery/thumbnails/tnail_macro.jpeg";
 import minimalImg from "/gallery/thumbnails/tnail_minimal.jpg";
 import natureImg from "/gallery/thumbnails/tnail_nature.jpg";
 import patternsImg from "/gallery/thumbnails/tnail_patterns.jpg";
-interface Album {
-  id: string;
-  title: string;
-  description: string;
-  coverImage: string;
-  photos: Photo[];
-  category: string;
-}
 
-interface Photo {
-  id: string;
-  url: string;
-  caption: string;
-  timestamp: string;
-  likes: number;
-  comments: Comment[];
-}
-
-interface Comment {
-  id: string;
-  author: string;
-  content: string;
-  timestamp: string;
-}
 
 interface AlbumItem {
   id: number;
@@ -55,10 +23,7 @@ interface AlbumItem {
 
 const Gallery = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(
-    null
-  );
+
 
   const albums: AlbumItem[] = [
     {
@@ -113,22 +78,14 @@ const Gallery = () => {
     document.documentElement.style.scrollBehavior = "smooth";
   }, []);
 
-  const handleAlbumClick = (album: Album) => {
-    setSelectedAlbum(album);
-    setSelectedPhotoIndex(0);
-  };
 
-  const handleCloseViewer = () => {
-    setSelectedAlbum(null);
-    setSelectedPhotoIndex(null);
-  };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden ">
       <Navigation />
 
-      <main className="pt-20">
-        <div className="container mx-auto px-4 py-16 max-w-5xl">
+      <main className="pt-20 ">
+        <div className="container mx-auto px-4 py-16 ">
           {/* Section Header */}
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
@@ -194,14 +151,7 @@ const Gallery = () => {
 
       <Footer />
 
-      {/* Photo Viewer Modal */}
-      {selectedAlbum && selectedPhotoIndex !== null && (
-        <PhotoViewer
-          album={selectedAlbum}
-          initialPhotoIndex={selectedPhotoIndex}
-          onClose={handleCloseViewer}
-        />
-      )}
+
 
       {/* Floating Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">

@@ -14,9 +14,14 @@ export default function TravelCards() {
 
   return (
     <div className="w-full h-full text-center">
-      <h2 className="text-4xl font-bold mb-6">
-        Places I have <span className="text-purple">travelled</span> to
-      </h2>
+      <div className="mb-16">
+        <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+          Places I have <span className="gradient-text">travelled</span> to
+        </h2>
+        <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+          Every new place, every new culture, every new people - just makes me realise how big the world is and how much more there is to explore.
+        </p>
+      </div>
       <Carousel items={cards} />
     </div>
   );
