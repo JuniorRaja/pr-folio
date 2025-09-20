@@ -29,18 +29,6 @@ const Contact = () => {
               hi? I'd love to hear from you. Let's create something amazing
               together.
             </p>
-            <div className="flex justify-center mb-8">
-              <div className="w-40 h-40 p-4 glass-card border-primary/20 rounded-full hover-lift animate-fade-in-up">
-                <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center">
-                  <img
-                    src="/characters/character_talking.png"
-                    alt="Character talking"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full animate-pulse-glow" />
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Contact Form */}
