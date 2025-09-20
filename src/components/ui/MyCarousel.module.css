@@ -151,6 +151,41 @@
     scale: 1.1;
 }
 
+.swipeText {
+    position: absolute;
+    bottom: 50px;
+    right: 40px;
+    color: #eee;
+    font-family: system-ui;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0;
+    animation: animate 1s ease-in-out 0.6s 1 forwards;
+    display: none;
+}
+
+/* Mobile and tablet view */
+@media (max-width: 768px) {
+    .button {
+        display: none;
+    }
+    
+    .swipeText {
+        display: block;
+    }
+}
+
+/* Desktop view */
+@media (min-width: 769px) {
+    .button {
+        display: block;
+    }
+    
+    .swipeText {
+        display: none;
+    }
+}
+
 .blurbackdrop {
     position: absolute;
     left: 0;
