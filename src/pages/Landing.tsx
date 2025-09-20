@@ -41,7 +41,7 @@ const Landing = () => {
       
       <main className="pt-20">
         <Hero />
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <BentoGrid />
         </div>
       </main>

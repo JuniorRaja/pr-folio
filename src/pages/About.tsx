@@ -96,7 +96,7 @@ const About = () => {
       <Navigation />
 
       <main className="pt-20">
-        <div className="container mx-auto px-4 py-8 max-w-5xl">
+        <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Section Header */}
           <div className="text-center md:mb-16">
             <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
