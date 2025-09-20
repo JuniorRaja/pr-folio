@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import Counter from "./Counter";
 
@@ -10,67 +9,37 @@ interface TimelineEvent {
   status: "current" | "previous";
 }
 
+const timelineEvents: readonly TimelineEvent[] = [
+  {
+    year: "2024",
+    period: "Apr 2024 - Present",
+    role: "Deputy Project Manager - Development",
+    description: "Engaged in Software Development Lifecycle (SDLC) from requirement analysis, documentation (functional specifications, technical design, coding & Unit testing to maintenance of proposed applications.",
+    status: "current"
+  },
+  {
+    year: "2022",
+    period: "Oct 2022 - Mar 2024",
+    role: "Assistant Project Manager - Development",
+    description: "Train & monitor Junior Associates and provide Knowledge Training about Business process, Coding standards, assign tasks and requirements and track their performance",
+    status: "previous"
+  },
+  {
+    year: "2019",
+    period: "Jun 2019 - Apr 2022",
+    role: "Software Engineer Trainee",
+    description: "Computer Science · Communication · Test-Driven Development · .NET Core",
+    status: "previous"
+  }
+] as const;
+
 const Timeline = () => {
-  const [yearsExperience, setYearsExperience] = useState(0);
-
-  useEffect(() => {
-    // Calculate years of experience from April 2019 to current date
-    const startDate = new Date('2019-04-01');
-    const currentDate = new Date();
-    const diffTime = Math.abs(currentDate.getTime() - startDate.getTime());
-    const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
-    
-    // Animate the counter
-    let currentCount = 0;
-    const targetCount = diffYears;
-    const increment = targetCount / 100;
-    
-    const timer = setInterval(() => {
-      currentCount += increment;
-      if (currentCount >= targetCount) {
-        setYearsExperience(targetCount);
-        clearInterval(timer);
-      } else {
-        setYearsExperience(currentCount);
-      }
-    }, 30);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const timelineEvents: TimelineEvent[] = [
-    {
-      year: "2024",
-      period: "Apr 2024 - Present",
-      role: "Deputy Project Manager - Development",
-      description: "Engaged in Software Development Lifecycle (SDLC) from requirement analysis, documentation (functional specifications, technical design, coding & Unit testing to maintenance of proposed applications.",
-      status: "current"
-    },
-    {
-      year: "2022",
-      period: "Oct 2022 - Mar 2024",
-      role: "Assistant Project Manager - Development",
-      description: "Train & monitor Junior Associates and provide Knowledge Training about Business process, Coding standards, assign tasks and requirements and track their performance",
-      status: "previous"
-    },
-    {
-      year: "2019",
-      period: "Jun 2019 - Apr 2022",
-      role: "Software Engineer Trainee",
-      description: "Computer Science · Communication · Test-Driven Development · .NET Core",
-      status: "previous"
-    }
-  ];
-
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4">
         {/* Years Counter */}
         <div className="text-center mb-16">
           <Counter startDate="2019-06-03" interval={200} fontSize="text-6xl lg:text-8xl" />
-          {/* <div className="text-6xl lg:text-8xl font-bold gradient-text mb-4">
-            {yearsExperience.toFixed(8)}
-          </div> */}
           <p className="text-xl text-muted-foreground">
             Years of Professional Experience
           </p>

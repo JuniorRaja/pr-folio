@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 interface CounterProps {
   startDate: string;
@@ -10,11 +10,19 @@ const Counter = ({ startDate, interval = 100, fontSize = "text-3xl" }: CounterPr
   const [value, setValue] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const counterRef = useRef<HTMLDivElement>(null);
+  const startTime = useRef(new Date(startDate).getTime());
+
+  const updateValue = useCallback(() => {
+    const now = Date.now();
+    const diff = now - startTime.current;
+    const newValue = diff / (1000 * 60 * 60 * 24 * 365.25);
+    setValue(newValue);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '50px' }
     );
     
     if (counterRef.current) {
@@ -27,18 +35,10 @@ const Counter = ({ startDate, interval = 100, fontSize = "text-3xl" }: CounterPr
   useEffect(() => {
     if (!isVisible) return;
     
-    const updateValue = () => {
-      const start = new Date(startDate);
-      const now = new Date();
-      const diff = now.getTime() - start.getTime();
-      const newValue = diff / (1000 * 60 * 60 * 24 * 365.25);
-      setValue(newValue);
-    };
-
     updateValue();
     const timer = setInterval(updateValue, interval);
     return () => clearInterval(timer);
-  }, [isVisible, startDate, interval]);
+  }, [isVisible, interval, updateValue]);
 
   return (
     <div ref={counterRef} className={`${fontSize} font-bold gradient-text`}>
