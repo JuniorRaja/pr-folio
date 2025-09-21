@@ -62,8 +62,9 @@ const skillCategories: SkillCategory[] = [
       { label: "MySQL", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" }, level: "Intermediate" },
       { label: "MongoDB", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" }, level: "Intermediate" },
       { label: "Redis", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" }, level: "Intermediate" },
-      { label: "Azure Blob Storage", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" }, level: "Expert" },
-      { label: "Amazon S3", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" }, level: "Intermediate" }
+      { label: "Blob Storage", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" }, level: "Expert" },
+      { label: "AmazonS3", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" }, level: "Intermediate" },
+      { label: "CosmosDB", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cosmosdb/cosmosdb-original.svg" }, level: "Beginner" }
     ]
   },
   {
@@ -125,8 +126,9 @@ const Skills = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
-          {skillCategories.map((category, categoryIndex) => (
+        {/* Frontend & Backend - 2 columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {skillCategories.slice(0, 2).map((category, categoryIndex) => (
             <Card
               key={category.title}
               className="glass-card hover-lift group"
@@ -147,6 +149,64 @@ const Skills = () => {
                       onMouseEnter={() => setHoveredSkill(skill.label)}
                       onMouseLeave={() => setHoveredSkill(null)}
                       style={{ animationDelay: `${(categoryIndex * 0.1) + (skillIndex * 0.05)}s` }}
+                    >
+                      <div className="glass-card p-3 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/5">
+                        <div className="flex flex-col items-center gap-2">
+                          <img
+                            src={skill.img.src}
+                            alt={skill.label}
+                            className="w-8 h-8 object-contain transition-transform duration-300 group-hover/skill:scale-110"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                            }}
+                          />
+                          <span className="text-xs font-medium text-center leading-tight">
+                            {skill.label}
+                          </span>
+                        </div>
+
+                        {hoveredSkill === skill.label && (
+                          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-10">
+                            <Badge
+                              variant="outline"
+                              className={`${getLevelColor(skill.level)} text-xs whitespace-nowrap animate-in fade-in-0 zoom-in-95 duration-200`}
+                            >
+                              {skill.level}
+                            </Badge>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Rest of categories - 3 columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+          {skillCategories.slice(2).map((category, categoryIndex) => (
+            <Card
+              key={category.title}
+              className="glass-card hover-lift group"
+              style={{ animationDelay: `${(categoryIndex + 2) * 0.1}s` }}
+            >
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-3">
+                  <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${category.color}`} />
+                  {category.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-3 gap-3">
+                  {category.skills.map((skill, skillIndex) => (
+                    <div
+                      key={skill.label}
+                      className="relative group/skill cursor-pointer"
+                      onMouseEnter={() => setHoveredSkill(skill.label)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      style={{ animationDelay: `${((categoryIndex + 2) * 0.1) + (skillIndex * 0.05)}s` }}
                     >
                       <div className="glass-card p-3 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/5">
                         <div className="flex flex-col items-center gap-2">
