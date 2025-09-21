@@ -122,3 +122,44 @@
 .book6, .book6::after { background-color: var(--bookF-color); }
 .book7, .book7::after { background-color: var(--bookG-color); }
 .book8, .book8::after { background-color: var(--bookH-color); }
+.book9, .book9::after { background-color: var(--bookI-color); }
+.book10, .book10::after { background-color: var(--bookJ-color); }
+.book11, .book11::after { background-color: var(--bookK-color); }
+.book12, .book12::after { background-color: var(--bookL-color); }
+.book13, .book13::after { background-color: var(--bookM-color); }
+.book14, .book14::after { background-color: var(--bookN-color); }
+.book15, .book15::after { background-color: var(--bookO-color); }
+.book16, .book16::after { background-color: var(--bookP-color); }
+.book17, .book17::after { background-color: var(--bookQ-color); }
+.book18, .book18::after { background-color: var(--bookR-color); }
+
+.book-item {
+  position: relative;
+}
+
+.reading-status {
+  position: absolute;
+  top: -10px;
+  left: 60%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.currently-reading {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.will-read {
+  background: linear-gradient(135deg, #4834d4, #686de0);
+  color: white;
+  box-shadow: 0 2px 8px rgba(72, 52, 212, 0.3);
+}
