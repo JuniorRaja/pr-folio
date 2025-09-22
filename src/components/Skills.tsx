@@ -146,8 +146,9 @@ const Skills = () => {
                     <div
                       key={skill.label}
                       className="relative group/skill cursor-pointer"
-                      onMouseEnter={() => setHoveredSkill(skill.label)}
-                      onMouseLeave={() => setHoveredSkill(null)}
+                      // TODO: Show a modal on click with more details about the skill
+                      // onMouseEnter={() => setHoveredSkill(skill.label)}
+                      // onMouseLeave={() => setHoveredSkill(null)}
                       style={{ animationDelay: `${(categoryIndex * 0.1) + (skillIndex * 0.05)}s` }}
                     >
                       <div className="glass-card p-3 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/5">

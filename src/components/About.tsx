@@ -5,9 +5,11 @@ import Counter from "@/components/Counter";
 import RotatingText from "@/components/ui/rotating-text";
 import { Globe, Instagram, Linkedin, Mail } from "lucide-react";
 import { useCallback, useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const About = () => {
+  const navigate = useNavigate();
   const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -161,17 +163,17 @@ const About = () => {
             {/* Social Links */}
             <div className="flex space-x-4 align-center justify-center">
               <Button variant="ghost" size="icon" className="hover-lift bg-muted/20" asChild>
-                <a href="https://instagram.com/prasanna_rajendran" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/prasanna.it.seems/" target="_blank" rel="noopener noreferrer">
                   <Instagram className="h-5 w-5" />
                 </a>
               </Button>
               <Button variant="ghost" size="icon" className="hover-lift bg-muted/20" asChild>
-                <a href="https://linkedin.com/in/prasanna-rajendran" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/rajendranprasanna/" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="h-5 w-5" />
                 </a>
               </Button>
               <Button variant="ghost" size="icon" className="hover-lift bg-muted/20" asChild>
-                <a href="mailto:hello@prasannarajendran.com">
+                <a href="mailto:imprasannarajendran@gmail.com">
                   <Mail className="h-5 w-5" />
                 </a>
               </Button>
@@ -179,8 +181,8 @@ const About = () => {
 
             {/* Action Buttons */}
             <div className="flex gap-4 align-center justify-center">
-              <Button className="hover-lift px-8">Work with me</Button>
-              <Button variant="outline" className="hover-lift px-8">Say Hi</Button>
+              <Button className="hover-lift px-8" onClick={() => navigate('/contact')}>Work with me</Button>
+              <Button variant="outline" className="hover-lift px-8" onClick={() => navigate('/contact')}>Say Hi</Button>
             </div>
 
             {/* Description */}
