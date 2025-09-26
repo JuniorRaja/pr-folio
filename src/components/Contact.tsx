@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import {
   Mail,
@@ -18,6 +19,9 @@ import {
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [transform, setTransform] = useState('');
+  const elementRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -96,6 +100,24 @@ const Contact = () => {
     });
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!elementRef.current) return;
+    const rect = elementRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotateX = (y / rect.height) * -10;
+    const rotateY = (x / rect.width) * 10;
+    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`);
+  };
+
+  const handleMouseEnter = () => {
+    if (!elementRef.current) return;
+  };
+
+  const handleMouseLeave = () => {
+    setTransform('');
+  };
+
   
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("imprasannarajendran@gmail.com");
@@ -131,17 +153,35 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         {/* Main Contact Section - Left & Right */}
         <div className="grid lg:grid-cols-2 gap-16 mb-16">
-          {/* Left Side - Image with Animation */}
-          <div className="flex justify-center items-center animate-fade-in-up">
-            <div className="w-64 h-64 md:w-96 md:h-96 p-4 glass-card border-primary/20 rounded-full hover-lift animate-fade-in-up">
-              <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+          {/* Image Card */}
+          <div className="sm:p-2 md:p-8 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            <div className="relative h-full flex items-center justify-center">
+              <div
+                ref={elementRef}
+                className="w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out cursor-pointer"
+                style={{
+                  transform,
+                  willChange: 'transform'
+                }}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                {!imageLoaded && (
+                  <Skeleton className="w-full h-full rounded-full" />
+                )}
                 <img
                   src="/characters/character_talking.png"
-                  alt="Character talking"
-                  className="w-full h-full object-cover floating-animation"
+                  alt="Prasanna Rajendran"
+                  className={`w-full h-full object-cover transition-opacity duration-300 ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  draggable={false}
+                  onLoad={() => setImageLoaded(true)}
                 />
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full animate-pulse-glow" />
               </div>
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-pulse-glow" />
+              <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-30 floating-animation" />
             </div>
           </div>
 
