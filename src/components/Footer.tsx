@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Footer = () => {
+  const { toast } = useToast();
+
+  const handleCVClick = () => {
+    toast({
+      title: "Feature Coming Soon...",
+      description: "You can still view my digital resume",
+    });
+  };
   return (
     <footer className="text-black dark:text-white relative overflow-hidden ">
       <div className="container mx-auto px-6 py-3 relative z-10">
@@ -41,7 +50,7 @@ const Footer = () => {
             <Link to="/about" className="hover:text-primary transition-colors">
               Interests
             </Link>
-            <Link to="/about" className="hover:text-primary transition-colors">
+            <Link to="/about#skills" className="hover:text-primary transition-colors">
               Skills
             </Link>
             <Link
@@ -63,15 +72,15 @@ const Footer = () => {
             >
               Privacy
             </Link>
-            <a href="#" className="hover:text-primary transition-colors">
+            <button onClick={handleCVClick} className="hover:text-primary transition-colors">
               Get my CV
-            </a>
+            </button>
           </nav>
 
           {/* Social Icons */}
           <div className="flex space-x-4">
             <a
-              href="https://github.com"
+              href="https://github.com/JuniorRaja"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
@@ -79,7 +88,7 @@ const Footer = () => {
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/prasanna.it.seems/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
@@ -87,7 +96,7 @@ const Footer = () => {
               <Instagram className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/rajendranprasanna/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
@@ -95,7 +104,7 @@ const Footer = () => {
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="mailto:prasanna@prverse.dev"
+              href="mailto:imprasannarajendran@gmail.com"
               className="w-10 h-10 border border-white/30 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
             >
               <Mail className="w-5 h-5" />

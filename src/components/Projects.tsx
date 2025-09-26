@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -73,13 +74,15 @@ const Projects = () => {
     }
   ];
 
+  const navigate = useNavigate()
   const categories = ["All", "Web Development"];
 
   return (
     <section id="projects" className="pb-20 lg:pb-32 relative">
       <div className="container mx-auto px-4">
+        {/* TO DO: Add Project Files - By Category */}
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, index) => (
             <Badge 
               key={category}
@@ -92,7 +95,7 @@ const Projects = () => {
               {category}
             </Badge>
           ))}
-        </div>
+        </div> */}
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -194,7 +197,8 @@ const Projects = () => {
               Beyond code and development, I capture the beauty of landscapes and moments. 
               Explore my photography journey and the places I've been to.
             </p>
-            <Button className="hover-lift">
+            <Button className="hover-lift"
+            onClick = {() => { navigate('/gallery') }}>
               View Gallery
             </Button>
           </Card>

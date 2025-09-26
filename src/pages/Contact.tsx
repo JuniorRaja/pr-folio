@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import ContactSection from "@/components/Contact";
-import Spotlight from "@/components/Spotlight";
 import Footer from "@/components/Footer";
 
 const Contact = () => {

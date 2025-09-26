@@ -28,7 +28,7 @@ const Contact = () => {
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
     if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
     if (!formData.email.trim()) {
@@ -38,29 +38,29 @@ const Contact = () => {
     }
     if (!formData.message.trim()) newErrors.message = 'Message is required';
     if (formData.message.trim().length < 10) newErrors.message = 'Message must be at least 10 characters';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
-    
+
     try {
-      const apiUrl = import.meta.env.DEV 
-        ? 'http://localhost:3001/api/send-email' 
+      const apiUrl = import.meta.env.DEV
+        ? 'http://localhost:3001/api/send-email'
         : '/api/send-email';
-      
+
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      
+
       if (response.ok) {
         toast({
           title: "Message sent successfully!",
@@ -87,6 +87,22 @@ const Contact = () => {
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
+  };
+
+  const handleDownloadCV = () => {
+    toast({
+      title: "Feature Coming Soon...",
+      description: "You can still view my digital resume",
+    });
+  };
+
+  
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("imprasannarajendran@gmail.com");
+    toast({
+      title: "Email copied!",
+      description: "Email address has been copied to clipboard",
+    });
   };
 
   const contactInfo = [
@@ -137,8 +153,8 @@ const Contact = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium mb-2 block">First Name</label>
-                    <Input 
-                      placeholder="Enter your name" 
+                    <Input
+                      placeholder="Enter your name"
                       className={`bg-background/50 border-border/50 focus:border-primary ${errors.firstName ? 'border-red-500' : ''}`}
                       value={formData.firstName}
                       onChange={(e) => handleInputChange('firstName', e.target.value)}
@@ -148,8 +164,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-2 block">Last Name</label>
-                    <Input 
-                      placeholder="Enter your last name" 
+                    <Input
+                      placeholder="Enter your last name"
                       className={`bg-background/50 border-border/50 focus:border-primary ${errors.lastName ? 'border-red-500' : ''}`}
                       value={formData.lastName}
                       onChange={(e) => handleInputChange('lastName', e.target.value)}
@@ -160,9 +176,9 @@ const Contact = () => {
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-2 block">Email</label>
-                  <Input 
-                    type="email" 
-                    placeholder="So that I can respond back to you" 
+                  <Input
+                    type="email"
+                    placeholder="So that I can respond back to you"
                     className={`bg-background/50 border-border/50 focus:border-primary ${errors.email ? 'border-red-500' : ''}`}
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
@@ -173,9 +189,9 @@ const Contact = () => {
 
                 <div>
                   <label className="text-sm font-medium mb-2 block">Message</label>
-                  <Textarea 
-                    placeholder="Hi Prasanna! I'd love to discuss a potential collaboration on a web development project. Looking forward to hearing from you!" 
-                    rows={5} 
+                  <Textarea
+                    placeholder="Hi Prasanna! I'd love to discuss a potential collaboration on a web development project. Looking forward to hearing from you!"
+                    rows={5}
                     className={`bg-background/50 border-border/50 focus:border-primary resize-none ${errors.message ? 'border-red-500' : ''}`}
                     value={formData.message}
                     onChange={(e) => handleInputChange('message', e.target.value)}
@@ -183,10 +199,10 @@ const Contact = () => {
                   />
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
-                <Button 
-                  type="submit" 
-                  className="w-full hover-lift" 
-                  size="lg" 
+                <Button
+                  type="submit"
+                  className="w-full hover-lift"
+                  size="lg"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -224,16 +240,18 @@ const Contact = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Button className="hover-lift justify-start" size="lg">
+          <Button className="hover-lift justify-start" size="lg" onClick={handleCopyEmail}>
             <Mail className="h-5 w-5 mr-3" />
             Copy Email Address
           </Button>
-          <Button variant="outline" className="hover-lift">Download CV</Button>
-          <Button variant="outline" className="hover-lift">View Resume</Button>
+          <Button variant="outline" className="hover-lift" onClick={handleDownloadCV}>Download CV</Button>
+          <Button variant="outline" className="hover-lift"
+            onClick={() => window.open('https://juniorraja.github.io/pr-digital-resume/', '_blank')}
+          >View Resume</Button>
         </div>
       </div>
 
-      {/* Background Elements */ }
+      {/* Background Elements */}
       <div className="absolute top-40 left-5 w-24 h-24 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl floating-animation" />
       <div
         className="absolute bottom-60 right-5 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg blur-xl floating-animation"
