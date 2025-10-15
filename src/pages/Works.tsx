@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Projects from "@/components/Projects";
 import Timeline from "@/components/Timeline";
 import Footer from "@/components/Footer";
+import Counter from "@/components/Counter";
 
 const Works = () => {
   useEffect(() => {
@@ -13,7 +14,7 @@ const Works = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation />
-      
+
       <main className="pt-20">
         <div className="container mx-auto px-4 py-16 max-w-6xl">
           {/* Section Header */}
@@ -25,11 +26,24 @@ const Works = () => {
               My <span className="gradient-text">Works</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
-              A collection of projects I've worked on and my professional journey in software development and project management.
+              A collection of projects I've worked on and my professional
+              journey in software development and project management.
             </p>
           </div>
 
           <Projects />
+
+          <div className="text-center mb-16">
+            <Counter
+              startDate="2019-06-03"
+              interval={200}
+              fontSize="text-6xl lg:text-8xl"
+            />
+            <p className="text-xl text-muted-foreground">
+              Years of Professional Experience
+            </p>
+          </div>
+
           <Timeline />
         </div>
       </main>
@@ -39,7 +53,10 @@ const Works = () => {
       {/* Floating Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl floating-animation" />
-        <div className="absolute bottom-40 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl floating-animation" style={{ animationDelay: "4s" }} />
+        <div
+          className="absolute bottom-40 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl floating-animation"
+          style={{ animationDelay: "4s" }}
+        />
       </div>
     </div>
   );

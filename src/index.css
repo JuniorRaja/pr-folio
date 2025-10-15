@@ -170,7 +170,7 @@ All colors MUST be HSL.
   }
 
   .floating-animation {
-    animation: float 6s ease-in-out infinite;
+    animation: float 3s ease-in-out infinite;
   }
 
   .pulse-glow {

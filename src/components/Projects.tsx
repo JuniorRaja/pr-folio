@@ -80,7 +80,7 @@ const Projects = () => {
   return (
     <section id="projects" className="pb-20 lg:pb-32 relative">
       <div className="container mx-auto px-4">
-        {/* TO DO: Add Project Files - By Category */}
+        {/* TODO: Add Project Files - By Category */}
         {/* Category Filter */}
         {/* <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, index) => (
