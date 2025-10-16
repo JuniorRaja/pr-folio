@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -73,8 +73,7 @@ const Projects = () => {
       category: "Web Development"
     }
   ];
-
-  const navigate = useNavigate()
+  
   const categories = ["All", "Web Development"];
 
   return (
@@ -184,25 +183,6 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Learning Journey */}
-        <div className="mt-20 text-center">
-          <Card className="inline-block p-8 glass-card max-w-2xl">
-            <h3 className="text-2xl font-bold mb-4">
-              Photography
-            </h3>
-            <h4 className="text-xl gradient-text font-bold mb-4">
-              See the world through my eyes. Go through the gallery
-            </h4>
-            <p className="text-muted-foreground mb-6">
-              Beyond code and development, I capture the beauty of landscapes and moments. 
-              Explore my photography journey and the places I've been to.
-            </p>
-            <Button className="hover-lift"
-            onClick = {() => { navigate('/gallery') }}>
-              View Gallery
-            </Button>
-          </Card>
-        </div>
       </div>
 
       {/* Background Elements */}

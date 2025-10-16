@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import AboutSection from "@/components/About";
-import Skills from "@/components/Skills";
 import InteractiveGlobe from "@/components/InteractiveGlobe";
 import Footer from "@/components/Footer";
 import TravelCards from "@/components/ui/travel-cards";
@@ -112,10 +111,6 @@ const About = () => {
 
           <AboutSection />
 
-          <section>
-            <Skills />
-          </section>
-          
           {/* Books Section */}
           <section className="py-20" id="books">
             <div className="text-center mb-12">
@@ -123,7 +118,8 @@ const About = () => {
                 Books I <span className="gradient-text">Recommend</span>
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-                A curated collection of books that have shaped my thinking and approach to life, technology, and personal growth.
+                A curated collection of books that have shaped my thinking and
+                approach to life, technology, and personal growth.
               </p>
             </div>
             <div className="flex justify-center">
@@ -137,10 +133,12 @@ const About = () => {
             <div className="px-4">
               <div className="text-center mb-4">
                 <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                  Find Me <span className="gradient-text">Around The World</span>
+                  Find Me{" "}
+                  <span className="gradient-text">Around The World</span>
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Interactive globe showing places I have travelled to and my journey around the world
+                  Interactive globe showing places I have travelled to and my
+                  journey around the world
                 </p>
               </div>
               <div className="relative h-[500px] rounded-2xl overflow-hidden glass-card max-w-4xl mx-auto">
@@ -163,7 +161,10 @@ const About = () => {
       {/* Floating Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl floating-animation" />
-        <div className="absolute bottom-40 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl floating-animation" style={{ animationDelay: "4s" }} />
+        <div
+          className="absolute bottom-40 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl floating-animation"
+          style={{ animationDelay: "4s" }}
+        />
       </div>
     </div>
   );

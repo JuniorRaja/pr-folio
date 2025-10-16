@@ -1,11 +1,16 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Projects from "@/components/Projects";
 import Timeline from "@/components/Timeline";
 import Footer from "@/components/Footer";
 import Counter from "@/components/Counter";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Skills from "@/components/Skills";
 
 const Works = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     document.documentElement.classList.add("dark");
     document.documentElement.style.scrollBehavior = "smooth";
@@ -30,10 +35,10 @@ const Works = () => {
               journey in software development and project management.
             </p>
           </div>
-
-          <Projects />
-
-          <div className="text-center mb-16">
+          <section>
+            <Projects />
+          </section>
+          <div className="text-center">
             <Counter
               startDate="2019-06-03"
               interval={200}
@@ -43,8 +48,32 @@ const Works = () => {
               Years of Professional Experience
             </p>
           </div>
-
+          <section>
+            <Skills />
+          </section>
           <Timeline />
+          {/* Learning Journey */}
+          <div className="mt-20 text-center mb-24">
+            <Card className="inline-block p-8 glass-card max-w-2xl">
+              <h3 className="text-2xl font-bold mb-4">Photography</h3>
+              <h4 className="text-xl gradient-text font-bold mb-4">
+                See the world through my eyes. Go through the gallery
+              </h4>
+              <p className="text-muted-foreground mb-6">
+                Beyond code and development, I capture the beauty of landscapes
+                and moments. Explore my photography journey and the places I've
+                been to.
+              </p>
+              <Button
+                className="hover-lift"
+                onClick={() => {
+                  navigate("/gallery");
+                }}
+              >
+                View Gallery
+              </Button>
+            </Card>
+          </div>
         </div>
       </main>
 
