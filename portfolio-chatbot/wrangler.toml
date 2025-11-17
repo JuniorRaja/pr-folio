@@ -1,0 +1,20 @@
+name = "portfolio-chatbot"
+main = "src/index.js"
+compatibility_date = "2025-11-17"
+
+# Vectorize binding for RAG database
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "pr-verse-rag"
+remote = true
+
+# Workers AI binding for embeddings and LLM
+[ai]
+binding = "AI"
+remote = true
+
+# KV namespace for rate limiting
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "0d8018b22bcb46289ed93845fd5dde33"
+remote = true

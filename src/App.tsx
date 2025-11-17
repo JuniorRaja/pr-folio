@@ -19,6 +19,7 @@ const Terms = lazy(() => import("./pages/Terms"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const MusicPlayer = lazy(() => import("./components/MusicPlayer"));
+const Chatbot = lazy(() => import("./components/Chatbot"));
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,9 @@ const App = () => (
               <MusicPlayer />
             </Suspense>
           )}
+          <Suspense fallback={null}>
+            <Chatbot />
+          </Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
