@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   id: string;
@@ -37,7 +38,7 @@ const Chatbot: React.FC = () => {
     if (isOpen && messages.length === 0) {
       const welcomeMessage: Message = {
         id: 'welcome',
-        text: "Hi! I'm JuniorRaja's AI assistant. Ask me anything about my background, skills, or projects!",
+        text: "Hi! I'm PR's AI assistant. Ask me anything about my background, skills, or projects!",
         sender: 'bot',
         timestamp: new Date()
       };
@@ -172,7 +173,9 @@ const Chatbot: React.FC = () => {
                       : 'bg-gray-800 text-gray-200 rounded-bl-sm'
                   }`}
                 >
-                  <p className="text-sm">{message.text}</p>
+                  <div className="text-sm">
+                    <ReactMarkdown>{message.text}</ReactMarkdown>
+                  </div>
                   <span className="text-xs opacity-70 mt-1 block">
                     {message.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                   </span>
