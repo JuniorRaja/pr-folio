@@ -1,112 +1,74 @@
-import { useEffect, useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Globe } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { GridScan } from "./GridScan";
 
 const Hero = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    // Initial check
+    setIsDark(document.documentElement.classList.contains("dark"));
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    // Particle system for 3D floating objects
-    const particles: Array<{
-      x: number;
-      y: number;
-      z: number;
-      size: number;
-      color: string;
-      speed: number;
-      angle: number;
-    }> = [];
-
-    // Initialize particles
-    for (let i = 0; i < 50; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        z: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        color: `hsl(263, 70%, ${50 + Math.random() * 30}%)`,
-        speed: Math.random() * 0.5 + 0.2,
-        angle: Math.random() * Math.PI * 2,
-      });
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((particle) => {
-        // Update position
-        particle.y += particle.speed;
-        particle.x += Math.sin(particle.angle) * 0.5;
-        particle.angle += 0.01;
-
-        // Reset particle if it goes off screen
-        if (particle.y > canvas.height) {
-          particle.y = -10;
-          particle.x = Math.random() * canvas.width;
+    // Observer for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          setIsDark(document.documentElement.classList.contains("dark"));
         }
-
-        // Draw particle with glow effect
-        const alpha = (100 - particle.z) / 100;
-        ctx.globalAlpha = alpha * 0.6;
-        ctx.fillStyle = particle.color;
-        ctx.shadowColor = particle.color;
-        ctx.shadowBlur = 10;
-
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.shadowBlur = 0;
       });
+    });
 
-      requestAnimationFrame(animate);
-    };
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
-    animate();
-
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-    };
+    return () => observer.disconnect();
   }, []);
 
+  console.log(isDark);
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
+      ref={containerRef}
     >
-      {/* Animated Background Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none opacity-30"
-      />
+      {/* GridScan Background */}
+      {/* GridScan Background */}
+      <div className="absolute inset-0 z-0">
+        <GridScan
+          className="w-full h-full"
+          sensitivity={0.55}
+          lineThickness={1}
+          linesColor={isDark ? "#392e4e" : "#e9ecf0"}
+          gridScale={0.1}
+          scanColor={isDark ? "#FF9FFC" : "#8b5cf6"}
+          scanOpacity={0.4}
+          enablePost
+          bloomIntensity={0.6}
+          chromaticAberration={0.000}
+          noiseIntensity={0.01}
+        />
+      </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/80" />
+      {/* Light Mode Blur Overlay */}
+      {!isDark && (
+        <div className="absolute inset-0 z-0 bg-white/50 backdrop-blur-[10px]" />
+      )}
+
+      {/* Gradient Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background pointer-events-none" />
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in-up mt-2">
-        <div className="space-y-8 max-w-4xl mx-auto">
+      <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in-up mt-2 pointer-events-none">
+        <div className="space-y-8 max-w-4xl mx-auto pointer-events-auto">
           {/* Greeting */}
           <p className="text-primary text-lg font-medium tracking-wide animate-fade-in">
             HI, WELCOME TO PR VERSE
           </p>
-
-          
 
           {/* Main Title */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
@@ -191,17 +153,6 @@ const Hero = () => {
             </Link>
           </div>
         </div>
-
-        {/* Floating 3D Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-20 floating-animation" />
-        <div
-          className="absolute bottom-32 right-16 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg opacity-30 floating-animation"
-          style={{ animationDelay: "2s" }}
-        />
-        <div
-          className="absolute top-1/3 right-20 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-25 floating-animation"
-          style={{ animationDelay: "4s" }}
-        />
       </div>
     </section>
   );

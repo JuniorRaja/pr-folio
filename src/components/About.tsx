@@ -63,11 +63,14 @@ const About = () => {
       const y = (e.clientY - centerY) / (rect.height / 2);
 
       const maxTilt = 15;
+      const maxSkew = 5;
       const rotateY = Math.max(-maxTilt, Math.min(maxTilt, x * maxTilt));
       const rotateX = Math.max(-maxTilt, Math.min(maxTilt, -y * maxTilt));
+      const skewX = Math.max(-maxSkew, Math.min(maxSkew, x * maxSkew));
+      const skewY = Math.max(-maxSkew, Math.min(maxSkew, y * maxSkew));
 
       setTransform(
-        `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.05)`
+        `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) skewX(${skewX.toFixed(2)}deg) skewY(${skewY.toFixed(2)}deg) scale(1.05)`
       );
     });
   }, []);
@@ -109,7 +112,7 @@ const About = () => {
             <div className="relative h-full flex items-center justify-center">
               <div
                 ref={elementRef}
-                className="w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 transition-transform duration-200 ease-out cursor-pointer"
+                className={`w-full h-full mx-auto rounded-full overflow-hidden border-4 border-primary/20 ${isHovered ? '' : 'transition-transform duration-200 ease-out'} cursor-pointer`}
                 style={{
                   transform,
                   willChange: 'transform'
