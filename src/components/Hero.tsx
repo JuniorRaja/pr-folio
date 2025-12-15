@@ -37,7 +37,6 @@ const Hero = () => {
       ref={containerRef}
     >
       {/* GridScan Background */}
-      {/* GridScan Background */}
       <div className="absolute inset-0 z-0">
         <GridScan
           className="w-full h-full"
