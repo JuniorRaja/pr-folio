@@ -42,7 +42,7 @@ const Counter = ({ startDate, interval = 100, fontSize = "text-3xl" }: CounterPr
 
   return (
     <div ref={counterRef} className={`${fontSize} font-bold gradient-text`}>
-      {value.toFixed(8)}
+      {value.toFixed(9)}
     </div>
   );
 };
