@@ -29,6 +29,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [showScrollHint, setShowScrollHint] = useState(true);
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -54,6 +55,11 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         setScrollPosition(scrollLeft);
         checkScrollability();
         updateParallax(scrollLeft);
+        
+        // Hide scroll hint after user starts scrolling
+        if (scrollLeft > 50) {
+          setShowScrollHint(false);
+        }
       }
     };
 
@@ -139,7 +145,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     >
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto pb-10 md:pb-20 scroll-smooth [scrollbar-width:none]"
+          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth [scrollbar-width:none]"
           ref={carouselRef}
           style={{ scrollBehavior: 'auto' }} // Override for smoother custom scrolling
         >
@@ -179,6 +185,60 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
             ))}
           </div>
         </div>
+
+        {/* Right gradient blur overlay */}
+        <div 
+          className={cn(
+            "absolute right-0 top-0 bottom-0 w-24 md:w-40 pointer-events-none z-20",
+            "bg-gradient-to-l from-background via-background/80 to-transparent",
+            "transition-opacity duration-500",
+            canScrollRight ? "opacity-100" : "opacity-0"
+          )}
+        />
+
+        {/* Scroll hint */}
+        <AnimatePresence>
+          {showScrollHint && canScrollRight && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 flex items-center gap-2"
+            >
+              <motion.div
+                animate={{ x: [0, 8, 0] }}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                className="flex items-center gap-2 bg-black/60 dark:bg-white/20 backdrop-blur-sm px-3 py-2 rounded-full"
+              >
+                <span className="text-white text-xs md:text-sm font-medium hidden md:inline">
+                  Scroll to explore
+                </span>
+                <span className="text-white text-xs font-medium md:hidden">
+                  Swipe
+                </span>
+                <svg 
+                  className="w-4 h-4 text-white" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M9 5l7 7-7 7" 
+                  />
+                </svg>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div className="flex justify-end gap-2 mr-10 hidden">
           <button
             className="relative z-40 h-10 w-20 rounded-full bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 flex items-center justify-center disabled:opacity-50"
