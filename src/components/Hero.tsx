@@ -33,11 +33,11 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background -mb-20"
       ref={containerRef}
     >
       {/* GridScan Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 mt-[-15rem]">
         <GridScan
           className="w-full h-full"
           sensitivity={0.55}
