@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import AboutSection from "@/components/About";
-import InteractiveGlobe from "@/components/InteractiveGlobe";
 import Footer from "@/components/Footer";
 import TravelCards from "@/components/ui/travel-cards";
-import Books from "@/components/book/Books";
+import BookShelf from "@/components/BookShelf";
 
 // const techStack = [
 //   { label: "HTML", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" } },
@@ -111,47 +110,25 @@ const About = () => {
 
           <AboutSection />
 
-          {/* Books Section */}
-          <section className="py-20" id="books">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                Books I <span className="gradient-text">Recommend</span>
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-                A curated collection of books that have shaped my thinking and
-                approach to life, technology, and personal growth.
-              </p>
-            </div>
-            <div className="flex justify-center">
-              <Books />
-            </div>
-          </section>
-
-          {/* Globe Section */}
-          {/* TODO - Hidden for now */}
-          <section className="py-20 hidden">
-            <div className="px-4">
-              <div className="text-center mb-4">
-                <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                  Find Me{" "}
-                  <span className="gradient-text">Around The World</span>
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Interactive globe showing places I have travelled to and my
-                  journey around the world
-                </p>
-              </div>
-              <div className="relative h-[500px] rounded-2xl overflow-hidden glass-card max-w-4xl mx-auto">
-                <InteractiveGlobe />
-              </div>
-            </div>
-          </section>
-
           {/* Travel Section */}
           <section id="travel" className="py-20">
             <div className="px-4">
               <TravelCards />
             </div>
+          </section>
+
+          {/* 3D Book Shelf Section */}
+          <section className="py-20" id="bookshelf-3d">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+                My <span className="gradient-text">Bookshelf</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                 Books that have shaped my thinking and approach to life, technology, and personal growth.
+                 Hover over the books to explore my reading collection.
+              </p>
+            </div>
+            <BookShelf />
           </section>
         </div>
       </main>
