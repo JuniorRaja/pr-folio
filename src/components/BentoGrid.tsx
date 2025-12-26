@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import GridGlobe from "@/components/ui/GridGlobe";
 import { useResponsive } from "@/hooks/use-responsive";
 import { Link } from "react-router-dom";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 const BentoGrid = () => {
   const { toast } = useToast();
@@ -13,9 +14,9 @@ const BentoGrid = () => {
 
   // Responsive grid classes matching the reference layout
   const getGridClasses = () => {
-    if (isMobile) return 'grid-cols-1';
-    if (isTablet) return 'grid-cols-4 grid-rows-4';
-    return 'grid-cols-4 grid-rows-4';
+    if (isMobile) return 'grid-cols-1 grid-rows-1';
+    if (isTablet) return 'grid-cols-4 grid-rows-1';
+    return 'grid-cols-4 grid-rows-3';
   };
 
   // Card positioning classes matching reference bento style
@@ -113,7 +114,7 @@ const BentoGrid = () => {
   const cardContent = {
     // ORIGINAL CARDS - Reference-inspired styling
     techEnthusiast: (
-      <div className="h-full relative overflow-hidden">
+      <div className="h-full relative overflow-hidden bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-900/10">
         {/* Subtle grid background */}
         <div className="w-full h-full absolute opacity-20 dark:opacity-10">
           <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
@@ -134,7 +135,7 @@ const BentoGrid = () => {
     ),
 
     photography: (
-      <div className="h-full p-6 bg-gradient-to-br from-teal-50 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/10">
+      <div className="h-full p-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div>
             <p className="text-sm font-medium text-teal-700 dark:text-teal-300 mb-2">
@@ -162,7 +163,7 @@ const BentoGrid = () => {
     ),
 
     codeSnippet: (
-      <div className="h-full p-6 bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-900/20 dark:to-green-900/10">
+      <div className="h-full p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <Code className="h-6 w-6 text-emerald-700 dark:text-emerald-300" />
@@ -185,29 +186,43 @@ const BentoGrid = () => {
     ),
 
     collaboration: (
-      <div className="h-full p-6 lg:p-8 bg-gradient-to-br from-orange-50 to-red-100 dark:from-orange-900/20 dark:to-red-900/10">
-        <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
-          <div>
-            <p className="text-sm font-medium text-orange-700 dark:text-orange-300 mb-2">
-              Let's Collaborate
-            </p>
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Do you want to start a project together?
-            </h3>
+      <BackgroundGradientAnimation
+        gradientBackgroundStart="rgb(108, 0, 162)"
+        gradientBackgroundEnd="rgb(0, 17, 82)"
+        firstColor="18, 113, 255"
+        secondColor="221, 74, 255"
+        thirdColor="100, 220, 255"
+        fourthColor="200, 50, 50"
+        fifthColor="180, 180, 50"
+        pointerColor="140, 100, 255"
+        containerClassName="rounded-xl"
+      >
+        <div className="h-full p-6 lg:p-8 relative z-10">
+          <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col">
+            <div>
+              <p className="text-sm font-medium text-white mb-2">
+                Let's Collaborate
+              </p>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Do you want to start a project together?
+              </h3>
+            </div>
+            <div className="flex justify-start">
+              <Button
+                onClick={handleCopyEmail}
+                className="bg-white text-purple-600 hover:bg-gray-100 border border-white w-fit transition-colors"
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                Copy my email address
+              </Button>
+            </div>
           </div>
-          <Button
-            onClick={handleCopyEmail}
-            className="bg-white dark:bg-orange-950 text-orange-600 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/50 border border-orange-200 dark:border-orange-700 w-fit transition-colors"
-          >
-            <Copy className="h-4 w-4 mr-2" />
-            Copy my email address
-          </Button>
         </div>
-      </div>
+      </BackgroundGradientAnimation>
     ),
 
     techStack: (
-      <div className="h-full relative overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-100 dark:from-purple-900/20 dark:to-indigo-900/10">
+      <div className="h-full relative overflow-hidden bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col justify-between p-6 lg:p-8 z-10">
           <div>
             <div className="text-sm font-medium text-purple-700 dark:text-purple-300 mb-2">Photography</div>
@@ -238,7 +253,7 @@ const BentoGrid = () => {
     ),
 
     travel: (
-      <div className="h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden p-6">
+      <div className="h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/10 relative overflow-hidden p-6">
         {/* Briefcase stack visual */}
         <div className="absolute top-2 right-2 opacity-30 dark:opacity-20">
           <div className="relative">
@@ -320,7 +335,7 @@ const BentoGrid = () => {
     ),
 
     books: (
-      <div className="h-full bg-gradient-to-br from-amber-100 to-yellow-200 dark:from-amber-900/30 dark:to-yellow-900/20 relative overflow-hidden p-6">
+      <div className="h-full bg-gradient-to-br from-violet-50 to-violet-100 dark:from-violet-900/20 dark:to-violet-900/10 relative overflow-hidden p-6">
         {/* Stack of books visual */}
         <div className="absolute bottom-1 right-2 opacity-40 dark:opacity-30">
           <div className="relative">
@@ -355,7 +370,7 @@ const BentoGrid = () => {
     ),
 
     resources: (
-      <div className="h-full p-6 lg:p-8 bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/10">
+      <div className="h-full p-6 lg:p-8 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-900/10">
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-3 mb-3">
