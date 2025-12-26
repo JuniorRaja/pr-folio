@@ -102,9 +102,15 @@ const Gallery = () => {
           </div>
 
           {/* Albums Carousel */}
-          <div className="relative">
-            <div className="h-auto min-h-[45rem] md:max-w-[90%] m-auto text-center">
-              {loading ? <p>Loading...</p> : <MyCarousel albums={albums} />}
+          <div className="relative w-full flex items-center justify-center">
+            <div className="w-full max-w-7xl">
+              {loading ? (
+                <div className="flex items-center justify-center h-[70vh]">
+                  <p className="text-muted-foreground">Loading...</p>
+                </div>
+              ) : (
+                <MyCarousel albums={albums} />
+              )}
             </div>
           </div>
 

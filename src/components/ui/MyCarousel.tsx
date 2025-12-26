@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import styles from "./MyCarousel.module.css";
 
 export interface AlbumItem {
@@ -17,6 +18,20 @@ const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
   const navigate = useNavigate();
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currentAlbum, setCurrentAlbum] = useState<AlbumItem>(albums[0]);
+
+  const updateCurrentAlbum = () => {
+    if (slideRef.current) {
+      const items = slideRef.current.querySelectorAll<HTMLDivElement>("#CarouselItem");
+      // The second item (index 1) is the active one displayed in full
+      const activeItemId = items[1]?.getAttribute('data-album-id');
+      const album = albums.find(a => a.id.toString() === activeItemId);
+      if (album) {
+        setCurrentAlbum(album);
+      }
+    }
+  };
 
   const saveCarouselState = () => {
     if (slideRef.current) {
@@ -46,28 +61,39 @@ const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(restoreCarouselState, 100);
+    const timer = setTimeout(() => {
+      restoreCarouselState();
+      updateCurrentAlbum();
+    }, 100);
     return () => clearTimeout(timer);
   }, []);
 
   const handleNextClick = () => {
-    if (slideRef.current) {
-      const items =
-        slideRef.current.querySelectorAll<HTMLDivElement>("#CarouselItem");
+    if (slideRef.current && !isTransitioning) {
+      setIsTransitioning(true);
+      const items = slideRef.current.querySelectorAll<HTMLDivElement>("#CarouselItem");
       if (items.length > 0) {
         slideRef.current.appendChild(items[0]);
         saveCarouselState();
+        setTimeout(() => {
+          updateCurrentAlbum();
+          setIsTransitioning(false);
+        }, 600);
       }
     }
   };
 
   const handlePrevClick = () => {
-    if (slideRef.current) {
-      const items =
-        slideRef.current.querySelectorAll<HTMLDivElement>("#CarouselItem");
+    if (slideRef.current && !isTransitioning) {
+      setIsTransitioning(true);
+      const items = slideRef.current.querySelectorAll<HTMLDivElement>("#CarouselItem");
       if (items.length > 0) {
         slideRef.current.prepend(items[items.length - 1]);
         saveCarouselState();
+        setTimeout(() => {
+          updateCurrentAlbum();
+          setIsTransitioning(false);
+        }, 600);
       }
     }
   };
@@ -110,41 +136,55 @@ const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
             style={{ backgroundImage: `url(${item.img})` }}
             id={`CarouselItem`}
             data-album-id={item.id.toString()}
-          >
-            {/* The album name, description and see more button div */}
-            <div className={styles.content}>
-              <div className={styles.name}>{item.name}</div>
-              <div>{item.des}</div>
-              <button
-                className={styles.link}
-                onClick={() => navigate(`/gallery/${item.route}`)}
-              >
-                See More
-              </button>
-            </div>
-          </div>
+          />
         ))}
       </div>
 
-      {/* The album navigation buttons div */}
-      <div className={styles.button}>
+      {/* Persistent blur overlay on top of images */}
+      <div className={styles.blurOverlay} />
+
+      {/* Content displayed on top of blur */}
+      <div className={styles.contentWrapper}>
+        <div className={styles.content}>
+          <div className={styles.name}>{currentAlbum.name}</div>
+          <div className={styles.des}>{currentAlbum.des}</div>
+          <button
+            className={styles.link}
+            onClick={() => navigate(`/gallery/${currentAlbum.route}`)}
+          >
+            <span>View Album</span>
+            <ArrowRight className={styles.linkIcon} size={18} />
+          </button>
+        </div>
+      </div>
+
+      {/* Navigation buttons */}
+      <div className={styles.buttonContainer}>
         <button
-          className={`${styles.prev} prev navButton`}
+          className={`${styles.navButton} ${styles.prev}`}
           onClick={handlePrevClick}
+          disabled={isTransitioning}
+          aria-label="Previous album"
         >
-          Prev.
+          <ChevronLeft size={24} />
         </button>
         <button
-          className={`${styles.next} next navButton`}
+          className={`${styles.navButton} ${styles.next}`}
           onClick={handleNextClick}
+          disabled={isTransitioning}
+          aria-label="Next album"
         >
-          Next.
+          <ChevronRight size={24} />
         </button>
       </div>
 
-      {/* Swipe text for mobile/tablet */}
-      <div className={styles.swipeText}>
-        Swipe ⏭
+      {/* Swipe indicator for mobile */}
+      <div className={styles.swipeIndicator}>
+        <div className={styles.swipeText}>
+          <ChevronLeft size={16} className={styles.swipeIcon} />
+          <span>Swipe</span>
+          <ChevronRight size={16} className={styles.swipeIcon} />
+        </div>
       </div>
     </div>
   );
