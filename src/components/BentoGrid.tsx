@@ -14,7 +14,7 @@ const BentoGrid = () => {
   // Responsive grid classes matching the reference layout
   const getGridClasses = () => {
     if (isMobile) return 'grid-cols-1';
-    if (isTablet) return 'grid-cols-2 grid-rows-6';
+    if (isTablet) return 'grid-cols-4 grid-rows-4';
     return 'grid-cols-4 grid-rows-4';
   };
 
