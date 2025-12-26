@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, Suspense, lazy } from "react";
+import { RotateCw } from "lucide-react";
 
 // Lazy load the Globe component
 const World = lazy(() =>
@@ -9,11 +10,42 @@ const World = lazy(() =>
 
 const GridGlobe = ({ UsedAt }: { UsedAt: string }) => {
   const [mounted, setMounted] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+  const [hintPhase, setHintPhase] = useState(0); // 0: hidden, 1-3: visible cycles, 4: permanently hidden
 
   useEffect(() => {
     setMounted(true);
-    return () => setMounted(false);
+    
+    // Show hint after globe loads (2 second delay)
+    const initialTimer = setTimeout(() => {
+      setShowHint(true);
+      setHintPhase(1);
+    }, 2000);
+
+    return () => {
+      clearTimeout(initialTimer);
+      setMounted(false);
+    };
   }, []);
+
+  useEffect(() => {
+    if (hintPhase === 0 || hintPhase === 4) return;
+
+    // Cycle through show/hide: visible for 2s, hidden for 1s, repeat 3 times
+    const timings = [2000, 1000, 2000, 1000, 2000, 1000]; // show, hide, show, hide, show, hide
+    const nextPhase = hintPhase + 1;
+    
+    const timer = setTimeout(() => {
+      if (nextPhase <= 6) {
+        setHintPhase(nextPhase);
+      } else {
+        setHintPhase(4); // Permanently hide after 3 cycles
+        setShowHint(false);
+      }
+    }, timings[hintPhase - 1]);
+
+    return () => clearTimeout(timer);
+  }, [hintPhase]);
 
   const globeConfig = useMemo(
     () => ({
@@ -425,6 +457,20 @@ const GridGlobe = ({ UsedAt }: { UsedAt: string }) => {
             <World data={sampleArcs} globeConfig={globeConfig} />
           </Suspense>
         </div>
+        
+        {/* Spin hint overlay - appears after globe loads, shows 3 times then hides */}
+        {showHint && (
+          <div className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none transition-opacity duration-500 ${
+            hintPhase % 2 === 1 ? 'opacity-100' : 'opacity-0'
+          }`}>
+            <div className="animate-bounce flex flex-col items-center gap-2">
+              <RotateCw className="h-6 w-6 text-cyan-400 drop-shadow-lg animate-spin" />
+              <span className="text-xs font-semibold text-white bg-slate-900/70 backdrop-blur-sm px-3 py-1.5 rounded-full whitespace-nowrap drop-shadow-lg">
+                Drag to spin
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
