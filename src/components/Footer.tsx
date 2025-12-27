@@ -180,7 +180,7 @@ const Footer = () => {
 
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-white/10 text-center text-sm opacity-60">
-          <p>© {new Date().getFullYear()} Prasanna Rajendran. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Made by Prasanna Rajendran. No rights reserved.</p>
         </div>
       </div>
     </footer>

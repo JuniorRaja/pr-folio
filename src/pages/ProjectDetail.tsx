@@ -25,7 +25,7 @@ const ProjectDetail = () => {
   }
 
   return (
-    <section className="py-12 sm:py-20 lg:py-32">
+    <section className="py-4 sm:py-4 lg:py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Back Button */}
         <Button
