@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import { useFavicon } from "@/hooks/use-favicon";
 
 const Navigation = () => {
