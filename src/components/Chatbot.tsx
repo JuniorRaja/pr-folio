@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { CHATBOT_API } from '@/config/api';
 
 interface Message {
   id: string;
@@ -16,9 +17,6 @@ const Chatbot: React.FC = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
   const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Your worker URL - replace with actual deployed URL
-  const WORKER_URL = 'https://portfolio-chatbot.imprasannarajendran.workers.dev';
 
   useEffect(() => {
     // Auto-scroll to bottom when new messages arrive
@@ -59,7 +57,7 @@ const Chatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(WORKER_URL, {
+      const response = await fetch(CHATBOT_API, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

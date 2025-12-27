@@ -4,7 +4,7 @@
  */
 
 // Cloudflare Worker API base URL
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://portfolio-chatbot.imprasannarajendran.workers.dev";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://pr-verse.imprasannarajendran.workers.dev";
 
 // Gallery API endpoints
 export const GALLERY_API = {
