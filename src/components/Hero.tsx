@@ -1,12 +1,15 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
-import { GridScan } from "./GridScan";
+
+// Lazy load the heavy GridScan component
+const GridScan = lazy(() => import("./GridScan").then(module => ({ default: module.GridScan })));
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDark, setIsDark] = useState(true);
+  const [showGridScan, setShowGridScan] = useState(false);
 
   useEffect(() => {
     // Initial check
@@ -29,6 +32,15 @@ const Hero = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Delay GridScan loading to prioritize hero content
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowGridScan(true);
+    }, 100); // Small delay to ensure hero content renders first
+
+    return () => clearTimeout(timer);
+  }, []);
+
   console.log(isDark);
   return (
     <section
@@ -36,22 +48,26 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background -mb-20"
       ref={containerRef}
     >
-      {/* GridScan Background */}
-      <div className="absolute inset-0 z-0 mt-[-15rem]">
-        <GridScan
-          className="w-full h-full"
-          sensitivity={0.55}
-          lineThickness={1}
-          linesColor={isDark ? "#392e4e" : "#e9ecf0"}
-          gridScale={0.1}
-          scanColor={isDark ? "#FF9FFC" : "#8b5cf6"}
-          scanOpacity={0.4}
-          enablePost
-          bloomIntensity={0.6}
-          chromaticAberration={0.000}
-          noiseIntensity={0.01}
-        />
-      </div>
+      {/* GridScan Background - Lazy loaded for better initial page load */}
+      {showGridScan && (
+        <div className="absolute inset-0 z-0 mt-[-15rem]">
+          <Suspense fallback={<div className="w-full h-full bg-background" />}>
+            <GridScan
+              className="w-full h-full"
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor={isDark ? "#392e4e" : "#e9ecf0"}
+              gridScale={0.1}
+              scanColor={isDark ? "#FF9FFC" : "#8b5cf6"}
+              scanOpacity={0.4}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.000}
+              noiseIntensity={0.01}
+            />
+          </Suspense>
+        </div>
+      )}
 
       {/* Light Mode Blur Overlay */}
       {!isDark && (

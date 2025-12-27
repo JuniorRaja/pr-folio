@@ -1,10 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef, lazy, Suspense } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import BentoGrid from "@/components/BentoGrid";
 import Footer from "@/components/Footer";
 
+// Lazy load the BentoGrid component
+const BentoGrid = lazy(() => import("@/components/BentoGrid"));
+
 const Landing = () => {
+  const [showBentoGrid, setShowBentoGrid] = useState(false);
+  const bentoGridRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     // Set dark mode by default
     document.documentElement.classList.add("dark");
@@ -35,14 +40,51 @@ const Landing = () => {
     };
   }, []);
 
+  // Intersection Observer for BentoGrid lazy loading
+  useEffect(() => {
+    const bentoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !showBentoGrid) {
+            setShowBentoGrid(true);
+          }
+        });
+      },
+      {
+        rootMargin: "200px", // Start loading 200px before it comes into view
+        threshold: 0
+      }
+    );
+
+    if (bentoGridRef.current) {
+      bentoObserver.observe(bentoGridRef.current);
+    }
+
+    return () => {
+      if (bentoGridRef.current) {
+        bentoObserver.unobserve(bentoGridRef.current);
+      }
+    };
+  }, [showBentoGrid]);
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation />
       
       <main className="sm:pt-20 md:pt-0">
         <Hero />
-        <div className="max-w-6xl mx-auto">
-          <BentoGrid />
+        <div ref={bentoGridRef} className="max-w-6xl mx-auto min-h-[400px]">
+          {showBentoGrid ? (
+            <Suspense fallback={
+              <div className="flex items-center justify-center py-20">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+              </div>
+            }>
+              <BentoGrid />
+            </Suspense>
+          ) : (
+            <div className="py-20"></div>
+          )}
         </div>
       </main>
 
