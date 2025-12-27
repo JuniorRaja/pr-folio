@@ -1,5 +1,6 @@
 // Main chatbot worker for Prasanna Rajendran's portfolio RAG system
 import { handleGalleryRequest } from './gallery-api.js';
+import { handleChatbotQuery } from './rag/chatbot.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -38,7 +39,7 @@ export default {
       });
     }
 
-    // Only allow POST requests
+    // Only allow POST requests for chatbot
     if (request.method !== 'POST') {
       return new Response(JSON.stringify({ error: 'Method not allowed' }), {
         status: 405,
@@ -50,9 +51,7 @@ export default {
     }
 
     try {
-      // TODO: Rate limiting disabled
-
-      // Input validation
+      // Parse request body
       let requestBody;
       try {
         requestBody = await request.json();
@@ -66,7 +65,7 @@ export default {
         });
       }
 
-      const { message } = requestBody;
+      const { message, conversationHistory } = requestBody;
 
       if (!message || typeof message !== 'string') {
         return new Response(JSON.stringify({ error: 'Message field is required and must be a string' }), {
@@ -78,35 +77,21 @@ export default {
         });
       }
 
-      if (message.length < 1 || message.length > 500) {
-        return new Response(JSON.stringify({ error: 'Message must be between 1 and 500 characters' }), {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': allowedOrigin,
-          },
-        });
-      }
+      // Use the new modular RAG system
+      const result = await handleChatbotQuery(env, message, {
+        topK: 5,
+        useHybridSearch: true,
+        includeContext: true,
+        modelConfig: 'BALANCED',
+        conversationHistory: conversationHistory || []
+      });
 
-      // Prompt filtering - check if message is about portfolio/user
-      const portfolioKeywords = [
-        'you', 'your', 'portfolio', 'skills', 'experience', 'projects', 'work',
-        'background', 'about', 'what', 'who', 'how', 'tell me', 'describe',
-        'developed', 'created', 'built', 'worked', 'role', 'position',
-        'company', 'job', 'career', 'education', 'qualifications', 'technologies',
-        'tools', 'programming', 'coding', 'development', 'web', 'app'
-      ];
-
-      const messageLower = message.toLowerCase();
-      const hasPortfolioKeyword = portfolioKeywords.some(keyword =>
-        messageLower.includes(keyword)
-      );
-
-      if (!hasPortfolioKeyword) {
+      // Handle filtered queries
+      if (!result.success && result.isFiltered) {
         return new Response(JSON.stringify({
-          error: 'I can only answer questions about Prasanna Rajendran\'s portfolio, skills, and experience. Please ask me something about my background!'
+          error: result.error
         }), {
-          status: 200, // Not an error, just filtering
+          status: 200,
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': allowedOrigin,
@@ -114,43 +99,13 @@ export default {
         });
       }
 
-      // RAG Pipeline
-
-      // 1. Generate embedding for user message
-      let userEmbedding;
-      try {
-        const embeddingResponse = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-          text: [message]
-        });
-        userEmbedding = embeddingResponse.data[0];
-      } catch (embedError) {
-        console.error('Embedding error:', embedError.message);
-        throw new Error('Failed to generate embedding for user message');
-      }
-
-      if (!userEmbedding || userEmbedding.length !== 768) {
-        console.error('Embedding check failed: length =', userEmbedding?.length);
-        throw new Error('Failed to generate embedding for user message');
-      }
-
-      // 2. Query Vectorize for top 3 most similar chunks
-      let queryResponse;
-      try {
-        queryResponse = await env.VECTORIZE.query(userEmbedding, {
-          topK: 3,
-          returnValues: false,
-          returnMetadata: true
-        });
-      } catch (queryError) {
-        console.error('Vectorize query error:', queryError.message);
-        throw new Error('Failed to query vector database');
-      }
-
-      if (!queryResponse.matches || queryResponse.matches.length === 0) {
+      // Handle errors
+      if (!result.success) {
         return new Response(JSON.stringify({
-          answer: "I don't have enough information in my portfolio to answer that question. Could you ask me about my skills, projects, or experience?",
+          error: result.error || 'An internal error occurred. Please try again later.',
           timestamp: new Date().toISOString()
         }), {
+          status: 500,
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': allowedOrigin,
@@ -158,47 +113,11 @@ export default {
         });
       }
 
-      // 3. Extract and concatenate text from top chunks
-      const relevantChunks = queryResponse.matches.map(match => match.metadata.text);
-      const contextText = relevantChunks.join('\n\n');
-
-      // 4. Generate LLM response using Llama 3.1 8B Instruct
-      const systemPrompt = `You are PR (Prasanna Rajendran), a versatile CS enthusiast and full-stack developer based in Chennai, India. You are responding to questions about your portfolio, skills, projects, and professional experience.
-
-CRITICAL INSTRUCTIONS:
-- Only use the provided context to answer questions. Never make up information.
-- If the answer isn't in the context, politely say you don't have that information.
-- Speak in first person ("I am", "My skills include", "I developed", etc.)
-- For general conversations/talk, keep responses very short (1-2 sentences).
-- For specific queries about skills, projects, or experience, provide detailed but concise points using bullet points or numbered lists where appropriate.
-- Always be friendly and professional.
-- Format all responses using Markdown for better readability (use **bold**, *italics*, bullet points, etc.).
-- Answer questions about your portfolio content including skills, projects, experience, education, contact information, and personal background such as your travels.
-- If asked about things outside your portfolio and personal background (like weather, news, general knowledge), politely redirect to portfolio topics.
-
-CONTEXT INFORMATION:
-${contextText}`;
-
-      let llmResponse;
-      try {
-        llmResponse = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
-          prompt: systemPrompt + '\n\nUser: ' + message,
-          max_tokens: 512,
-          temperature: 0.3, // Lower temperature for more consistent/factual responses
-        });
-      } catch (llmError) {
-        console.error('LLM error:', llmError.message);
-        throw new Error('Failed to generate response from AI model');
-      }
-
-      const answer = llmResponse.response || llmResponse.result?.response || llmResponse.result || 'I apologize, but I couldn\'t generate a response at this time.';
-
-      // TODO: Rate limiting disabled
-
-      // Return response
+      // Return successful response
       return new Response(JSON.stringify({
-        answer: answer.trim(),
-        timestamp: new Date().toISOString()
+        answer: result.answer,
+        timestamp: result.metadata?.timestamp || new Date().toISOString(),
+        metadata: result.metadata
       }), {
         headers: {
           'Content-Type': 'application/json',

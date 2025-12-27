@@ -10,7 +10,14 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "worker:dev": "cd pr-verse && wrangler dev --remote",
+    "worker:deploy": "cd pr-verse && wrangler deploy",
+    "data:upload": "cd pr-verse && wrangler dev --remote scripts/upload.js",
+    "data:update": "cd pr-verse && wrangler dev --remote scripts/update.js",
+    "data:list": "cd pr-verse && wrangler dev --remote scripts/list.js",
+    "data:delete": "cd pr-verse && wrangler dev --remote scripts/delete.js",
+    "data:clear": "cd pr-verse && wrangler dev --remote scripts/clear.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
