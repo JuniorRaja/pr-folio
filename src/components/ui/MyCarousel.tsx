@@ -13,7 +13,7 @@ export interface AlbumItem {
   des: string;
 }
 
-const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
+const Carousel: React.FC<{ albums: AlbumItem[]; onViewAlbum?: (album: AlbumItem) => void }> = ({ albums, onViewAlbum }) => {
   const slideRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const touchStartX = useRef<number>(0);
@@ -150,7 +150,13 @@ const Carousel: React.FC<{ albums: AlbumItem[] }> = ({ albums }) => {
           <div className={styles.des}>{currentAlbum.des}</div>
           <button
             className={styles.link}
-            onClick={() => navigate(`/gallery/${currentAlbum.route}`)}
+            onClick={() => {
+              if (onViewAlbum) {
+                onViewAlbum(currentAlbum);
+              } else {
+                navigate(`/gallery/${currentAlbum.route}`);
+              }
+            }}
           >
             <span>View Album</span>
             <ArrowRight className={styles.linkIcon} size={18} />

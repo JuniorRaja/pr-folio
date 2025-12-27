@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
 import PhotoViewer from "@/components/PhotoViewer";
+import { AlbumEngagement } from "@/components/AlbumEngagement";
 
 interface AlbumPhoto {
   name: string;
@@ -131,6 +132,13 @@ const AlbumPage = () => {
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
               {albumData[album || '']?.des || ''}
             </p>
+            
+            {/* Album Engagement */}
+            <div className="flex justify-center">
+              <AlbumEngagement 
+                albumSlug={album || ''} 
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

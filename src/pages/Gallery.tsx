@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
 import MyCarousel from "@/components/ui/MyCarousel";
-
-import doorsImg from "/gallery/thumbnails/tnail_doors.jpeg";
-import macroImg from "/gallery/thumbnails/tnail_macro.jpeg";
-import minimalImg from "/gallery/thumbnails/tnail_minimal.jpg";
-import natureImg from "/gallery/thumbnails/tnail_nature.jpg";
-import patternsImg from "/gallery/thumbnails/tnail_patterns.jpg";
-
+import { InlineAlbumViewer } from "@/components/InlineAlbumViewer";
+import { useAlbums } from "@/hooks/useGalleryEngagement";
 
 interface AlbumItem {
   id: number;
@@ -22,61 +16,37 @@ interface AlbumItem {
 }
 
 const Gallery = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [openAlbum, setOpenAlbum] = useState<AlbumItem | null>(null);
+  const { data: albumsData, isLoading: albumsLoading } = useAlbums();
 
-
-  const albums: AlbumItem[] = [
-    {
-      id: 1,
-      name: "Doors & Windows",
-      likes: 0,
-      views: 0,
-      img: doorsImg,
-      route: "doors",
-      des: "Unique doors and windows from around the world.",
-    },
-    {
-      id: 2,
-      name: "Macro",
-      likes: 0,
-      views: 0,
-      img: macroImg,
-      route: "macro",
-      des: "Get closer to the world around you.",
-    },
-    {
-      id: 3,
-      name: "Minimal",
-      likes: 0,
-      views: 0,
-      img: minimalImg,
-      route: "minimal",
-      des: "Less is the new more",
-    },
-    {
-      id: 4,
-      name: "Nature",
-      likes: 0,
-      views: 0,
-      img: natureImg,
-      route: "nature",
-      des: "Indeed the most beautiful mother nature",
-    },
-    {
-      id: 5,
-      name: "Patterns",
-      likes: 0,
-      views: 0,
-      img: patternsImg,
-      route: "patterns",
-      des: "They are everywhere, just look around",
-    },
-  ];
+  // Build albums from API data
+  const albums: AlbumItem[] = albumsData?.albums?.map((album: any, index: number) => ({
+    id: index + 1,
+    name: album.title,
+    likes: album.likes_count || 0,
+    views: album.comments_count || 0,
+    img: album.thumbnail_url || '/placeholder.svg',
+    route: album.slug,
+    des: album.description,
+  })) || [];
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
     document.documentElement.style.scrollBehavior = "smooth";
   }, []);
+
+  useEffect(() => {
+    setLoading(albumsLoading);
+  }, [albumsLoading]);
+
+  const handleViewAlbum = (album: AlbumItem) => {
+    setOpenAlbum(album);
+  };
+
+  const handleCloseAlbum = () => {
+    setOpenAlbum(null);
+  };
 
 
 
@@ -108,51 +78,26 @@ const Gallery = () => {
                 <div className="flex items-center justify-center h-[70vh]">
                   <p className="text-muted-foreground">Loading...</p>
                 </div>
+              ) : albums.length > 0 ? (
+                <MyCarousel albums={albums} onViewAlbum={handleViewAlbum} />
               ) : (
-                <MyCarousel albums={albums} />
+                <div className="flex items-center justify-center h-[70vh]">
+                  <p className="text-muted-foreground">No albums found</p>
+                </div>
               )}
             </div>
           </div>
-
-          {/* Album Stats 
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">
-                {albums.length}
-              </div>
-              <div className="text-muted-foreground">Albums</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">
-                {albums.reduce(
-                  (total, album) => total + album.photos.length,
-                  0
-                )}
-              </div>
-              <div className="text-muted-foreground">Photos</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">
-                {albums.reduce(
-                  (total, album) =>
-                    total +
-                    album.photos.reduce(
-                      (albumTotal, photo) => albumTotal + photo.likes,
-                      0
-                    ),
-                  0
-                )}
-              </div>
-              <div className="text-muted-foreground">Total Likes</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold gradient-text mb-2">
-                {new Set(albums.map((album) => album.category)).size}
-              </div>
-              <div className="text-muted-foreground">Categories</div>
-            </div>
-          </div>*/}
         </div>
+
+        {/* Inline Album Viewer */}
+        {openAlbum && (
+          <InlineAlbumViewer
+            albumSlug={openAlbum.route}
+            albumName={openAlbum.name}
+            albumDescription={openAlbum.des}
+            onClose={handleCloseAlbum}
+          />
+        )}
       </main>
 
       <Footer />

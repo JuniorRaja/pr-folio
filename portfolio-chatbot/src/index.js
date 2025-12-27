@@ -1,12 +1,36 @@
 // Main chatbot worker for Prasanna Rajendran's portfolio RAG system
+import { handleGalleryRequest } from './gallery-api.js';
+
 export default {
   async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    
+    // CORS helper - allow localhost for development
+    const getAllowedOrigin = (requestOrigin) => {
+      const allowedOrigins = [
+        'https://prasannar.vercel.app',
+        'http://localhost:8080',
+        'http://localhost:5173',
+        'http://127.0.0.1:8080',
+        'http://127.0.0.1:5173'
+      ];
+      return allowedOrigins.includes(requestOrigin) ? requestOrigin : 'https://prasannar.vercel.app';
+    };
+    
+    const origin = request.headers.get('Origin');
+    const allowedOrigin = getAllowedOrigin(origin);
+    
+    // Route gallery API requests
+    if (url.pathname.startsWith('/api/gallery')) {
+      return handleGalleryRequest(request, env);
+    }
+
     // CORS preflight handling
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         status: 200,
         headers: {
-          'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+          'Access-Control-Allow-Origin': allowedOrigin,
           'Access-Control-Allow-Methods': 'POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type',
           'Access-Control-Max-Age': '86400', // 24 hours
@@ -20,13 +44,13 @@ export default {
         status: 405,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+          'Access-Control-Allow-Origin': allowedOrigin,
         },
       });
     }
 
     try {
-      // Note: Rate limiting disabled for local testing
+      // TODO: Rate limiting disabled
 
       // Input validation
       let requestBody;
@@ -37,7 +61,7 @@ export default {
           status: 400,
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+            'Access-Control-Allow-Origin': allowedOrigin,
           },
         });
       }
@@ -49,7 +73,7 @@ export default {
           status: 400,
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+            'Access-Control-Allow-Origin': allowedOrigin,
           },
         });
       }
@@ -59,7 +83,7 @@ export default {
           status: 400,
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+            'Access-Control-Allow-Origin': allowedOrigin,
           },
         });
       }
@@ -85,7 +109,7 @@ export default {
           status: 200, // Not an error, just filtering
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+            'Access-Control-Allow-Origin': allowedOrigin,
           },
         });
       }
@@ -129,7 +153,7 @@ export default {
         }), {
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+            'Access-Control-Allow-Origin': allowedOrigin,
           },
         });
       }
@@ -169,7 +193,7 @@ ${contextText}`;
 
       const answer = llmResponse.response || llmResponse.result?.response || llmResponse.result || 'I apologize, but I couldn\'t generate a response at this time.';
 
-      // Note: Rate limiting disabled for local testing
+      // TODO: Rate limiting disabled
 
       // Return response
       return new Response(JSON.stringify({
@@ -178,7 +202,7 @@ ${contextText}`;
       }), {
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+          'Access-Control-Allow-Origin': allowedOrigin,
         },
       });
 
@@ -192,7 +216,7 @@ ${contextText}`;
         status: 500,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://prasannar.vercel.app',
+          'Access-Control-Allow-Origin': allowedOrigin,
         },
       });
     }

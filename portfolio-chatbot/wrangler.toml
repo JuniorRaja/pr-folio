@@ -18,3 +18,9 @@ remote = true
 binding = "RATE_LIMIT"
 id = "0d8018b22bcb46289ed93845fd5dde33"
 remote = true
+
+# D1 database for gallery engagement
+[[d1_databases]]
+binding = "DB"
+database_name = "pr-verse-db"
+database_id = "d364d468-3886-40ed-96c9-81a3e096d0b5"
