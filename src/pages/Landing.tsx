@@ -39,7 +39,7 @@ const Landing = () => {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation />
       
-      <main className="pt-20">
+      <main className="sm:pt-20 md:pt-0">
         <Hero />
         <div className="max-w-6xl mx-auto">
           <BentoGrid />

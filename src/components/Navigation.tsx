@@ -41,10 +41,8 @@ const Navigation = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 ",
-        scrolled && !isOpen
-          ? "backdrop-blur-xl bg-background/80 shadow-lg"
-          : "bg-transparent"
+        "fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md bg-background/10",
+        scrolled && !isOpen && "backdrop-blur-xl bg-background/50 shadow-lg"
       )}
     >
       <div className="container mx-auto px-4 py-4">
