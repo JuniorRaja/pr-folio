@@ -12,12 +12,20 @@ interface TimelineEvent {
 
 const timelineEvents: readonly TimelineEvent[] = [
   {
+    year: "2025",
+    period: "2025 - Present",
+    role: "Project Manager - Implementations",
+    description:
+      "Leading implementation projects that integrate new technologies into existing workflows. Working with cross-functional teams to build custom solutions based on client requirements, modernize legacy systems, and deliver innovative features that enhance product capabilities.",
+    status: "current",
+  },
+  {
     year: "2024",
-    period: "2023 - Present",
+    period: "2023 - 2024",
     role: "Deputy Project Manager (Implementations)",
     description:
       "Managing multiple projects across the lending vertical — ensuring timely delivery, smooth client UATs, and cross-functional alignment. Involved in both technical modernization and delivery execution, helping the organization implement new technology stacks and better project management practices.",
-    status: "current",
+    status: "previous",
   },
   {
     year: "2023",

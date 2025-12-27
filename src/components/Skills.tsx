@@ -30,9 +30,7 @@ const skillCategories: SkillCategory[] = [
       { label: "jQuery", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" }, level: "Intermediate" },
       { label: "Vue.js", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" }, level: "Beginner" },
       { label: "Redux", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" }, level: "Beginner" },
-      { label: "Zustand", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/zustand/zustand-original.svg" }, level: "Beginner" },
       { label: "Axios", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg" }, level: "Beginner" },
-      { label: "Zod", img: { src: "https://zod.dev/_next/image?url=%2Flogo%2Flogo-glow.png&w=256&q=100" }, level: "Beginner" },
     ]
   },
   {
@@ -90,7 +88,9 @@ const skillCategories: SkillCategory[] = [
       { label: "Jest", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" }, level: "Intermediate" },
       { label: "Figma", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" }, level: "Intermediate" },
       { label: "Photoshop", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" }, level: "Intermediate" },
-      { label: "NPM", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" }, level: "Expert" }
+      { label: "NPM", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" }, level: "Expert" },
+      { label: "Zustand", img: { src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/zustand/zustand-original.svg" }, level: "Beginner" },
+      { label: "Zod", img: { src: "https://zod.dev/_next/image?url=%2Flogo%2Flogo-glow.png&w=256&q=100" }, level: "Beginner" },
     ]
   }
 ];

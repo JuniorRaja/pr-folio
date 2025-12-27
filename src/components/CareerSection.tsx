@@ -32,8 +32,14 @@ const CareerSection = () => {
 
   const careerData = [
     {
-      period: "Apr 2024",
+      period: "2025",
       status: "Currently",
+      role: "Project Manager - Implementations",
+      description: "Leading implementation projects that integrate new technologies into existing workflows. Working with teams to build custom solutions for client requirements and modernize legacy systems."
+    },
+    {
+      period: "2023 - 2024",
+      status: "Previously",
       role: "Deputy Project Manager - Development",
       description: "Engaged in Software Development Lifecycle (SDLC) from requirement analysis, documentation (functional specifications, technical design, coding & Unit testing to maintenance of proposed applications."
     },
