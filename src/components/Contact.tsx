@@ -5,14 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { CONTACT_API_URL } from "@/config/api";
 import {
   Mail,
   MapPin,
   Phone,
-  Globe,
-  Github,
-  Linkedin,
-  Instagram,
   Loader2,
 } from "lucide-react";
 
@@ -55,11 +52,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const apiUrl = import.meta.env.DEV
-        ? 'http://localhost:3001/api/send-email'
-        : '/api/send-email';
-
-      const response = await fetch(apiUrl, {
+      const response = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

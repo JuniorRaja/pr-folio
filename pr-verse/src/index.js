@@ -1,26 +1,14 @@
 // Main chatbot worker for Prasanna Rajendran's portfolio RAG system
 import { handleGalleryRequest } from './gallery-api.js';
 import { handleChatbotQuery } from './rag/chatbot.js';
+import { getCorsHeaders, handleCorsPreFlight } from './config.js';
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     
-    // CORS helper - allow localhost for development
-    const getAllowedOrigin = (requestOrigin) => {
-      const allowedOrigins = [
-        'https://prasannar.com',
-        'https://www.prasannar.com',
-        'http://localhost:8080',
-        'http://localhost:5173',
-        'http://127.0.0.1:8080',
-        'http://127.0.0.1:5173'
-      ];
-      return allowedOrigins.includes(requestOrigin) ? requestOrigin : 'https://prasannar.com';
-    };
-    
-    const origin = request.headers.get('Origin');
-    const allowedOrigin = getAllowedOrigin(origin);
+    // Get CORS headers from centralized config
+    const corsHeaders = getCorsHeaders(request, env);
     
     // Route gallery API requests
     if (url.pathname.startsWith('/api/gallery')) {
@@ -29,25 +17,14 @@ export default {
 
     // CORS preflight handling
     if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        status: 200,
-        headers: {
-          'Access-Control-Allow-Origin': allowedOrigin,
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Max-Age': '86400', // 24 hours
-        },
-      });
+      return handleCorsPreFlight(request, env);
     }
 
     // Only allow POST requests for chatbot
     if (request.method !== 'POST') {
       return new Response(JSON.stringify({ error: 'Method not allowed' }), {
         status: 405,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': allowedOrigin,
-        },
+        headers: corsHeaders,
       });
     }
 
@@ -59,10 +36,7 @@ export default {
       } catch (e) {
         return new Response(JSON.stringify({ error: 'Invalid JSON in request body' }), {
           status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': allowedOrigin,
-          },
+          headers: corsHeaders,
         });
       }
 
@@ -71,10 +45,7 @@ export default {
       if (!message || typeof message !== 'string') {
         return new Response(JSON.stringify({ error: 'Message field is required and must be a string' }), {
           status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': allowedOrigin,
-          },
+          headers: corsHeaders,
         });
       }
 
@@ -93,10 +64,7 @@ export default {
           error: result.error
         }), {
           status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': allowedOrigin,
-          },
+          headers: corsHeaders,
         });
       }
 
@@ -107,10 +75,7 @@ export default {
           timestamp: new Date().toISOString()
         }), {
           status: 500,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': allowedOrigin,
-          },
+          headers: corsHeaders,
         });
       }
 
@@ -120,10 +85,7 @@ export default {
         timestamp: result.metadata?.timestamp || new Date().toISOString(),
         metadata: result.metadata
       }), {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': allowedOrigin,
-        },
+        headers: corsHeaders,
       });
 
     } catch (error) {
@@ -134,10 +96,7 @@ export default {
         timestamp: new Date().toISOString()
       }), {
         status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': allowedOrigin,
-        },
+        headers: corsHeaders,
       });
     }
   }

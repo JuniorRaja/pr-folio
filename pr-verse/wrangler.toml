@@ -3,6 +3,12 @@ main = "src/index.js"
 compatibility_date = "2025-11-17"
 compatibility_flags = ["nodejs_compat"]
 
+# Environment Variables
+[vars]
+# CORS Configuration - comma-separated list of allowed origins
+# CORS_ALLOWED_ORIGINS = "https://prasannar.com,https://www.prasannar.com,http://localhost:5173"
+# DEFAULT_ORIGIN = "https://prasannar.com"
+
 # Workers Logs
 [observability]
 [observability.logs]

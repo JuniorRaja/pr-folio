@@ -3,6 +3,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlbumEngagement } from "@/components/AlbumEngagement";
+import { GITHUB_CONFIG, CDN_CONFIG } from "@/config/api";
 
 interface AlbumPhoto {
   name: string;
@@ -40,7 +41,7 @@ export function InlineAlbumViewer({
         
         // First try to fetch from manifest.json
         const manifestResponse = await fetch(
-          `https://cdn.jsdelivr.net/gh/JuniorRaja/static/images/generated/${albumSlug}/manifest.json`,
+          CDN_CONFIG.getManifestUrl(albumSlug),
           {
             headers: {
               'Accept': 'application/json',
@@ -54,7 +55,7 @@ export function InlineAlbumViewer({
             const seq = String(index + 1).padStart(3, '0');
             return {
               name: `${seq}.webp`,
-              url: `https://cdn.jsdelivr.net/gh/JuniorRaja/static/images/generated/${albumSlug}/${seq}/medium.webp`,
+              url: CDN_CONFIG.getImageUrl(albumSlug, seq),
               loaded: false
             };
           });
@@ -66,11 +67,11 @@ export function InlineAlbumViewer({
         
         // Fallback to GitHub API
         const response = await fetch(
-          `https://api.github.com/repos/JuniorRaja/static/contents/assets/${albumSlug}`,
+          `${GITHUB_CONFIG.apiUrl}/repos/${GITHUB_CONFIG.repo}/contents/assets/${albumSlug}`,
           {
             headers: {
               'Accept': 'application/vnd.github.v3+json',
-              'User-Agent': 'Portfolio-Gallery'
+              'User-Agent': GITHUB_CONFIG.userAgent
             }
           }
         );
@@ -84,7 +85,7 @@ export function InlineAlbumViewer({
           .filter((item: any) => item.type === 'file' && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.name))
           .map((item: any) => ({
             name: item.name,
-            url: `https://cdn.jsdelivr.net/gh/JuniorRaja/static/assets/${albumSlug}/${item.name}`,
+            url: CDN_CONFIG.getAssetUrl(`assets/${albumSlug}/${item.name}`),
             loaded: false
           }));
         
@@ -275,7 +276,7 @@ export function InlineAlbumViewer({
 
         {/* Photo Carousel - Narrower and More Modern */}
         <div className="relative mb-8 animate-in fade-in zoom-in-95 duration-700 delay-150">
-          {/* Navigation Buttons - More Prominent */}
+          {/* Navigation Buttons - Minimalistic */}
           <Button
             variant="ghost"
             size="icon"

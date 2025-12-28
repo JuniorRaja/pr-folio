@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
 import PhotoViewer from "@/components/PhotoViewer";
 import { AlbumEngagement } from "@/components/AlbumEngagement";
+import { GITHUB_CONFIG, CDN_CONFIG } from "@/config/api";
 
 interface AlbumPhoto {
   name: string;
@@ -36,7 +37,7 @@ const AlbumPage = () => {
       
       try {
         setLoading(true);
-        const response = await fetch(`https://api.github.com/repos/JuniorRaja/static/contents/assets/${album}`);
+        const response = await fetch(`${GITHUB_CONFIG.apiUrl}/repos/${GITHUB_CONFIG.repo}/contents/assets/${album}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch photos');
@@ -47,7 +48,7 @@ const AlbumPage = () => {
           .filter((item: any) => item.type === 'file' && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.name))
           .map((item: any) => ({
             name: item.name,
-            url: `https://cdn.jsdelivr.net/gh/JuniorRaja/static/assets/${album}/${item.name}`,
+            url: CDN_CONFIG.getAssetUrl(`assets/${album}/${item.name}`),
             loaded: false
           }));
         
