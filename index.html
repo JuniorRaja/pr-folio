@@ -44,11 +44,23 @@
   <script>
     (function () {
       const theme = sessionStorage.getItem('theme');
+      const isDark = theme !== 'light';
+      
       if (theme === 'light') {
         document.documentElement.classList.remove('dark');
       } else {
         document.documentElement.classList.add('dark');
       }
+      
+      // Update favicon immediately based on theme
+      const basePath = isDark ? '/favicon-dark' : '/favicon-light';
+      const favicon = document.querySelector("link[rel*='icon']");
+      const favicon32 = document.querySelector("link[rel='icon'][sizes='32x32']");
+      const favicon16 = document.querySelector("link[rel='icon'][sizes='16x16']");
+      
+      if (favicon) favicon.href = basePath + '/favicon.ico';
+      if (favicon32) favicon32.href = basePath + '/favicon-32x32.png';
+      if (favicon16) favicon16.href = basePath + '/favicon-16x16.png';
     })();
   </script>
   <div id="root"></div>
