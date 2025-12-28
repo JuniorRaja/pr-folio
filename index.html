@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon-dark/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-dark/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-dark/favicon-16x16.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PR Verse - Prasanna's Digital Space</title>
-    <meta name="description" content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences and travel photography." />
-    <meta name="author" content="Prasanna Rajendran" />
-    <meta name="keywords" content="Full Stack Developer, Developer, Portfolio, Chennai Developer, Prasanna Rajendran, Prasanna" />
 
-    <meta property="og:title" content="PR Verse - Prasanna's Digital Space" />
-    <meta property="og:description" content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences." />
-    <meta property="og:type" content="website" />
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="/favicon-dark/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-dark/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-dark/favicon-16x16.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PR Verse - Prasanna's Digital Space</title>
+  <meta name="description"
+    content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences and travel photography." />
+  <meta name="author" content="Prasanna Rajendran" />
+  <meta name="keywords"
+    content="Full Stack Developer, Developer, Portfolio, Chennai Developer, Prasanna Rajendran, Prasanna" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@prasanna_dev" />
-    <meta name="twitter:title" content="PR Verse - Prasanna's Digital Space" />
-    <meta name="twitter:description" content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences." />
-  </head>
+  <meta property="og:title" content="PR Verse - Prasanna's Digital Space" />
+  <meta property="og:description"
+    content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences." />
+  <meta property="og:type" content="website" />
 
-  <body>
-    <script>
-      (function() {
-        const theme = sessionStorage.getItem('theme');
-        if (theme === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else {
-          document.documentElement.classList.add('dark');
-        }
-      })();
-    </script>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@prasanna_dev" />
+  <meta name="twitter:title" content="PR Verse - Prasanna's Digital Space" />
+  <meta name="twitter:description"
+    content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences." />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPPFFE0HFZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VPPFFE0HFZ', { send_page_view: false });
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+    });
+  </script>
+</head>
+
+<body>
+  <script>
+    (function () {
+      const theme = sessionStorage.getItem('theme');
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

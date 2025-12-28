@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useScrollToTop } from "./hooks/use-scroll-to-top";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { usePageTracking } from './hooks/usePageTracking';
+import CookieConsent from "./components/CookieConsent";
 
 const Landing = lazy(() => import("./pages/Landing"));
 const About = lazy(() => import("./pages/About"));
@@ -25,6 +27,7 @@ const queryClient = new QueryClient();
 
 const ScrollHandler = () => {
   useScrollToTop();
+  usePageTracking();
   return null;
 };
 
@@ -69,6 +72,7 @@ const App = () => (
       <>
         <Analytics />
         <SpeedInsights />
+        <CookieConsent />
       </>
     )}
   </>
