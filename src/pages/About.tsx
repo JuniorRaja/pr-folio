@@ -111,21 +111,22 @@ const About = () => {
           <AboutSection />
 
           {/* Travel Section */}
-          <section id="travel" className="py-20">
+          <section id="travel" className="pb-20">
             <div className="px-4">
               <TravelCards />
             </div>
           </section>
 
           {/* 3D Book Shelf Section */}
-          <section className="py-20" id="bookshelf-3d">
+          <section className="pt-20" id="bookshelf-3d">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-bold mb-4">
                 My <span className="gradient-text">Bookshelf</span>
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                  Books that have shaped my thinking and approach to life, technology, and personal growth.
-                 Hover over the books to explore my reading collection.
+                 <span className="hidden md:inline"><span className="gradient-text font-medium">Hover over the books</span> to explore my reading collection.</span>
+                 <span className="md:hidden"><span className="gradient-text font-medium">Tap the books</span> to explore my reading collection.</span>
               </p>
             </div>
             <BookShelf />

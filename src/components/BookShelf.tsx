@@ -264,6 +264,27 @@ const BookShelf = () => {
     return rows;
   };
 
+  const getTooltipPosition = (indexInRow: number, totalInRow: number) => {
+    // For the first book, align tooltip to start from the book's left edge
+    if (indexInRow === 0) {
+      return { align: 'left', classes: 'left-10' };
+    }
+    // For the second book, slightly offset to the left
+    if (indexInRow === 1) {
+      return { align: 'left-offset', classes: 'left-0 translate-x-[-25%]' };
+    }
+    // For the last book, align tooltip to end at the book's right edge
+    if (indexInRow === totalInRow - 1) {
+      return { align: 'right', classes: 'right-10' };
+    }
+    // For the second-to-last book, slightly offset to the right
+    if (indexInRow === totalInRow - 2) {
+      return { align: 'right-offset', classes: 'right-0 translate-x-[25%]' };
+    }
+    // For books in the middle, center the tooltip
+    return { align: 'center', classes: 'left-1/2 -translate-x-1/2' };
+  };
+
   const renderBookRow = (
     books: BookData[],
     rowIndex: number,
@@ -277,6 +298,7 @@ const BookShelf = () => {
           const isHovered = hoveredIndex === globalIndex;
           const isAnyHovered = hoveredIndex !== null;
           const isBlurred = isAnyHovered && !isHovered;
+          const tooltipPos = getTooltipPosition(indexInRow, books.length);
 
           return (
             <div
@@ -289,19 +311,27 @@ const BookShelf = () => {
                 filter: isBlurred ? 'blur(2px) brightness(0.7)' : 'none',
               }}
             >
-              {/* Book info tooltip - position changes based on row */}
+              {/* Book info tooltip - position changes based on row and column */}
               <div
-                className={`absolute left-1/2 -translate-x-1/2 w-56 p-3 rounded-lg bg-gray-900/95 backdrop-blur-sm border border-gray-700/50 shadow-xl transition-all duration-300 ${
+                className={`absolute w-56 p-3 rounded-lg bg-gray-900/95 backdrop-blur-sm border border-gray-700/50 shadow-xl transition-all duration-300 ${
                   isHovered ? 'opacity-100 visible' : 'opacity-0 invisible'
-                } ${isLastRow ? 'bottom-full mb-2' : 'top-full mt-2'}`}
-                style={{ zIndex: 200 }}
+                } ${isLastRow ? 'bottom-full mb-2' : 'top-full mt-2'} ${tooltipPos.classes}`}
+                style={{ 
+                  zIndex: 200
+                }}
               >
-                {/* Arrow - points down for top tooltip, up for bottom tooltip */}
+                {/* Arrow - position based on tooltip alignment */}
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-transparent ${
+                  className={`absolute w-0 h-0 border-l-8 border-r-8 border-transparent ${
                     isLastRow
                       ? 'top-full border-t-8 border-t-gray-900/95'
                       : '-top-2 border-b-8 border-b-gray-900/95'
+                  } ${
+                    tooltipPos.align === 'left' || tooltipPos.align === 'left-offset' 
+                      ? 'left-8' 
+                      : tooltipPos.align === 'right' || tooltipPos.align === 'right-offset'
+                      ? 'right-8' 
+                      : 'left-1/2 -translate-x-1/2'
                   }`}
                 />
 

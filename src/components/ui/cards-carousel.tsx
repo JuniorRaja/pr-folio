@@ -349,7 +349,7 @@ export const Card = ({
         className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[25rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 pointer-events-none"
       >
         <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
-        <div className="relative z-40 p-8">
+        <div className="relative z-40 py-8 px-4 lg:px-8">
           <motion.p
             layoutId={layout ? `category-${card.category}` : undefined}
             className="text-white text-sm md:text-base font-medium text-left"

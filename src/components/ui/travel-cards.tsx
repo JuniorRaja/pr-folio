@@ -72,13 +72,13 @@ const DummyContent = () => {
 
 const data = [
   {
-    category: "JAN 2023",
+    category: "JAN 2022",
     title: "Singapore",
     src: SG,
     content: <DummyContent />,
   },
   {
-    category: "JUN 2023",
+    category: "JUN 2022",
     title: "Sri Lanka",
     src: SL,
     content: <DummyContent />,
