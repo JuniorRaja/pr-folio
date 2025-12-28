@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, ChevronRight, Code2, Zap, Filter, Code } from "lucide-react";
+import { ExternalLink, ChevronRight, Filter, Code } from "lucide-react";
 import { projectsData, getAllProjectTypes, getAllLanguages } from "@/data/projectsData";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,8 @@ const Projects = () => {
   const [selectedType, setSelectedType] = useState<string>("All");
   const [selectedLanguage, setSelectedLanguage] = useState<string>("");
   const [languageInput, setLanguageInput] = useState<string>("");
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const projectTypes = ["All", ...getAllProjectTypes()];
   const availableLanguages = getAllLanguages();
@@ -30,6 +32,14 @@ const Projects = () => {
       lang.toLowerCase().includes(languageInput.toLowerCase())
     );
   }, [languageInput]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, cardId: string) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursorPosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   return (
     <section id="projects" className="pb-20 lg:pb-32 relative">
@@ -102,76 +112,109 @@ const Projects = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
           {filteredProjects.map((project, index) => (
             <Card
               key={project.id}
-              className="group overflow-hidden glass-card hover-lift border-primary/10 animate-fade-in-up"
+              className="group overflow-hidden glass-card hover-lift border-primary/10 animate-fade-in-up relative"
               style={{ animationDelay: `${index * 0.1}s` }}
+              onMouseMove={(e) => handleMouseMove(e, project.id)}
+              onMouseEnter={() => setHoveredCard(project.id)}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="flex flex-col h-full">
-                {/* Top: Project Image */}
-                <div className="h-24 sm:h-32 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative overflow-hidden">
+              {/* Glowing orb following cursor */}
+              {hoveredCard === project.id && (
+                <div
+                  className="absolute w-64 h-64 rounded-full pointer-events-none transition-opacity duration-300 z-20"
+                  style={{
+                    left: cursorPosition.x,
+                    top: cursorPosition.y,
+                    transform: 'translate(-50%, -50%)',
+                    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%)',
+                    filter: 'blur(20px)',
+                  }}
+                />
+              )}
+              
+              <div className="relative h-full">
+                {/* Image Section with Overlay */}
+                <div className="relative h-64 sm:h-72 overflow-hidden">
+                  {/* Main Image */}
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-50"
                   />
-                </div>
-
-                {/* Bottom: Project Content */}
-                <div className="p-3 sm:p-5 flex flex-col justify-between flex-1 relative">
-                  {/* Tech Vector Background */}
-                  <div className="absolute top-0 right-0 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <Code2 className="w-24 h-24 text-primary" strokeWidth={1} />
+                  
+                  {/* Secondary Image (if available) - Shows on hover with blur */}
+                  {project.snapshots && project.snapshots[0] && (
+                    <img
+                      src={project.snapshots[0]}
+                      alt={`${project.title} preview`}
+                      className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500"
+                    />
+                  )}
+                  
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-90" />
+                  
+                  {/* Type Badge - Top Right */}
+                  <div className="absolute top-4 right-4 z-10">
+                    <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm border-primary/20 text-xs font-semibold px-3 py-1">
+                      {project.type}
+                    </Badge>
                   </div>
-                  <div className="absolute bottom-2 right-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <Zap className="w-16 h-16 text-primary" strokeWidth={1} />
-                  </div>
-
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="outline" className="text-xs">
-                        {project.type}
-                      </Badge>
-                    </div>
-
-                    <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-3 group-hover:text-primary transition-colors duration-150">
-                      {project.title}
-                    </h3>
-
-                    {/* Languages Tags with Background */}
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-                      {project.languages.map((lang) => (
-                        <Badge key={lang} variant="secondary" className="text-xs bg-primary/15 text-primary hover:bg-primary/25 transition-colors px-2 py-0.5">
-                          {lang}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-1.5 sm:gap-2 pt-2 sm:pt-3 border-t border-primary/10 relative z-10">
+                  
+                  {/* Action Buttons - Centered, appear on hover */}
+                  <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
                     <Button
                       size="sm"
-                      className="flex-1 h-7 sm:h-8 text-xs"
+                      className="shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 px-3"
                       onClick={() => window.open(project.liveUrl, '_blank')}
                     >
-                      <ExternalLink className="h-3 w-3 mr-1" />
-                      <span className="hidden sm:inline">Live</span>
+                      <ExternalLink className="h-4 w-4 mr-1.5" />
+                      View Live
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
-                      className="flex-1 h-7 sm:h-8 text-xs"
+                      className="bg-background/90 backdrop-blur-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 px-3"
                       onClick={() => navigate(`/project/${project.id}`)}
                     >
-                      <span className="hidden sm:inline">Details</span>
-                      <span className="sm:hidden">Info</span>
-                      <ChevronRight className="h-3 w-3 ml-1" />
+                      View Details
+                      <ChevronRight className="h-4 w-4 ml-1.5" />
                     </Button>
                   </div>
                 </div>
+
+                {/* Content Section */}
+                <div className="p-5 sm:p-6 space-y-4">
+                  {/* Title */}
+                  <h3 className="text-xl sm:text-2xl font-bold group-hover:text-primary transition-colors duration-200 line-clamp-1">
+                    {project.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                    {project.summary}
+                  </p>
+                  
+                  {/* Languages */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.languages.map((lang) => (
+                      <Badge 
+                        key={lang} 
+                        variant="secondary" 
+                        className="text-xs bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
+                      >
+                        {lang}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             </Card>
           ))}

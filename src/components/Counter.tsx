@@ -40,9 +40,27 @@ const Counter = ({ startDate, interval = 100, fontSize = "text-3xl" }: CounterPr
     return () => clearInterval(timer);
   }, [isVisible, interval, updateValue]);
 
+  // Split the number into individual digits for odometer effect
+  const formattedValue = value.toFixed(9);
+  const digits = formattedValue.split('');
+
   return (
-    <div ref={counterRef} className={`${fontSize} font-bold gradient-text`}>
-      {value.toFixed(9)}
+    <div ref={counterRef} className={`${fontSize} font-bold gradient-text inline-flex items-center justify-center`}>
+      {digits.map((digit, index) => (
+        <span
+          key={index}
+          className={`inline-block transition-all duration-300 ease-out ${
+            digit === '.' ? 'w-auto' : 'w-[0.6em] text-center'
+          }`}
+          style={{
+            fontVariantNumeric: 'tabular-nums',
+          }}
+        >
+          <span className="inline-block animate-fade-in">
+            {digit}
+          </span>
+        </span>
+      ))}
     </div>
   );
 };
