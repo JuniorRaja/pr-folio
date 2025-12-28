@@ -164,7 +164,7 @@ const Contact = () => {
                   <Skeleton className="w-full h-full rounded-full" />
                 )}
                 <img
-                  src="/characters/character_talking.png"
+                  src="/characters/character_talking.webp"
                   alt="Prasanna Rajendran"
                   className={`w-full h-full object-cover transition-opacity duration-300 ${
                     imageLoaded ? 'opacity-100' : 'opacity-0'

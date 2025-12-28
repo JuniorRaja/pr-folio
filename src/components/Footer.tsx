@@ -171,7 +171,7 @@ const Footer = () => {
           {/* Right Section: Character Image */}
           <div className="flex items-end justify-center md:justify-end -mb-12">
             <img
-              src="/characters/character-chilling.png"
+              src="/characters/character-chilling.webp"
               alt="Character"
               className="w-full max-w-[280px] h-auto object-contain object-bottom"
             />
