@@ -59,7 +59,7 @@ const Works = () => {
               Years of Professional Experience
             </p>
           </div>
-          <section>
+          <section id="skills">
             <Skills />
           </section>
           <Timeline />

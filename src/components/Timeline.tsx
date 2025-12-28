@@ -94,7 +94,7 @@ const Timeline = () => {
   }, []);
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section id="timeline" className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">

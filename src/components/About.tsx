@@ -212,7 +212,7 @@ const About = () => {
           </Card>
 
           {/* Interests Card */}
-          <div className="p-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+          <div className="p-8 animate-fade-in-up" id="interests" style={{ animationDelay: "0.3s" }}>
             <div className="space-y-6">
               <h4 className="text-2xl font-bold text-center gradient-text">
                 Things that excite me

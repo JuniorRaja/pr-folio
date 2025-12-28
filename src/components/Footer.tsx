@@ -128,10 +128,10 @@ const Footer = () => {
             <div>
               <h4 className="font-semibold text-lg mb-4">More</h4>
               <nav className="flex flex-col gap-3 text-sm">
-                <Link to="/about#skills" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link to="/works#skills" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
                   Skills
                 </Link>
-                <Link to="/about" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link to="/about#interests" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
                   Interests
                 </Link>
                 <button onClick={handleCVClick} className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all text-left">
@@ -152,7 +152,7 @@ const Footer = () => {
                 <Link to="/about#travel" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
                   Travel
                 </Link>
-                <Link to="/about#books" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link to="/about#bookshelf-3d" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
                   Books
                 </Link>
                 <Link to="/gallery" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
@@ -161,7 +161,7 @@ const Footer = () => {
                 <Link to="/works#timeline" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
                   Timeline
                 </Link>
-                <Link to="/about#hobbies" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link to="/about#interests" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
                   Hobbies
                 </Link>
               </nav>
