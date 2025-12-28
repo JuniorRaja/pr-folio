@@ -256,12 +256,12 @@ export function InlineAlbumViewer({
 
       <div className="container mx-auto px-4 max-w-5xl relative z-10">
         {/* Header */}
-        <div className="flex justify-between items-start mb-12 animate-in fade-in slide-in-from-top-2 duration-500">
+        <div className="flex justify-between items-start mb-8 md:mb-12 animate-in fade-in slide-in-from-top-2 duration-500">
           <div className="flex-1 max-w-2xl">
-            <h2 className="text-4xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               {albumName}
             </h2>
-            <p className="text-muted-foreground text-lg">{albumDescription}</p>
+            <p className="text-muted-foreground text-sm md:text-base lg:text-lg">{albumDescription}</p>
           </div>
           <Button 
             variant="ghost" 
@@ -279,18 +279,18 @@ export function InlineAlbumViewer({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 bg-background/90 backdrop-blur-md hover:bg-primary/20 hover:scale-110 border border-border/50 rounded-full h-14 w-14 shadow-xl transition-all duration-300"
+            className="absolute left-0 md:left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-20 bg-background/90 backdrop-blur-md hover:bg-primary/20 hover:scale-110 border border-border/50 rounded-full h-10 w-10 md:h-14 md:w-14 shadow-xl transition-all duration-300"
             onClick={handlePrevious}
           >
-            <ChevronLeft className="h-7 w-7" />
+            <ChevronLeft className="h-5 w-5 md:h-7 md:w-7" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 bg-background/90 backdrop-blur-md hover:bg-primary/20 hover:scale-110 border border-border/50 rounded-full h-14 w-14 shadow-xl transition-all duration-300"
+            className="absolute right-0 md:right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-20 bg-background/90 backdrop-blur-md hover:bg-primary/20 hover:scale-110 border border-border/50 rounded-full h-10 w-10 md:h-14 md:w-14 shadow-xl transition-all duration-300"
             onClick={handleNext}
           >
-            <ChevronRight className="h-7 w-7" />
+            <ChevronRight className="h-5 w-5 md:h-7 md:w-7" />
           </Button>
 
           {/* Photo Container with Glassmorphism */}
@@ -316,7 +316,7 @@ export function InlineAlbumViewer({
                       const fullImageUrl = photo.url.replace('/medium.webp', '/full.webp');
                       window.open(fullImageUrl, '_blank');
                     }}
-                    style={{ height: '600px' }}
+                    style={{ height: 'clamp(400px, 60vh, 600px)' }}
                   >
                     {!loadedImages.has(index) && (
                       <Skeleton className="absolute inset-0 w-full h-full" />
@@ -332,7 +332,7 @@ export function InlineAlbumViewer({
                     />
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
-                      <span className="text-sm text-foreground/90 font-medium px-4 py-2 bg-background/50 backdrop-blur-sm rounded-full border border-border/50">
+                      <span className="text-xs md:text-sm text-foreground/90 font-medium px-3 md:px-4 py-1.5 md:py-2 bg-background/50 backdrop-blur-sm rounded-full border border-border/50">
                         Click to open full size
                       </span>
                     </div>
@@ -342,17 +342,10 @@ export function InlineAlbumViewer({
             </div>
           </div>
 
-          {/* Photo Counter - Modern Badge */}
-          <div className="flex justify-center mt-6">
-            <div className="px-4 py-2 bg-card/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg">
-              <span className="text-sm font-medium text-foreground">
-                {currentIndex + 1} <span className="text-muted-foreground">of</span> {photos.length}
-              </span>
-            </div>
-          </div>
+
 
           {/* Dot Indicators - Sleeker Design */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-2 mt-4">
             {photos.slice(0, 10).map((_, index) => (
               <button
                 key={index}
