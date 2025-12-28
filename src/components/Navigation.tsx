@@ -44,11 +44,11 @@ const Navigation = () => {
         scrolled && !isOpen && "backdrop-blur-xl bg-background/50 shadow-lg"
       )}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-2 md:py-4">
         <div className="flex items-center">
           {/* Logo */}
           <div className="flex-1">
-            <Link to="/" className="w-12 h-12 flex items-center justify-start">
+            <Link to="/" className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-start">
               <img
                 src={isDark ? "/logo/PRLogoW.png" : "/logo/PRLogoB.png"}
                 alt="PR Logo"
@@ -58,13 +58,13 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Navigation - Centered */}
-          <div className="hidden md:flex items-center justify-center space-x-16 flex-1">
+          <div className="hidden md:flex items-center justify-center space-x-8 lg:space-x-16 flex-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "text-foreground/80 hover:text-foreground transition-colors hover:scale-105",
+                  "text-foreground/80 hover:text-foreground transition-colors hover:scale-105 whitespace-nowrap",
                   location.pathname === item.href && "text-primary font-medium"
                 )}
                 onClick={() => setIsOpen(false)}
@@ -124,17 +124,19 @@ const Navigation = () => {
 
       {/* Mobile Navigation Overlay */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 z-[60]">
+        <div 
+          className="md:hidden fixed top-0 left-0 right-0 bottom-0 z-[9999]"
+          style={{
+            backgroundColor: isDark ? 'hsl(225, 39%, 8%)' : 'hsl(0, 0%, 100%)',
+            backgroundImage: 'url("/navmenu-grid.svg")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            width: '100vw',
+            height: '100vh',
+          }}
+        >
           {/* Full screen background */}
-          <div
-            className="absolute inset-0 bg-background/95 backdrop-blur-lg"
-            style={{
-              backgroundImage: 'url("/navmenu-grid.svg")',
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundBlendMode: "overlay",
-            }}
-          />
+          <div className="absolute inset-0" />
 
           {/* Header with logo, theme toggle, and close button */}
           <div className="relative z-[70] backdrop-blur-xl bg-background/80">
@@ -179,15 +181,21 @@ const Navigation = () => {
           {/* Navigation menu */}
           <div className="relative z-[65] flex items-center justify-center mt-[50%]">
             <div className="flex flex-col items-center space-y-8">
-              {navItems.map((item) => (
+              {navItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "text-foreground/80 hover:text-foreground transition-colors text-center py-3 text-2xl font-medium",
+                    "text-foreground/80 hover:text-foreground transition-all text-center py-3 text-2xl font-medium",
+                    "animate-in fade-in slide-in-from-bottom-4",
                     location.pathname === item.href &&
                     "text-primary font-bold scale-110"
                   )}
+                  style={{
+                    animationDuration: '400ms',
+                    animationDelay: `${index * 100}ms`,
+                    animationFillMode: 'both',
+                  }}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
