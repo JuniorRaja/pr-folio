@@ -93,7 +93,7 @@ export const projectsData: Project[] = [
     image: "/screenshots/pr-verse-hero-cover-new-2025-11-16T21-01-22-059Z.png",
     languages: ["TypeScript", "JavaScript"],
     tags: ["Next.js", "Tailwind CSS", "Three.js", "Framer Motion", "Vite"],
-    liveUrl: "https://prasannar.vercel.app/",
+    liveUrl: "https://prasannar.com/",
     githubUrl: "https://github.com/JuniorRaja/pr-folio",
 
     summary:

@@ -92,7 +92,7 @@ export default async function handler(req, res) {
         <!-- Footer -->
         <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
           <p style="color: #64748b; margin: 0; font-size: 14px;">This message was sent from your portfolio contact form</p>
-          <p style="color: #94a3b8; margin: 5px 0 0 0; font-size: 12px;">prasannar.vercel.app</p>
+          <p style="color: #94a3b8; margin: 5px 0 0 0; font-size: 12px;">prasannar.com</p>
         </div>
       </div>
     </body>

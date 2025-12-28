@@ -9,13 +9,14 @@ export default {
     // CORS helper - allow localhost for development
     const getAllowedOrigin = (requestOrigin) => {
       const allowedOrigins = [
-        'https://prasannar.vercel.app',
+        'https://prasannar.com',
+        'https://www.prasannar.com',
         'http://localhost:8080',
         'http://localhost:5173',
         'http://127.0.0.1:8080',
         'http://127.0.0.1:5173'
       ];
-      return allowedOrigins.includes(requestOrigin) ? requestOrigin : 'https://prasannar.vercel.app';
+      return allowedOrigins.includes(requestOrigin) ? requestOrigin : 'https://prasannar.com';
     };
     
     const origin = request.headers.get('Origin');

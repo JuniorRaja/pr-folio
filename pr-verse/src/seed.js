@@ -113,7 +113,7 @@ My main portfolio website showcasing projects, skills, and professional journey.
 
 **Tech Stack:** Next.js, Tailwind CSS, Three.js, Framer Motion, TypeScript, JavaScript
 **Key Features:** 3D globe visualization, responsive design, dark/light themes, project galleries, photography portfolio, book recommendations, travel logs, contact forms
-**Live URL:** https://prasannar.vercel.app/
+**Live URL:** https://prasannar.com/
 **GitHub:** https://github.com/JuniorRaja/pr-folio
 
 ### PR Digital Resume
@@ -207,7 +207,7 @@ Entry-level development position focusing on learning and contribution:
 - **Instagram:** https://www.instagram.com/prasanna.it.seems/
 - **Location:** Chennai, Tamil Nadu, India
 - **Phone:** Available through contact form or direct message
-- **Portfolio Website:** https://prasannar.vercel.app/
+- **Portfolio Website:** https://prasannar.com/
 - **GitHub:** https://github.com/JuniorRaja
 `;
 

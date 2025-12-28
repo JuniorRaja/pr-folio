@@ -131,8 +131,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "prasanna@prverse.dev",
-      link: "mailto:prasanna@prverse.dev",
+      value: "contactme@prasannar.com",
+      link: "mailto:contactme@prasannar.com",
     },
     {
       icon: MapPin,
