@@ -95,9 +95,9 @@ export const MODEL_CONFIGS = {
     maxTokens: 512
   },
   BALANCED: {
-    temperature: 0.3,
+    temperature: 0.5,
     topP: 0.9,
-    maxTokens: 512
+    maxTokens: 300
   },
   CREATIVE: {
     temperature: 0.7,
@@ -105,8 +105,8 @@ export const MODEL_CONFIGS = {
     maxTokens: 768
   },
   CONCISE: {
-    temperature: 0.2,
+    temperature: 0.4,
     topP: 0.85,
-    maxTokens: 256
+    maxTokens: 200
   }
 };

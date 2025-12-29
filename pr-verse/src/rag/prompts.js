@@ -17,24 +17,35 @@ export function buildSystemPrompt(contextText, options = {}) {
   
   return `You are ${personaName}, ${personaDescription}. You are responding to questions about your portfolio, skills, projects, and professional experience.
 
-CRITICAL INSTRUCTIONS:
+CRITICAL INSTRUCTIONS - CONVERSATIONAL STYLE:
+- Talk like a real person having a conversation, not like a formal assistant or bot
+- Use natural, casual language while staying professional
+- Respond to casual messages warmly (greetings, small talk, etc.)
+- Keep ALL responses conversational and brief - avoid long paragraphs
+- For simple questions, give short 1-3 sentence answers
+- For greetings/casual chat: respond in 1 sentence naturally
+- Break longer responses into short, digestible chunks
+- Add a relevant follow-up question occasionally (not always) to keep the conversation flowing
+- Use contractions (I'm, I've, that's) to sound more natural
+- Speak in first person ("I am", "I work with", "I built", etc.)
+
+RESPONSE LENGTH GUIDELINES:
+- Greetings/casual: 1 sentence
+- Simple questions: 1-3 sentences
+- Technical questions: 3-5 sentences max, use bullet points if needed
+- Never write long paragraphs - keep it conversational
+
+CONTENT RULES:
 - Only use the provided context to answer questions. Never make up information.
-- If the answer isn't in the context, politely say you don't have that information and suggest related topics you can discuss.
-- Speak in first person ("I am", "My skills include", "I developed", etc.)
-- For general conversations/greetings, keep responses very short (1-2 sentences).
-- For specific queries about skills, projects, or experience, provide detailed but concise points.
-${useMarkdown ? '- Format all responses using Markdown for better readability (use **bold**, *italics*, bullet points, numbered lists, etc.).' : ''}
-- Always be ${responseStyle}.
-- Keep responses ${maxResponseLength}.
-- Answer questions about your portfolio content including skills, projects, experience, education, contact information, and personal background.
-- If asked about things outside your portfolio and personal background (like weather, news, general knowledge), politely redirect to portfolio topics.
-- When discussing projects, highlight your specific contributions and technologies used.
-- When discussing skills, provide context about your proficiency and experience.
+- If the answer isn't in the context, briefly say you don't have that info and suggest what you can discuss
+${useMarkdown ? '- Use minimal Markdown: **bold** for emphasis, bullet points for lists only when needed' : ''}
+- Answer questions about your portfolio: skills, projects, experience, education, contact, personal background
+- For off-topic questions, briefly redirect to portfolio topics in a friendly way
 
 CONTEXT INFORMATION:
 ${contextText}
 
-Remember: Stay in character as ${personaName} and only discuss information from the context provided above.`;
+Remember: Be conversational, brief, and natural. You're chatting with someone, not writing an essay.`;
 }
 
 /**
@@ -125,6 +136,19 @@ export function validateUserInput(message, options = {}) {
  * @returns {boolean} True if portfolio-related
  */
 export function isPortfolioRelated(message) {
+  // Casual greetings and conversation starters - always allow
+  const casualPatterns = [
+    /^(hi|hey|hello|sup|yo|greetings|good\s+(morning|afternoon|evening))/i,
+    /^(how\s+(are|r)\s+you|how's\s+it\s+going|what's\s+up|wassup)/i,
+    /^(thanks|thank\s+you|thx|ty|appreciate)/i,
+    /^(bye|goodbye|see\s+you|later|cya)/i,
+    /^(ok|okay|cool|nice|great|awesome|sounds\s+good)/i
+  ];
+  
+  if (casualPatterns.some(pattern => pattern.test(message))) {
+    return true;
+  }
+  
   const portfolioKeywords = [
     // Personal pronouns
     'you', 'your', 'yourself',
@@ -162,20 +186,39 @@ export function isPortfolioRelated(message) {
  * @returns {string} Fallback response
  */
 export function generateFallbackResponse(query) {
+  // Check if it's a casual greeting
+  const casualPatterns = [
+    /^(hi|hey|hello|sup|yo|greetings)/i,
+    /^(how\s+(are|r)\s+you|how's\s+it\s+going|what's\s+up)/i,
+    /^(thanks|thank\s+you)/i,
+    /^(bye|goodbye|see\s+you)/i,
+    /^(ok|okay|cool|nice|great|awesome)/i
+  ];
+  
+  if (casualPatterns.some(pattern => pattern.test(query))) {
+    const casualResponses = [
+      "Hey! I'm doing great, thanks for asking. What would you like to know about me?",
+      "Hi there! I'm here to chat about my work and experience. What interests you?",
+      "Hello! Happy to help. Want to know about my projects or skills?",
+      "Hey! All good here. Feel free to ask me anything about my portfolio!",
+      "Hi! I'm ready to chat. What would you like to learn about?"
+    ];
+    return casualResponses[Math.floor(Math.random() * casualResponses.length)];
+  }
+  
   const suggestions = [
-    'my technical skills and expertise',
-    'projects I\'ve worked on',
-    'my professional experience',
-    'my educational background',
-    'technologies I work with',
-    'how to contact me'
+    'my technical skills',
+    'projects I\'ve built',
+    'my work experience',
+    'technologies I use',
+    'how to reach me'
   ];
   
   const randomSuggestions = suggestions
     .sort(() => Math.random() - 0.5)
-    .slice(0, 3);
+    .slice(0, 2);
   
-  return `I don't have enough information in my portfolio to answer that specific question. However, I'd be happy to tell you about:\n\n${randomSuggestions.map(s => `- ${s}`).join('\n')}\n\nWhat would you like to know?`;
+  return `Hmm, I don't have that info in my portfolio. But I can tell you about ${randomSuggestions.join(' or ')}. What sounds interesting?`;
 }
 
 /**
