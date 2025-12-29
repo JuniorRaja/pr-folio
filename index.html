@@ -25,18 +25,28 @@
   <meta name="twitter:description"
     content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences." />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPPFFE0HFZ"></script>
+  <!-- Google tag (gtag.js) - Only load in production -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-VPPFFE0HFZ', { send_page_view: false });
-    gtag('consent', 'default', {
-      'analytics_storage': 'denied',
-      'ad_storage': 'denied',
-    });
+    // Only load Google Analytics in production
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      (function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-VPPFFE0HFZ';
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VPPFFE0HFZ', { send_page_view: false });
+        gtag('consent', 'default', {
+          'analytics_storage': 'denied',
+          'ad_storage': 'denied',
+        });
+      })();
+    } else {
+      console.log('🚫 Google Analytics disabled in development mode');
+    }
   </script>
 </head>
 

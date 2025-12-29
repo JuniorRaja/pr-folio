@@ -7,11 +7,18 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const COOKIE_NAME = 'user_consent';
 const COOKIE_EXPIRY_DAYS = 365;
+const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
+    // Don't show cookie banner in development
+    if (isDevelopment) {
+      console.log('🍪 Cookie consent banner disabled in development mode');
+      return;
+    }
+
     const hasConsent = Cookies.get(COOKIE_NAME);
     if (!hasConsent) {
       // Delay showing banner slightly for better UX
