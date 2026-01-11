@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
 
 // Lazy load the heavy GridScan component
-const GridScan = lazy(() => import("./GridScan").then(module => ({ default: module.GridScan })));
+const GridScan = lazy(() =>
+  import("./GridScan").then((module) => ({ default: module.GridScan }))
+);
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -62,7 +64,7 @@ const Hero = () => {
               scanOpacity={0.4}
               enablePost
               bloomIntensity={0.6}
-              chromaticAberration={0.000}
+              chromaticAberration={0.0}
               noiseIntensity={0.01}
             />
           </Suspense>
@@ -79,39 +81,43 @@ const Hero = () => {
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 text-center animate-fade-in-up mt-2 pointer-events-none">
-        <div className="space-y-8 max-w-4xl mx-auto pointer-events-auto">
-          {/* Greeting */}
-          <p className="text-primary text-lg font-medium tracking-wide animate-fade-in">
-            HI, WELCOME TO PR VERSE
+        <div className="space-y-6 md:space-y-8 max-w-4xl mx-auto pointer-events-auto">
+          {/* Eyebrow Text */}
+          <p className="text-muted-foreground text-sm font-semibold tracking-[0.2em] uppercase animate-fade-in">
+            Welcome to PR Verse — my digital playground
           </p>
 
           {/* Main Title */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-            <span className="gradient-text">Passion</span>{" "}
-            <span className="text-foreground">Beyond</span>{" "}
-            <span className="gradient-text">Responsibilities</span>
+          <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold leading-tight tracking-tight">
+            <span className="gradient-text">I build.</span>{" "}
+            <span className="text-foreground">I learn.</span>{" "}
+            <br className="hidden md:block" />
+            <span className="gradient-text">I explore.</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide">
-            MANAGER BY DAY. DEVELOPER BY HEART
+          <p className="text-xl md:text-2xl text-muted-foreground/80 font-light leading-relaxed">
+            Engineer by profession. Developer by passion.{" "}
+            <span className="text-primary font-medium">
+              Curious by default.
+            </span>
           </p>
 
           {/* Description */}
-          <div className="space-y-4 max-w-2xl mx-auto">
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Hi, I'm{" "}
-              <span className="text-primary font-semibold">
-                Prasanna Rajendran
-              </span>
-              . I am a Full Stack Developer from Chennai, India. I build robust
-              web applications, make managemental decisions and take photos of
-              incredible patterns & landscapes.
+          <div className="space-y-4 max-w-2xl mx-auto pt-2">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              Hi, I’m{" "}
+              <span className="text-foreground font-medium">Prasanna</span> — a
+              Chennai-based software engineer who loves turning ideas into
+              systems, side projects into experiments, and curiosity into code.
+              This site is a collection of things I build, lessons I learn,
+              tools I use, and ideas I’m exploring. Take a moment. Wander
+              around.
             </p>
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center justify-center space-x-6 pt-4 sm:pt-8">
+          <div className="flex items-center justify-center space-x-6 pt-4">
             <a
               href="https://github.com/JuniorRaja"
               target="_blank"
@@ -120,7 +126,8 @@ const Hero = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover-lift hover:bg-primary/10"
+                className="hover-lift hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Github Profile"
               >
                 <Github className="h-5 w-5" />
               </Button>
@@ -133,7 +140,8 @@ const Hero = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover-lift hover:bg-primary/10"
+                className="hover-lift hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors"
+                aria-label="LinkedIn Profile"
               >
                 <Linkedin className="h-5 w-5" />
               </Button>
@@ -142,7 +150,8 @@ const Hero = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover-lift hover:bg-primary/10"
+                className="hover-lift hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Contact Me"
               >
                 <Mail className="h-5 w-5" />
               </Button>
@@ -150,22 +159,27 @@ const Hero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-row gap-4 justify-center pt-4 sm:pt-8">
+          <div className="flex flex-row gap-4 justify-center pt-2">
             <Link to="/about">
-              <Button
-                className="hover-lift bg-primary hover:bg-primary/90 px-4 sm:px-8 py-3 sm:py-6 text-base sm:text-lg"
-              >
+              <Button className="hover-lift bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-5 md:px-8 md:py-6 text-base font-medium rounded-full">
                 Know more
               </Button>
             </Link>
             <Link to="/contact">
               <Button
                 variant="outline"
-                className="hover-lift px-4 sm:px-8 py-3 sm:py-6 text-base sm:text-lg border-primary/20 hover:border-primary"
+                className="hover-lift px-6 py-5 md:px-8 md:py-6 text-base font-medium border-primary/20 hover:border-primary hover:bg-primary/5 rounded-full"
               >
                 Say Hi
               </Button>
             </Link>
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="pt-12 animate-pulse">
+            <p className="text-xs text-muted-foreground tracking-widest uppercase opacity-70">
+              Scroll to explore
+            </p>
           </div>
         </div>
       </div>
