@@ -40,8 +40,10 @@ export function InlineAlbumViewer({
         setLoading(true);
         
         // First try to fetch from manifest.json
+        const manifestUrl = CDN_CONFIG.getManifestUrl(albumSlug);
+        
         const manifestResponse = await fetch(
-          CDN_CONFIG.getManifestUrl(albumSlug),
+          manifestUrl,
           {
             headers: {
               'Accept': 'application/json',
@@ -50,24 +52,77 @@ export function InlineAlbumViewer({
         );
         
         if (manifestResponse.ok) {
-          const manifest = await manifestResponse.json();
-          const photoList = manifest.images.map((_: any, index: number) => {
-            const seq = String(index + 1).padStart(3, '0');
-            return {
-              name: `${seq}.webp`,
-              url: CDN_CONFIG.getImageUrl(albumSlug, seq),
-              loaded: false
-            };
-          });
+          let manifestText = await manifestResponse.text();
+          
+          // Fix common JSON issues: remove trailing commas
+          manifestText = manifestText.replace(/,(\s*[}\]])/g, '$1');
+          
+          let manifest;
+          try {
+            manifest = JSON.parse(manifestText);
+          } catch (parseError) {
+            console.error('[InlineAlbumViewer] JSON parse error:', parseError);
+            console.error('[InlineAlbumViewer] Failed to parse manifest for album:', albumSlug);
+            throw parseError;
+          }
+          
+          // Handle different manifest structures
+          let photoList: AlbumPhoto[] = [];
+          
+          if (manifest.images && Array.isArray(manifest.images)) {
+            // Array format: [image1, image2, ...]
+            photoList = manifest.images.map((_: any, index: number) => {
+              const seq = String(index + 1).padStart(3, '0');
+              return {
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(albumSlug, seq),
+                loaded: false
+              };
+            });
+          } else if (typeof manifest === 'object' && !Array.isArray(manifest)) {
+            // Object format: { "original_name.jpg": "001", ... }
+            const sequences = Object.values(manifest) as string[];
+            photoList = sequences
+              .sort()
+              .map((seq: string) => ({
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(albumSlug, seq),
+                loaded: false
+              }));
+          } else if (manifest.image_count || manifest.count) {
+            // Count format: { image_count: 10 } or { count: 10 }
+            const imageCount = manifest.image_count || manifest.count;
+            photoList = Array.from({ length: imageCount }, (_, index) => {
+              const seq = String(index + 1).padStart(3, '0');
+              return {
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(albumSlug, seq),
+                loaded: false
+              };
+            });
+          } else if (typeof manifest === 'number') {
+            // Plain number format
+            photoList = Array.from({ length: manifest }, (_, index) => {
+              const seq = String(index + 1).padStart(3, '0');
+              return {
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(albumSlug, seq),
+                loaded: false
+              };
+            });
+          } else {
+            console.error('[InlineAlbumViewer] Unknown manifest structure for album:', albumSlug, manifest);
+            throw new Error('Invalid manifest format');
+          }
           
           setPhotos(photoList);
           setLoading(false);
           return;
         }
         
-        // Fallback to GitHub API
+        // Fallback: Try to fetch numbered folders from GitHub API
         const response = await fetch(
-          `${GITHUB_CONFIG.apiUrl}/repos/${GITHUB_CONFIG.repo}/contents/assets/${albumSlug}`,
+          `${GITHUB_CONFIG.apiUrl}/repos/${GITHUB_CONFIG.repo}/contents/images/generated/${albumSlug}`,
           {
             headers: {
               'Accept': 'application/vnd.github.v3+json',
@@ -81,13 +136,16 @@ export function InlineAlbumViewer({
         }
         
         const data = await response.json();
-        const photoList = data
-          .filter((item: any) => item.type === 'file' && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.name))
-          .map((item: any) => ({
-            name: item.name,
-            url: CDN_CONFIG.getAssetUrl(`assets/${albumSlug}/${item.name}`),
-            loaded: false
-          }));
+        // Filter for directories (numbered folders like 001, 002, etc.)
+        const photoFolders = data
+          .filter((item: any) => item.type === 'dir' && /^\d{3}$/.test(item.name))
+          .sort((a: any, b: any) => a.name.localeCompare(b.name));
+        
+        const photoList = photoFolders.map((folder: any) => ({
+          name: `${folder.name}.webp`,
+          url: CDN_CONFIG.getImageUrl(albumSlug, folder.name),
+          loaded: false
+        }));
         
         setPhotos(photoList);
       } catch (err) {

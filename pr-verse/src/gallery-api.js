@@ -85,8 +85,10 @@ async function getAlbums(env, corsHeaders) {
       results.map(async (album) => {
         try {
           // First try to fetch manifest.json
+          const manifestUrl = `https://cdn.jsdelivr.net/gh/JuniorRaja/static/images/generated/${album.slug}/_manifest.json`;
+          
           const manifestResponse = await fetch(
-            `https://cdn.jsdelivr.net/gh/JuniorRaja/static/images/generated/${album.slug}/manifest.json`,
+            manifestUrl,
             {
               headers: {
                 'Accept': 'application/json',
@@ -96,15 +98,50 @@ async function getAlbums(env, corsHeaders) {
           );
           
           if (manifestResponse.ok) {
-            const manifest = await manifestResponse.json();
-            const photoCount = manifest.images ? manifest.images.length : 0;
+            let manifestText = await manifestResponse.text();
+            
+            // remove trailing commas
+            manifestText = manifestText.replace(/,(\s*[}\]])/g, '$1');
+            
+            let manifest;
+            try {
+              manifest = JSON.parse(manifestText);
+            } catch (parseError) {
+              console.error(`[Gallery API] Failed to parse manifest for ${album.slug}:`, parseError);
+              // Continue to fallback
+              throw parseError;
+            }
+            
+            // Handle different manifest structures
+            let photoCount = 0;
+            let sequences = [];
+            
+            if (manifest.images && Array.isArray(manifest.images)) {
+              photoCount = manifest.images.length;
+              sequences = manifest.images.map((_, i) => String(i + 1).padStart(3, '0'));
+            } else if (typeof manifest === 'object' && !Array.isArray(manifest)) {
+              // Object format: { "original_name.jpg": "001", ... }
+              sequences = Object.values(manifest);
+              photoCount = sequences.length;
+            } else if (manifest.image_count) {
+              photoCount = manifest.image_count;
+              sequences = Array.from({ length: photoCount }, (_, i) => String(i + 1).padStart(3, '0'));
+            } else if (manifest.count) {
+              photoCount = manifest.count;
+              sequences = Array.from({ length: photoCount }, (_, i) => String(i + 1).padStart(3, '0'));
+            } else if (typeof manifest === 'number') {
+              photoCount = manifest;
+              sequences = Array.from({ length: photoCount }, (_, i) => String(i + 1).padStart(3, '0'));
+            }
             
             // Select random image from manifest
             let thumbnailUrl = null;
-            if (photoCount > 0) {
-              const randomIndex = Math.floor(Math.random() * photoCount);
-              const randomImageNumber = String(randomIndex + 1).padStart(3, '0');
+            if (sequences.length > 0) {
+              const randomIndex = Math.floor(Math.random() * sequences.length);
+              const randomImageNumber = sequences[randomIndex];
               thumbnailUrl = `https://cdn.jsdelivr.net/gh/JuniorRaja/static/images/generated/${album.slug}/${randomImageNumber}/medium.webp`;
+            } else {
+              console.warn(`[Gallery API] No sequences found for ${album.slug}`);
             }
             
             return {
@@ -115,8 +152,10 @@ async function getAlbums(env, corsHeaders) {
           }
           
           // Fallback to GitHub API if manifest doesn't exist
+          const githubUrl = `https://api.github.com/repos/JuniorRaja/static/contents/images/generated/${album.slug}`;
+          
           const response = await fetch(
-            `https://api.github.com/repos/JuniorRaja/static/contents/assets/${album.slug}`,
+            githubUrl,
             {
               headers: {
                 'Accept': 'application/vnd.github.v3+json',
@@ -127,29 +166,33 @@ async function getAlbums(env, corsHeaders) {
           
           if (response.ok) {
             const files = await response.json();
-            const photoFiles = files.filter((file) => 
-              file.type === 'file' && /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name)
+            
+            // Filter for directories (numbered folders like 001, 002, etc.)
+            const photoFolders = files.filter((file) => 
+              file.type === 'dir' && /^\d{3}$/.test(file.name)
             );
             
-            // Select random photo as thumbnail
-            let thumbnailFile = null;
-            if (photoFiles.length > 0) {
-              const randomIndex = Math.floor(Math.random() * photoFiles.length);
-              thumbnailFile = photoFiles[randomIndex].name;
+            // Select random photo folder as thumbnail
+            let thumbnailUrl = null;
+            if (photoFolders.length > 0) {
+              const randomIndex = Math.floor(Math.random() * photoFolders.length);
+              const randomFolder = photoFolders[randomIndex].name;
+              thumbnailUrl = `https://cdn.jsdelivr.net/gh/JuniorRaja/static/images/generated/${album.slug}/${randomFolder}/medium.webp`;
+            } else {
+              console.warn(`[Gallery API] No photo folders found for ${album.slug}`);
             }
             
             return {
               ...album,
-              photo_count: photoFiles.length,
-              thumbnail_url: thumbnailFile 
-                ? `https://cdn.jsdelivr.net/gh/JuniorRaja/static/assets/${album.slug}/${thumbnailFile}`
-                : null
+              photo_count: photoFolders.length,
+              thumbnail_url: thumbnailUrl
             };
           }
           
+          console.warn(`[Gallery API] Both manifest and GitHub API failed for ${album.slug}`);
           return { ...album, photo_count: 0, thumbnail_url: null };
         } catch (error) {
-          console.error(`Error fetching photos for ${album.slug}:`, error);
+          console.error(`[Gallery API] Error fetching photos for ${album.slug}:`, error);
           return { ...album, photo_count: 0, thumbnail_url: null };
         }
       })

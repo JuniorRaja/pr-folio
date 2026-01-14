@@ -37,20 +37,97 @@ const AlbumPage = () => {
       
       try {
         setLoading(true);
-        const response = await fetch(`${GITHUB_CONFIG.apiUrl}/repos/${GITHUB_CONFIG.repo}/contents/assets/${album}`);
+        
+        // First try to fetch from manifest.json
+        const manifestResponse = await fetch(
+          CDN_CONFIG.getManifestUrl(album),
+          {
+            headers: {
+              'Accept': 'application/json',
+            }
+          }
+        );
+        
+        if (manifestResponse.ok) {
+          let manifestText = await manifestResponse.text();
+          
+          // Fix common JSON issues: remove trailing commas
+          manifestText = manifestText.replace(/,(\s*[}\]])/g, '$1');
+          
+          const manifest = JSON.parse(manifestText);
+          
+          // Handle different manifest structures
+          let photoList: AlbumPhoto[] = [];
+          
+          if (manifest.images && Array.isArray(manifest.images)) {
+            // Array format: [image1, image2, ...]
+            photoList = manifest.images.map((_: any, index: number) => {
+              const seq = String(index + 1).padStart(3, '0');
+              return {
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(album, seq),
+                loaded: false
+              };
+            });
+          } else if (typeof manifest === 'object' && !Array.isArray(manifest)) {
+            // Object format: { "original_name.jpg": "001", ... }
+            const sequences = Object.values(manifest) as string[];
+            photoList = sequences
+              .sort()
+              .map((seq: string) => ({
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(album, seq),
+                loaded: false
+              }));
+          } else if (manifest.image_count || manifest.count) {
+            // Count format: { image_count: 10 } or { count: 10 }
+            const imageCount = manifest.image_count || manifest.count;
+            photoList = Array.from({ length: imageCount }, (_, index) => {
+              const seq = String(index + 1).padStart(3, '0');
+              return {
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(album, seq),
+                loaded: false
+              };
+            });
+          } else if (typeof manifest === 'number') {
+            // Plain number format
+            photoList = Array.from({ length: manifest }, (_, index) => {
+              const seq = String(index + 1).padStart(3, '0');
+              return {
+                name: `${seq}.webp`,
+                url: CDN_CONFIG.getImageUrl(album, seq),
+                loaded: false
+              };
+            });
+          } else {
+            console.error('Unknown manifest structure:', manifest);
+            throw new Error('Invalid manifest format');
+          }
+          
+          setPhotos(photoList);
+          setLoading(false);
+          return;
+        }
+        
+        // Fallback: Try to fetch numbered folders from GitHub API
+        const response = await fetch(`${GITHUB_CONFIG.apiUrl}/repos/${GITHUB_CONFIG.repo}/contents/images/generated/${album}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch photos');
         }
         
         const data = await response.json();
-        const photoList = data
-          .filter((item: any) => item.type === 'file' && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.name))
-          .map((item: any) => ({
-            name: item.name,
-            url: CDN_CONFIG.getAssetUrl(`assets/${album}/${item.name}`),
-            loaded: false
-          }));
+        // Filter for directories (numbered folders like 001, 002, etc.)
+        const photoFolders = data
+          .filter((item: any) => item.type === 'dir' && /^\d{3}$/.test(item.name))
+          .sort((a: any, b: any) => a.name.localeCompare(b.name));
+        
+        const photoList = photoFolders.map((folder: any) => ({
+          name: `${folder.name}.webp`,
+          url: CDN_CONFIG.getImageUrl(album, folder.name),
+          loaded: false
+        }));
         
         setPhotos(photoList);
       } catch (err) {

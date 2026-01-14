@@ -22,7 +22,7 @@ export const GITHUB_CONFIG = {
 export const CDN_CONFIG = {
   baseUrl: import.meta.env.VITE_CDN_BASE_URL || 'https://cdn.jsdelivr.net/gh',
   getAssetUrl: (path: string) => `${CDN_CONFIG.baseUrl}/${GITHUB_CONFIG.repo}/${path}`,
-  getManifestUrl: (albumSlug: string) => `${CDN_CONFIG.baseUrl}/${GITHUB_CONFIG.repo}/images/generated/${albumSlug}/manifest.json`,
+  getManifestUrl: (albumSlug: string) => `${CDN_CONFIG.baseUrl}/${GITHUB_CONFIG.repo}/images/generated/${albumSlug}/_manifest.json`,
   getImageUrl: (albumSlug: string, seq: string) => `${CDN_CONFIG.baseUrl}/${GITHUB_CONFIG.repo}/images/generated/${albumSlug}/${seq}/medium.webp`,
 };
 
