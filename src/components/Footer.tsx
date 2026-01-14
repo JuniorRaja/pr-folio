@@ -59,7 +59,7 @@ const Footer = () => {
             </div>
             
             <p className="text-sm opacity-80 leading-relaxed">
-              Building digital experiences with code, design, and a touch of creativity. Passionate about web development and visual storytelling.
+              Designing and building digital experiences with a focus on reliable, scalable web systems and design lead engineering.
             </p>
 
             {/* Social Links */}
@@ -130,7 +130,7 @@ const Footer = () => {
                   Interests
                 </Link>
                 <button onClick={handleCVClick} className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all text-left">
-                  Get CV
+                  Download CV
                 </button>
                 <Link to="/terms" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
                   Terms
@@ -168,13 +168,14 @@ const Footer = () => {
             <img
               src="/characters/character-chilling.webp"
               alt="Character"
-              className="w-full max-w-[280px] h-auto object-contain object-bottom"
+              className="w-full max-w-[280px] h-auto object-contain object-bottom opacity-40"
             />
           </div>
         </div>
 
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-white/10 text-center text-sm opacity-60">
+          <p className="mb-2">A personal space for work, learning, and life.</p>
           <p>© {new Date().getFullYear()} Made by Prasanna Rajendran. No rights reserved.</p>
         </div>
       </div>
