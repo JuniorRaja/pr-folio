@@ -113,7 +113,7 @@ const Contact = () => {
 
   
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("imprasannarajendran@gmail.com");
+    navigator.clipboard.writeText("hello@prasannar.com");
     toast({
       title: "Email copied!",
       description: "Email address has been copied to clipboard",

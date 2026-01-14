@@ -176,7 +176,7 @@ const About = () => {
                 </a>
               </Button>
               <Button variant="ghost" size="icon" className="hover-lift bg-muted/20" asChild>
-                <a href="mailto:imprasannarajendran@gmail.com">
+                <a href="mailto:hello@prasannar.com">
                   <Mail className="h-5 w-5" />
                 </a>
               </Button>

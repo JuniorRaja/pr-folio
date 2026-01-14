@@ -202,7 +202,7 @@ Entry-level development position focusing on learning and contribution:
 
 ## Contact
 
-- **Email:** imprasannarajendran@gmail.com
+- **Email:** hello@prasannar.com
 - **LinkedIn:** https://www.linkedin.com/in/rajendranprasanna/
 - **Instagram:** https://www.instagram.com/prasanna.it.seems/
 - **Location:** Chennai, Tamil Nadu, India
