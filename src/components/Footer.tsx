@@ -47,14 +47,9 @@ const Footer = () => {
             <div className="flex items-start gap-4">
               <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-[#6b26d9]/30 flex-shrink-0">
                 <img
-                  src="/logo/PRLogoB.png"
+                  src="/characters/pr.jpg"
                   alt="PR"
-                  className="w-full h-full object-cover inline dark:hidden"
-                />
-                <img
-                  src="/logo/PRLogoW.png"
-                  alt="PR"
-                  className="w-full h-full object-cover inline hidden dark:block"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div>
