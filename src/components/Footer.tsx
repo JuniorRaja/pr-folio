@@ -29,11 +29,13 @@ const Footer = () => {
             <img
               src="/logo/PRLogoB.png"
               alt="PR Logo"
+              loading="lazy"
               className="w-full h-full object-contain inline dark:hidden"
             />
             <img
               src="/logo/PRLogoW.png"
               alt="PR Logo"
+              loading="lazy"
               className="w-full h-full object-contain inline hidden dark:block"
             />
           </div>
@@ -48,18 +50,22 @@ const Footer = () => {
               <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-[#6b26d9]/30 flex-shrink-0">
                 <img
                   src="/characters/pr.jpg"
+                  loading="lazy"
                   alt="PR"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-1">Prasanna Rajendran</h3>
-                <p className="text-sm opacity-70">Full Stack Developer & Creative Technologist</p>
+                <p className="text-sm opacity-70">
+                  Full Stack Developer & Creative Technologist
+                </p>
               </div>
             </div>
-            
+
             <p className="text-sm opacity-80 leading-relaxed">
-              Designing and building digital experiences with a focus on reliable, scalable web systems and design lead engineering.
+              Designing and building digital experiences with a focus on
+              reliable, scalable web systems and design lead engineering.
             </p>
 
             {/* Social Links */}
@@ -102,19 +108,34 @@ const Footer = () => {
             <div>
               <h4 className="font-semibold text-lg mb-4">Navigation</h4>
               <nav className="flex flex-col gap-3 text-sm">
-                <Link to="/" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Home
                 </Link>
-                <Link to="/about" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/about"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   About
                 </Link>
-                <Link to="/works" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/works"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Projects
                 </Link>
-                <Link to="/gallery" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/gallery"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Gallery
                 </Link>
-                <Link to="/contact" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/contact"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Contact
                 </Link>
               </nav>
@@ -123,19 +144,34 @@ const Footer = () => {
             <div>
               <h4 className="font-semibold text-lg mb-4">More</h4>
               <nav className="flex flex-col gap-3 text-sm">
-                <Link to="/works#skills" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/works#skills"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Skills
                 </Link>
-                <Link to="/about#interests" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/about#interests"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Interests
                 </Link>
-                <button onClick={handleCVClick} className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all text-left">
+                <button
+                  onClick={handleCVClick}
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all text-left"
+                >
                   Download CV
                 </button>
-                <Link to="/terms" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/terms"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Terms
                 </Link>
-                <Link to="/privacy" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/privacy"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Privacy
                 </Link>
               </nav>
@@ -144,19 +180,34 @@ const Footer = () => {
             <div>
               <h4 className="font-semibold text-lg mb-4">Explore</h4>
               <nav className="flex flex-col gap-3 text-sm">
-                <Link to="/about#travel" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/about#travel"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Travel
                 </Link>
-                <Link to="/about#bookshelf-3d" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/about#bookshelf-3d"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Books
                 </Link>
-                <Link to="/gallery" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/gallery"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Photography
                 </Link>
-                <Link to="/works#timeline" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/works#timeline"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Timeline
                 </Link>
-                <Link to="/about#interests" className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all">
+                <Link
+                  to="/about#interests"
+                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                >
                   Hobbies
                 </Link>
               </nav>
@@ -168,6 +219,7 @@ const Footer = () => {
             <img
               src="/characters/character-chilling.webp"
               alt="Character"
+              loading="lazy"
               className="w-full max-w-[280px] h-auto object-contain object-bottom opacity-40"
             />
           </div>
@@ -176,7 +228,10 @@ const Footer = () => {
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-white/10 text-center text-sm opacity-60">
           <p className="mb-2">A personal space for work, learning, and life.</p>
-          <p>© {new Date().getFullYear()} Made by Prasanna Rajendran. No rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Made by Prasanna Rajendran. No rights
+            reserved.
+          </p>
         </div>
       </div>
     </footer>

@@ -117,11 +117,11 @@ const BentoGrid = () => {
       <div className="h-full relative overflow-hidden bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-900/10">
         {/* Subtle grid background */}
         <div className="w-full h-full absolute opacity-20 dark:opacity-10">
-          <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
+          <img alt="grid" loading="lazy" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
         </div>
         {/* Right side bottom image */}
         <div className="absolute right-0 -bottom-1">
-          <img alt="bento-1-bg" width="220" height="200" className="object-cover object-center w-full h-full opacity-60 dark:opacity-30" src="/assets/bento-1-bg.svg" />
+          <img alt="bento-1-bg" width="220" height="200" className="object-cover object-center w-full h-full opacity-60 dark:opacity-30" src="/assets/bento-1-bg.svg" loading="lazy"/>
         </div>
         <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col justify-start p-6 lg:p-8 z-10">
           <div className="text-2xl lg:text-3xl font-bold text-foreground mb-2">
@@ -176,6 +176,7 @@ const BentoGrid = () => {
             alt="bento-4-bg"
             width={220}
             height={200}
+            loading="lazy"
             className="absolute object-cover object-center w-full h-full top-0 md:top-10 opacity-40 dark:opacity-20"
           />
           <div className="text-xs text-emerald-700 dark:text-emerald-300 opacity-75 relative z-10">
@@ -290,7 +291,7 @@ const BentoGrid = () => {
       <div className="h-full relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/10">
         {/* Bottom center grid background */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 scale-150 opacity-20 dark:opacity-10">
-          <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" />
+          <img alt="grid" className="object-cover object-center w-full h-full" src="/assets/grid.webp" loading="lazy"/>
         </div>
         <div className="group-hover/bento:translate-x-2 transition duration-200 relative h-full flex flex-col p-6 z-10">
           <div className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">Everyday is a learning day</div>
