@@ -22,7 +22,7 @@ const About = () => {
   useEffect(() => {
     if (isHovered) return;
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     const animate = () => {
       const elapsed = Date.now() - startTime;
       const rotateX = Math.sin(elapsed / 2000) * 8; // Simulate cursor Y movement

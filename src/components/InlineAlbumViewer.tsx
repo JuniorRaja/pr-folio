@@ -71,6 +71,7 @@ export function InlineAlbumViewer({
           
           if (manifest.images && Array.isArray(manifest.images)) {
             // Array format: [image1, image2, ...]
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             photoList = manifest.images.map((_: any, index: number) => {
               const seq = String(index + 1).padStart(3, '0');
               return {
@@ -137,10 +138,14 @@ export function InlineAlbumViewer({
         
         const data = await response.json();
         // Filter for directories (numbered folders like 001, 002, etc.)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const photoFolders = data
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .filter((item: any) => item.type === 'dir' && /^\d{3}$/.test(item.name))
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .sort((a: any, b: any) => a.name.localeCompare(b.name));
         
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const photoList = photoFolders.map((folder: any) => ({
           name: `${folder.name}.webp`,
           url: CDN_CONFIG.getImageUrl(albumSlug, folder.name),

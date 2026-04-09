@@ -21,6 +21,7 @@ const Gallery = () => {
   const { data: albumsData, isLoading: albumsLoading } = useAlbums();
 
   // Build albums from API data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const albums: AlbumItem[] = albumsData?.albums?.map((album: any, index: number) => ({
     id: index + 1,
     name: album.title,

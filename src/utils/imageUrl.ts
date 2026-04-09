@@ -57,7 +57,7 @@ export function getImageVariants(
 export async function getImageMeta(
   album: string,
   sequence: number | string
-): Promise<any | null> {
+): Promise<Record<string, unknown> | null> {
   const seq =
     typeof sequence === "number"
       ? String(sequence).padStart(3, "0")

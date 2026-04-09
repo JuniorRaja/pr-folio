@@ -24,4 +24,5 @@ pr-verse/.wrangler/*
 *.njsproj
 *.sln
 *.sw?
-.wrangler/*
+.wrangler
+.vscode

@@ -392,12 +392,17 @@ export const GridScan: React.FC<GridScanProps> = ({
       if (
         enableGyro &&
         typeof window !== 'undefined' &&
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).DeviceOrientationEvent &&
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (DeviceOrientationEvent as any).requestPermission
       ) {
         try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await (DeviceOrientationEvent as any).requestPermission();
-        } catch {}
+        } catch {
+          // Permission denied or error
+        }
       }
     };
     const onEnter = () => {
@@ -615,7 +620,9 @@ export const GridScan: React.FC<GridScanProps> = ({
     }
     if (bloomRef.current) {
       bloomRef.current.blendMode.opacity.value = Math.max(0, bloomIntensity);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (bloomRef.current as any).luminanceMaterial.threshold = bloomThreshold;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (bloomRef.current as any).luminanceMaterial.smoothing = bloomSmoothing;
     }
     if (chromaRef.current) {
@@ -684,7 +691,7 @@ function smoothDampVec2(
   const x = omega * deltaTime;
   const exp = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
 
-  let change = current.clone().sub(target);
+  const change = current.clone().sub(target);
   const originalTo = target.clone();
 
   const maxChange = maxSpeed * smoothTime;
