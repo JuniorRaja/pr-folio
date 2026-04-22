@@ -145,6 +145,8 @@ const Skills = () => {
                   {category.skills.map((skill, skillIndex) => (
                     <div
                       key={skill.label}
+                      role="button"
+                      tabIndex={0}
                       className="relative group/skill cursor-pointer"
                       // TODO: Show a modal on click with more details about the skill
                       // onMouseEnter={() => setHoveredSkill(skill.label)}
@@ -204,9 +206,19 @@ const Skills = () => {
                   {category.skills.map((skill, skillIndex) => (
                     <div
                       key={skill.label}
+                      role="button"
+                      tabIndex={0}
                       className="relative group/skill cursor-pointer"
                       onMouseEnter={() => setHoveredSkill(skill.label)}
                       onMouseLeave={() => setHoveredSkill(null)}
+                      onFocus={() => setHoveredSkill(skill.label)}
+                      onBlur={() => setHoveredSkill(null)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setHoveredSkill(hoveredSkill === skill.label ? null : skill.label);
+                        }
+                      }}
                       style={{ animationDelay: `${((categoryIndex + 2) * 0.1) + (skillIndex * 0.05)}s` }}
                     >
                       <div className="glass-card p-3 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-white/5">
@@ -256,8 +268,7 @@ const Skills = () => {
               {learningSkills.map((skill, index) => (
                 <Badge
                   key={skill}
-                  variant="outline"
-                  className="bg-cyan-500/10 text-cyan-400 border-cyan-500/30 hover:bg-cyan-500/20 transition-colors cursor-pointer"
+                  variant="tech"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {skill}
@@ -265,7 +276,7 @@ const Skills = () => {
               ))}
               <Badge
                 variant="outline"
-                className="bg-dashed border-dashed border-muted-foreground/30 text-muted-foreground hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                className="border-dashed border-muted-foreground/30 text-muted-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 + Add More
               </Badge>

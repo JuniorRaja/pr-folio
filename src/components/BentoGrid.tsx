@@ -167,7 +167,7 @@ const BentoGrid = () => {
         <div className="group-hover/bento:translate-x-2 transition duration-200 h-full flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <Code className="h-6 w-6 text-emerald-700 dark:text-emerald-300" />
-            <Badge variant="secondary" className="text-xs bg-emerald-200/50 dark:bg-emerald-800/50 text-emerald-800 dark:text-emerald-200 border-0">
+            <Badge variant="tech" className="text-xs">
               JavaScript
             </Badge>
           </div>
@@ -211,7 +211,7 @@ const BentoGrid = () => {
             <div className="flex justify-start">
               <Button
                 onClick={handleCopyEmail}
-                className="bg-white text-purple-600 hover:bg-gray-100 border border-white w-fit transition-colors"
+                className="bg-white text-primary hover:bg-white/90 border border-white/50 w-fit transition-colors"
               >
                 <Copy className="h-4 w-4 mr-2" />
                 Copy my email address

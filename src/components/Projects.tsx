@@ -1,8 +1,9 @@
 
 import { useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Badge, badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ExternalLink, ChevronRight, Filter, Code } from "lucide-react";
 import { projectsData, getAllProjectTypes, getAllLanguages } from "@/data/projectsData";
 import { useNavigate } from "react-router-dom";
@@ -54,14 +55,17 @@ const Projects = () => {
             </label>
             <div className="flex flex-wrap gap-2">
               {projectTypes.map((type) => (
-                <Badge
+                <button
                   key={type}
-                  variant={selectedType === type ? "default" : "outline"}
-                  className="px-3 py-1 cursor-pointer text-xs"
+                  type="button"
                   onClick={() => setSelectedType(type)}
+                  className={cn(
+                    badgeVariants({ variant: selectedType === type ? "default" : "outline" }),
+                    "px-3 py-1 text-xs cursor-pointer"
+                  )}
                 >
                   {type}
-                </Badge>
+                </button>
               ))}
             </div>
           </div>
@@ -160,7 +164,7 @@ const Projects = () => {
                   
                   {/* Type Badge - Top Right */}
                   <div className="absolute top-4 right-4 z-10">
-                    <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm border-primary/20 text-xs font-semibold px-3 py-1">
+                    <Badge variant="category" className="text-xs font-semibold px-3 py-1">
                       {project.type}
                     </Badge>
                   </div>
@@ -202,10 +206,10 @@ const Projects = () => {
                   {/* Languages */}
                   <div className="flex flex-wrap gap-2">
                     {project.languages.map((lang) => (
-                      <Badge 
-                        key={lang} 
-                        variant="secondary" 
-                        className="text-xs bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
+                      <Badge
+                        key={lang}
+                        variant="tech"
+                        className="text-xs"
                       >
                         {lang}
                       </Badge>
