@@ -24,7 +24,7 @@ const Footer = () => {
       <div className="container mx-auto px-6 py-12 relative z-10">
         {/* Top Section: Line with Logo */}
         <div className="flex items-center justify-center mb-16">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#6b26d9] to-transparent"></div>
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
           <div className="mx-8 w-16 h-16 flex items-center justify-center">
             <img
               src="/logo/PRLogoB.png"
@@ -39,7 +39,7 @@ const Footer = () => {
               className="w-full h-full object-contain inline hidden dark:block"
             />
           </div>
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#6b26d9] to-transparent"></div>
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
         </div>
 
         {/* Main Content: Three Columns */}
@@ -47,7 +47,7 @@ const Footer = () => {
           {/* Left Section: Profile & Social */}
           <div className="space-y-6">
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-[#6b26d9]/30 flex-shrink-0">
+              <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-primary/30 flex-shrink-0">
                 <img
                   src="/characters/pr.jpg"
                   loading="lazy"
@@ -57,13 +57,13 @@ const Footer = () => {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-1">Prasanna Rajendran</h3>
-                <p className="text-sm opacity-70">
+                <p className="text-sm text-muted-foreground">
                   Full Stack Developer & Creative Technologist
                 </p>
               </div>
             </div>
 
-            <p className="text-sm opacity-80 leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Designing and building digital experiences with a focus on
               reliable, scalable web systems and design lead engineering.
             </p>
@@ -74,7 +74,7 @@ const Footer = () => {
                 href="https://github.com/JuniorRaja"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-[#6b26d9]/20 hover:border-[#6b26d9] transition-all"
+                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-primary/20 hover:border-primary transition-all"
               >
                 <Github className="w-5 h-5" />
               </a>
@@ -82,7 +82,7 @@ const Footer = () => {
                 href="https://www.instagram.com/prasanna.it.seems/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-[#6b26d9]/20 hover:border-[#6b26d9] transition-all"
+                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-primary/20 hover:border-primary transition-all"
               >
                 <Instagram className="w-5 h-5" />
               </a>
@@ -90,13 +90,13 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/rajendranprasanna/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-[#6b26d9]/20 hover:border-[#6b26d9] transition-all"
+                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-primary/20 hover:border-primary transition-all"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href="mailto:hello@prasannar.com"
-                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-[#6b26d9]/20 hover:border-[#6b26d9] transition-all"
+                className="w-10 h-10 border border-white/30 dark:border-white/20 rounded-lg flex items-center justify-center hover:bg-primary/20 hover:border-primary transition-all"
               >
                 <Mail className="w-5 h-5" />
               </a>
@@ -110,31 +110,31 @@ const Footer = () => {
               <nav className="flex flex-col gap-3 text-sm">
                 <Link
                   to="/"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Home
                 </Link>
                 <Link
                   to="/about"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   About
                 </Link>
                 <Link
                   to="/works"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Projects
                 </Link>
                 <Link
                   to="/gallery"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Gallery
                 </Link>
                 <Link
                   to="/contact"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Contact
                 </Link>
@@ -146,31 +146,31 @@ const Footer = () => {
               <nav className="flex flex-col gap-3 text-sm">
                 <Link
                   to="/works#skills"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Skills
                 </Link>
                 <Link
                   to="/about#interests"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Interests
                 </Link>
                 <button
                   onClick={handleCVClick}
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all text-left"
+                  className="text-muted-foreground hover:text-primary transition-all text-left"
                 >
                   Download CV
                 </button>
                 <Link
                   to="/terms"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Terms
                 </Link>
                 <Link
                   to="/privacy"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Privacy
                 </Link>
@@ -182,31 +182,31 @@ const Footer = () => {
               <nav className="flex flex-col gap-3 text-sm">
                 <Link
                   to="/about#travel"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Travel
                 </Link>
                 <Link
                   to="/about#bookshelf-3d"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Books
                 </Link>
                 <Link
                   to="/gallery"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Photography
                 </Link>
                 <Link
                   to="/works#timeline"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Timeline
                 </Link>
                 <Link
                   to="/about#interests"
-                  className="opacity-80 hover:opacity-100 hover:text-[#6b26d9] transition-all"
+                  className="text-muted-foreground hover:text-primary transition-all"
                 >
                   Hobbies
                 </Link>

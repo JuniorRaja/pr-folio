@@ -220,13 +220,14 @@ const About = () => {
 
               <div className="flex flex-wrap gap-3 justify-center">
                 {skills.map((skill, index) => (
-                  <span
+                  <button
                     key={skill}
-                    className="px-4 py-2 bg-card/50 border border-border/50 rounded-full text-sm hover:border-primary/50 transition-colors hover-lift cursor-pointer"
+                    type="button"
+                    className="px-4 py-2 bg-card/50 border border-border/50 rounded-full text-sm hover:border-primary/50 transition-colors hover-lift"
                     style={{ animationDelay: `${index * 0.05}s` }}
                   >
                     {skill}
-                  </span>
+                  </button>
                 ))}
               </div>
             </div>

@@ -15,6 +15,10 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        /** Tech / language tag — primary-tinted pill used for languages, skills, tools */
+        tech: "bg-primary/10 text-primary border-primary/20 hover:bg-primary/20",
+        /** Category / type badge — glassy chip used for project type overlays */
+        category: "bg-background/80 backdrop-blur-sm border-primary/20 text-foreground",
       },
     },
     defaultVariants: {

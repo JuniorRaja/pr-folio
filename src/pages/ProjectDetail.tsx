@@ -40,7 +40,7 @@ const ProjectDetail = () => {
         {/* Header */}
         <div className="mb-8 sm:mb-12">
           <div className="flex items-center gap-3 mb-3 sm:mb-4">
-            <Badge variant="outline" className="text-xs sm:text-sm">{project.type}</Badge>
+            <Badge variant="category" className="text-xs sm:text-sm">{project.type}</Badge>
           </div>
           <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-4">{project.title}</h1>
 
