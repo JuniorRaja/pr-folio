@@ -25,6 +25,17 @@
   <meta name="twitter:description"
     content="Computer enthusiast from Chennai, India. Expert in modern web technologies. Passionate about creating innovative digital experiences." />
 
+  <!-- Self-hosted Analytics (Umami) -->
+  <script>
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      var s = document.createElement('script');
+      s.defer = true;
+      s.src = 'https://analytics.prasannar.com/script.js';
+      s.setAttribute('data-website-id', '18165b1e-f4f6-4032-a2fc-d65f2daa0c74');
+      document.head.appendChild(s);
+    }
+  </script>
+
   <!-- Google tag (gtag.js) - Only load in production -->
   <script>
     // Only load Google Analytics in production
